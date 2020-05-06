@@ -193,7 +193,7 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
 });
 
 app.delete('/api/flights/:flightId', (req, res, next) => {
-  const flightId = req.params.flightId;
+  const { flightId } = req.params;
   const sql = `
   delete from "Flight"
   where "flightId" = $1
@@ -201,10 +201,25 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
   `;
   const value = [flightId];
 
+  if (!parseInt(flightId, 10) ||
+    flightId % 1 !== 0 ||
+    flightId < 0
+  ) {
+    res.status(400).json({
+      error: 'flightId should be a positive integer'
+    });
+  }
+
   db.query(sql, value)
     .then(result => {
-      res.status(200).json(result.rows[0]);
-    });
+      if (!result.rows[0]) {
+        res.status(404).json({
+          error: `Cannot find flight with flightId ${flightId}`
+        });
+      }
+      res.status(204).json(result.rows[0]);
+    })
+    .catch(err => console.error(err));
 });
 
 app.use('/api', (req, res, next) => {
