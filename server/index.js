@@ -13,10 +13,17 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/health-check', (req, res, next) => {
-  db.query(`select 'successfully connected' as "message"`)
-    .then(result => res.json(result.rows[0]))
-    .catch(err => next(err));
+app.post('/api/destinations', (req, res, next) => {
+  const destinationName = req.body.destinationName;
+  const destinationImage = req.body.destinationImage;
+  const destinationDates = req.body.destinationDates;
+  const destinationDescription = req.body.destinationDescription;
+  if (!destinationName) {
+    return res.status(400).json({
+      error: 'destinationName is required'
+    });
+  }
+
 });
 
 app.use('/api', (req, res, next) => {
