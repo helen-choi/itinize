@@ -18,6 +18,7 @@ app.post('/api/destinations', (req, res, next) => {
   const destinationImage = req.body.destinationImage;
   const destinationDates = req.body.destinationDates;
   const destinationDescription = req.body.destinationDescription;
+  const placeId = req.body.placeId;
   if (!destinationName) {
     return res.status(400).json({
       error: 'destinationName is required'
@@ -36,6 +37,11 @@ app.post('/api/destinations', (req, res, next) => {
   if (typeof destinationDescription !== 'string') {
     return res.status(400).json({
       error: typeof destinationDescription
+    });
+  }
+  if (parseInt(placeId, 10) <= 0) {
+    return res.status(400).json({
+      error: 'placeId must be a positive integer'
     });
   }
 });
