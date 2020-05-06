@@ -132,6 +132,19 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.put('/api/destinations/:destinationId', (req, res, next) => {
+  const destinationId = req.params.destinationId;
+  const newImageString = req.body;
+  const destinationPutSql = `
+  update "Destinations"
+  set " "destinationImage" = $2
+  where "productId" = $1;
+  `;
+
+  const value = [destinationId, newImageString];
+  db.query(destinationPutSql, value);
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
