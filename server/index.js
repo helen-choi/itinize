@@ -13,6 +13,21 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
+app.get('/api/destinations', (req, res, next) => {
+  const destinationGetSql = `
+  select "destinationName",
+  "destinationImage",
+  "destinationId"
+  from
+  "Destinations"
+  `;
+  db.query(destinationGetSql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+})
+
 app.get('/api/destinations/:destinationId', (req, res, next) => {
   const destinationId = req.params.destinationId;
   const sql = `
@@ -86,6 +101,33 @@ app.post('/api/destinations', (req, res, next) => {
   db.query(destinationSql, destinationValue)
     .then(result => {
       res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/destinations/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
+  if (!parseInt(destinationId, 10)) {
+    return res.status(400).json({
+      error: 'destinationId must be a positive integer'
+    });
+  }
+  const deleteDestinationSql = `
+    delete from "Destinations"
+    where "destinationId" = $1
+    returning *
+  `;
+  const deleteParam = [destinationId];
+  db.query(deleteDestinationSql, deleteParam)
+    .then(result => {
+      const destinationRow = result.rows[0];
+      if (!destinationRow) {
+        res.status(404).json({
+          error: `cannot find destination with "desintaionId" ${destinationId}`
+        });
+      } else {
+        res.status(204).json(destinationRow);
+      }
     })
     .catch(err => next(err));
 });
