@@ -192,6 +192,38 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+
+app.delete('/api/flights/:flightId', (req, res, next) => {
+  const { flightId } = req.params;
+  const sql = `
+  delete from "Flight"
+  where "flightId" = $1
+  returning *;
+  `;
+  const value = [flightId];
+
+  if (!parseInt(flightId, 10) ||
+    flightId % 1 !== 0 ||
+    flightId < 0
+  ) {
+    res.status(400).json({
+      error: 'flightId should be a positive integer'
+    });
+  }
+
+  db.query(sql, value)
+    .then(result => {
+      if (!result.rows[0]) {
+        res.status(404).json({
+          error: `Cannot find flight with flightId ${flightId}`
+        });
+      }
+      res.status(204).json(result.rows[0]);
+    })
+    .catch(err => console.error(err));
+})
+
+
 app.put('/api/destinations/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
   const {
