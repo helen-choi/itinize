@@ -22,11 +22,6 @@ app.post('/api/destinations', (req, res, next) => {
     description,
     placeId
   } = req.body;
-  // const destinationImage = req.body.destinationImage;
-  // const tripStart = req.body.tripStart;
-  // const tripEnd = req.body.tripEnd;
-  // const description = req.body.description;
-  // const placeId = req.body.placeId;
   if (!destinationName) {
     return res.status(400).json({
       error: 'destinationName is required'
