@@ -193,7 +193,18 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
 });
 
 app.delete('/api/flights/:flightId', (req, res, next) => {
+  const flightId = req.params.flightId;
+  const sql = `
+  delete from "Flight"
+  where "flightId" = $1
+  returning *;
+  `;
+  const value = [flightId];
 
+  db.query(sql, value)
+    .then(result => {
+      res.status(200).json(result.rows[0]);
+    });
 });
 
 app.use('/api', (req, res, next) => {
