@@ -13,6 +13,21 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
+app.get('/api/destinations', (req, res, next) => {
+  const destinationGetSql = `
+  select "destinationName",
+  "destinationImage",
+  "destinationId"
+  from
+  "Destinations"
+  `;
+  db.query(destinationGetSql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/destinations', (req, res, next) => {
   const {
     destinationName,
