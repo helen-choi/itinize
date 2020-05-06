@@ -16,12 +16,16 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE ONLY public."Lodging" DROP CONSTRAINT "Lodging_pkey";
 ALTER TABLE ONLY public."Locations" DROP CONSTRAINT "Locations_pkey";
 ALTER TABLE ONLY public."Flight" DROP CONSTRAINT "Flight_pkey";
 ALTER TABLE ONLY public."Destinations" DROP CONSTRAINT "Destinations_pkey";
+ALTER TABLE public."Lodging" ALTER COLUMN "lodgingId" DROP DEFAULT;
 ALTER TABLE public."Locations" ALTER COLUMN "locationId" DROP DEFAULT;
 ALTER TABLE public."Flight" ALTER COLUMN "flightId" DROP DEFAULT;
 ALTER TABLE public."Destinations" ALTER COLUMN "destinationId" DROP DEFAULT;
+DROP SEQUENCE public."Lodging_lodgingId_seq";
+DROP TABLE public."Lodging";
 DROP SEQUENCE public."Locations_locationId_seq";
 DROP TABLE public."Locations";
 DROP SEQUENCE public."Flight_flightId_seq";
@@ -165,6 +169,40 @@ ALTER SEQUENCE public."Locations_locationId_seq" OWNED BY public."Locations"."lo
 
 
 --
+-- Name: Lodging; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Lodging" (
+    "lodgingId" integer NOT NULL,
+    "lodgingConfNum" text NOT NULL,
+    "checkInDateTime" text NOT NULL,
+    "checkOutDateTime" text NOT NULL,
+    "destinationId" integer NOT NULL,
+    "locationId" integer NOT NULL
+);
+
+
+--
+-- Name: Lodging_lodgingId_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Lodging_lodgingId_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Lodging_lodgingId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Lodging_lodgingId_seq" OWNED BY public."Lodging"."lodgingId";
+
+
+--
 -- Name: Destinations destinationId; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -183,6 +221,13 @@ ALTER TABLE ONLY public."Flight" ALTER COLUMN "flightId" SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public."Locations" ALTER COLUMN "locationId" SET DEFAULT nextval('public."Locations_locationId_seq"'::regclass);
+
+
+--
+-- Name: Lodging lodgingId; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('public."Lodging_lodgingId_seq"'::regclass);
 
 
 --
@@ -210,6 +255,14 @@ COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdi
 
 
 --
+-- Data for Name: Lodging; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId") FROM stdin;
+\.
+
+
+--
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -228,6 +281,13 @@ SELECT pg_catalog.setval('public."Flight_flightId_seq"', 1, false);
 --
 
 SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
+
+
+--
+-- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 1, false);
 
 
 --
@@ -252,6 +312,14 @@ ALTER TABLE ONLY public."Flight"
 
 ALTER TABLE ONLY public."Locations"
     ADD CONSTRAINT "Locations_pkey" PRIMARY KEY ("locationId");
+
+
+--
+-- Name: Lodging Lodging_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Lodging"
+    ADD CONSTRAINT "Lodging_pkey" PRIMARY KEY ("lodgingId");
 
 
 --
