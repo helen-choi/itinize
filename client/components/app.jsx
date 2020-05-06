@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+import DestinationList from './destination-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,17 +14,34 @@ export default class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch('/api/health-check')
-      .then(res => res.json())
-      .then(data => this.setState({ message: data.message || data.error }))
-      .catch(err => this.setState({ message: err.message }))
-      .finally(() => this.setState({ isLoading: false }));
-  }
-
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{this.state.message.toUpperCase()}</h1>;
+    return (
+      <Router>
+        <Route exact path="/">
+          <DestinationList/>
+        </Route>
+        <Route path="/destinations/create">
+          AddDestinationName component
+        </Route>
+        <Route path="/destinations/:DestinationId">
+          DestinationInfo component
+        </Route>
+        <Route path="/flights">
+          ViewFlights component
+        </Route>
+        <Route path="/flights/create">
+          AddFlightName component
+        </Route>
+        <Route path="/lodgings">
+          ViewLodgings component
+        </Route>
+        <Route path='/itineraries'>
+          viewItineraries
+        </Route>
+        <Route path="/itineraries/create">
+          AddItinerariesName
+        </Route>
+      </Router>
+    );
   }
 }
