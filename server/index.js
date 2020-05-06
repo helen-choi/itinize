@@ -134,22 +134,32 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
   const { destinationImage } = req.body;
-  const destinationId = req.params.destinationId;
-  const newImageString = req.body;
-  if (!destinationImage) {
+  const { destinationId } = req.params;
+  if (isNaN(destinationId)) {
     return res.status(400).json({
-      error: 'destinationImage is required'
+      error: `Invalid field used for this POST method for destinationId '${destinationId}'. Please correct property syntax or try using a number type value.`
+    });
+  } else if (destinationId < 0 ||
+    destinationId % 1 !== 0) {
+    res.status(400).json({
+      error: 'You need provide a valid destinationId. Try an integer greater than 0'
+    });
+  } else if (!destinationImage) {
+    return res.status(400).json({
+      error: 'destinationImage is required as a request body property'
     });
   }
+  // console.log(destinationId);
+  // console.log(destinationImage);
 
-  const destinationPutSql = `
-  update "Destinations"
-  set " "destinationImage" = $2
-  where "destinationId" = $1;
-  `;
+  // const destinationPutSql = `
+  // update "Destinations"
+  // set " "destinationImage" = $2
+  // where "destinationId" = $1;
+  // `;
 
-  const value = [destinationId, newImageString];
-  db.query(destinationPutSql, value);
+  // const value = [destinationId, destinationImage];
+  // db.query(destinationPutSql, value);
 });
 
 app.use('/api', (req, res, next) => {
