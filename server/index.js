@@ -35,6 +35,16 @@ app.post('/api/destinations', (req, res, next) => {
       error: typeof destinationDescription
     });
   }
+  if (!tripStart) {
+    return res.status(400).json({
+      error: 'need trip start date'
+    });
+  }
+  if (!tripEnd) {
+    return res.status(400).json({
+      error: 'need trip end date'
+    });
+  }
   if (!placeId) {
     return res.status(400).json({
       error: 'placeid is required'
