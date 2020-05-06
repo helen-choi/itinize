@@ -16,10 +16,14 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE ONLY public."Locations" DROP CONSTRAINT "Locations_pkey";
 ALTER TABLE ONLY public."Flight" DROP CONSTRAINT "Flight_pkey";
 ALTER TABLE ONLY public."Destinations" DROP CONSTRAINT "Destinations_pkey";
+ALTER TABLE public."Locations" ALTER COLUMN "locationId" DROP DEFAULT;
 ALTER TABLE public."Flight" ALTER COLUMN "flightId" DROP DEFAULT;
 ALTER TABLE public."Destinations" ALTER COLUMN "destinationId" DROP DEFAULT;
+DROP SEQUENCE public."Locations_locationId_seq";
+DROP TABLE public."Locations";
 DROP SEQUENCE public."Flight_flightId_seq";
 DROP TABLE public."Flight";
 DROP SEQUENCE public."Destinations_destinationId_seq";
@@ -129,6 +133,38 @@ ALTER SEQUENCE public."Flight_flightId_seq" OWNED BY public."Flight"."flightId";
 
 
 --
+-- Name: Locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."Locations" (
+    "locationId" integer NOT NULL,
+    latitude point NOT NULL,
+    longitude point NOT NULL,
+    "placeId" text NOT NULL
+);
+
+
+--
+-- Name: Locations_locationId_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."Locations_locationId_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: Locations_locationId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."Locations_locationId_seq" OWNED BY public."Locations"."locationId";
+
+
+--
 -- Name: Destinations destinationId; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -140,6 +176,13 @@ ALTER TABLE ONLY public."Destinations" ALTER COLUMN "destinationId" SET DEFAULT 
 --
 
 ALTER TABLE ONLY public."Flight" ALTER COLUMN "flightId" SET DEFAULT nextval('public."Flight_flightId_seq"'::regclass);
+
+
+--
+-- Name: Locations locationId; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Locations" ALTER COLUMN "locationId" SET DEFAULT nextval('public."Locations_locationId_seq"'::regclass);
 
 
 --
@@ -159,6 +202,14 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 
 
 --
+-- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
+\.
+
+
+--
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -170,6 +221,13 @@ SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 1, false);
 --
 
 SELECT pg_catalog.setval('public."Flight_flightId_seq"', 1, false);
+
+
+--
+-- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
 
 
 --
@@ -186,6 +244,14 @@ ALTER TABLE ONLY public."Destinations"
 
 ALTER TABLE ONLY public."Flight"
     ADD CONSTRAINT "Flight_pkey" PRIMARY KEY ("flightId");
+
+
+--
+-- Name: Locations Locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."Locations"
+    ADD CONSTRAINT "Locations_pkey" PRIMARY KEY ("locationId");
 
 
 --
