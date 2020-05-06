@@ -65,6 +65,15 @@ app.post('/api/destinations', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/destinations/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
+  if (!parseInt(destinationId, 10)) {
+    return res.status(400).json({
+      error: 'destinationId must be a positive integer'
+    });
+  }
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
