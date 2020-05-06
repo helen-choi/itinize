@@ -280,6 +280,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
+
 2	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 3	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 4	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
@@ -291,6 +292,19 @@ COPY public."Destinations" ("destinationId", "destinationName", "destinationImag
 --
 
 COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDeparture", "destinationId", status, "flightName") FROM stdin;
+4	1	2021-04-09	LAX	1	pending	Departing Flight
+5	1	2021-04-09	LAX	1	pending	Departing Flight
+6	1	2021-04-09	LAX	1	pending	Departing Flight
+7	1	2021-04-09	LAX	1	pending	Departing Flight
+8	1	2021-04-09	LAX	1	pending	Departing Flight
+\.
+
+
+--
+-- Data for Name: ItineraryList; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
 \.
 
 
@@ -322,14 +336,21 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 4, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 2, true);
 
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 8, true);
+
+
+--
+-- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
 
 
 --

@@ -1,0 +1,43 @@
+h1 {
+  font-family: 'Roboto Slab';
+  font-weight: 600;
+}
+
+header > img {
+  margin-top: 20px;
+  height: 10%;
+}
+
+.card {
+  min-height: 100px;
+  padding-top: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+div.card-body {
+  position:absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+div.Destination-List > h1 {
+  padding-left: 15px
+}
+
+.circle-blue {
+  background-color: #6CC4C8;
+  border-radius: 50%;
+}
+
+.circle-red {
+  background-color: #EA6A61;
+  border-radius: 50%;
+}
+
+.icon {
+  width: 50%;
+  height: 50%;
+}
