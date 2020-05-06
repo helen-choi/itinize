@@ -92,6 +92,23 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.put('/api/destinations/:destinationId', (req, res, next) => {
+  const {
+    destinationName,
+    destinationImage,
+    tripStart,
+    tripEnd,
+    description,
+    placeId
+  } = req.body;
+  const { destinationId } = req.params;
+  if (!parseInt(destinationId, 10) <= 0) {
+    return res.status(400).json({
+      error: 'destinationId must be a positive integer'
+    });
+  }
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
