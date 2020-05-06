@@ -78,6 +78,18 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
     returning *
   `;
   const deleteParam = [destinationId];
+  db.query(deleteDestinationSql, deleteParam)
+    .then(result => {
+      const destinationRow = result.rows[0];
+      if (!destinationRow) {
+        res.status(404).json({
+          error: `cannot find destination with "desintaionId" ${destinationId}`
+        });
+      } else {
+        res.status(204).json(destinationRow);
+      }
+    })
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
