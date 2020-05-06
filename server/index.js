@@ -148,18 +148,28 @@ app.put('/api/destinations/:destinationId', (req, res, next) => {
     return res.status(400).json({
       error: 'destinationImage is required as a request body property'
     });
+  } else {
+    const destinationPutSql = `
+    update "Destinations"
+    set  "destinationImage" = $2
+    where "destinationId" = $1
+    returning "destinationImage";
+    `;
+
+    const value = [destinationId, destinationImage];
+    db.query(destinationPutSql, value)
+      .then(response => {
+        const returnedImageString = response.rows[0];
+        if (!returnedImageString) {
+          return res.status(404).json({
+            error: `Cannot find destinationImage with "destinationId" ${destinationId}. Please check if this Id exists`
+          });
+        } else {
+          res.json(returnedImageString);
+        }
+      })
+      .catch(err => next(err));
   }
-  // console.log(destinationId);
-  // console.log(destinationImage);
-
-  // const destinationPutSql = `
-  // update "Destinations"
-  // set " "destinationImage" = $2
-  // where "destinationId" = $1;
-  // `;
-
-  // const value = [destinationId, destinationImage];
-  // db.query(destinationPutSql, value);
 });
 
 app.use('/api', (req, res, next) => {
