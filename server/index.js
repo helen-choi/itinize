@@ -140,7 +140,7 @@ app.post('/api/flights', (req, res, next) => {
       error: 'destinationId is required'
     });
   }
-  if (typeof destinationId !== 'number') {
+  if (!parseInt(destinationId, 10)) {
     return res.status(400).json({
       error: 'destinationId needs to be an integer'
     });
