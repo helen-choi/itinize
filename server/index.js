@@ -16,8 +16,9 @@ app.use(express.json());
 app.post('/api/destinations', (req, res, next) => {
   const destinationName = req.body.destinationName;
   const destinationImage = req.body.destinationImage;
-  const destinationDates = req.body.destinationDates;
-  const destinationDescription = req.body.destinationDescription;
+  const tripStart = req.body.tripStart;
+  const tripEnd = req.body.tripEnd;
+  const description = req.body.description;
   const placeId = req.body.placeId;
   if (!destinationName) {
     return res.status(400).json({
@@ -29,21 +30,27 @@ app.post('/api/destinations', (req, res, next) => {
       error: 'destinationImage is required'
     });
   }
-  if (!destinationDates) {
-    return res.status(400).json({
-      error: 'DestinationDates is required'
-    });
-  }
-  if (typeof destinationDescription !== 'string') {
+  if (typeof description !== 'string') {
     return res.status(400).json({
       error: typeof destinationDescription
     });
   }
-  if (parseInt(placeId, 10) <= 0) {
+  if (!placeId) {
     return res.status(400).json({
-      error: 'placeId must be a positive integer'
+      error: 'placeid is required'
     });
   }
+  const destinationSql = `
+  insert into "Destinations" ("destinationName","destinationImage", "tripStart", "tripEnd", "description", "placeId")
+  values ($1, $2, $3, $4, $5, $6)
+  returning *;
+  `;
+  const destinationValue = [destinationName, destinationImage, tripStart, tripEnd, description, placeId];
+  db.query(destinationSql, destinationValue)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
