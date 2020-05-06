@@ -280,6 +280,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
+1	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 \.
 
 
@@ -319,7 +320,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 1, true);
 
 
 --
