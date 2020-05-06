@@ -13,9 +13,55 @@ app.use(sessionMiddleware);
 
 app.use(express.json());
 
-app.get('/api/health-check', (req, res, next) => {
-  db.query(`select 'successfully connected' as "message"`)
-    .then(result => res.json(result.rows[0]))
+app.post('/api/destinations', (req, res, next) => {
+  const {
+    destinationName,
+    destinationImage,
+    tripStart,
+    tripEnd,
+    description,
+    placeId
+  } = req.body;
+  if (!destinationName) {
+    return res.status(400).json({
+      error: 'destinationName is required'
+    });
+  }
+  if (!destinationImage) {
+    return res.status(400).json({
+      error: 'destinationImage is required'
+    });
+  }
+  if (typeof description !== 'string') {
+    return res.status(400).json({
+      error: typeof destinationDescription
+    });
+  }
+  if (!tripStart) {
+    return res.status(400).json({
+      error: 'need trip start date'
+    });
+  }
+  if (!tripEnd) {
+    return res.status(400).json({
+      error: 'need trip end date'
+    });
+  }
+  if (!placeId) {
+    return res.status(400).json({
+      error: 'placeid is required'
+    });
+  }
+  const destinationSql = `
+  insert into "Destinations" ("destinationName","destinationImage", "tripStart", "tripEnd", "description", "placeId")
+  values ($1, $2, $3, $4, $5, $6)
+  returning *;
+  `;
+  const destinationValue = [destinationName, destinationImage, tripStart, tripEnd, description, placeId];
+  db.query(destinationSql, destinationValue)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
     .catch(err => next(err));
 });
 
