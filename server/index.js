@@ -72,6 +72,12 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
       error: 'destinationId must be a positive integer'
     });
   }
+  const deleteDestinationSql = `
+    delete from "Destinations"
+    where "destinationId" = $1
+    returning *
+  `;
+  const deleteParam = [destinationId];
 });
 
 app.use('/api', (req, res, next) => {
