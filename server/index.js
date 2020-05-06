@@ -93,20 +93,60 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
 });
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
   const {
     destinationName,
-    destinationImage,
     tripStart,
     tripEnd,
-    description,
-    placeId
+    description
   } = req.body;
-  const { destinationId } = req.params;
-  if (!parseInt(destinationId, 10) <= 0) {
+  if (!parseInt(destinationId, 10)) {
     return res.status(400).json({
       error: 'destinationId must be a positive integer'
     });
   }
+  if (!destinationName) {
+    return res.status(400).json({
+      error: 'destinationName is required'
+    });
+  }
+  if (!tripStart) {
+    return res.status(400).json({
+      error: 'tripStart date is required'
+    });
+  }
+  if (!tripEnd) {
+    return res.status(400).json({
+      error: 'tripEnd date is required'
+    });
+  }
+  if (typeof description !== 'string') {
+    return res.status(400).json({
+      error: typeof destinationDescription
+    });
+  }
+  const viewUpdateDestinationSql = `
+  update "Destinations"
+  set "destinationName" = $2,
+      "tripStart" = $3,
+      "tripEnd" = $4,
+      "description" = $5
+  where "destinationId" = $1
+  returning *
+  `;
+  const viewUpdateParam = [destinationId, destinationName, tripStart, tripEnd, description];
+  db.query(viewUpdateDestinationSql, viewUpdateParam)
+    .then(result => {
+      const updatedRow = result.rows[0];
+      if (!updatedRow) {
+        res.status(404).json({
+          error: `Cannot find destination with destinationId ${destinationId}`
+        });
+      } else {
+        res.json(updatedRow);
+      }
+    })
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
