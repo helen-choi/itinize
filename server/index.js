@@ -26,7 +26,7 @@ app.get('/api/destinations', (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
-})
+});
 
 app.get('/api/destinations/:destinationId', (req, res, next) => {
   const destinationId = req.params.destinationId;
@@ -103,6 +103,10 @@ app.post('/api/destinations', (req, res, next) => {
       res.status(201).json(result.rows[0]);
     })
     .catch(err => next(err));
+});
+
+app.post('/api/flights', (req, res, next) => {
+  res.send(req.body);
 });
 
 app.delete('/api/destinations/:destinationId', (req, res, next) => {
