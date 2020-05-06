@@ -26,6 +26,31 @@ app.get('/api/destinations', (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+})
+
+app.get('/api/destinations/:destinationId', (req, res, next) => {
+  const destinationId = req.params.destinationId;
+  const sql = `
+  select *
+  from "Destinations"
+  where "destinationId" = $1
+  `;
+  const value = [destinationId];
+
+  if (destinationId < 0 ||
+    destinationId % 1 !== 0) {
+    res.status(400).send('You need provide a valid destinationId');
+  } else {
+    db.query(sql, value)
+      .then(result => {
+        if (result.rows.length === 0) {
+          res.status(404).send(`Cannot find the destination with destinationId ${destinationId}`);
+        } else {
+          res.status(200).json(result.rows[0]);
+        }
+      })
+      .catch(err => console.error(err));
+  }
 });
 
 app.post('/api/destinations', (req, res, next) => {
