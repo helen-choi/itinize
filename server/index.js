@@ -23,6 +23,16 @@ app.post('/api/destinations', (req, res, next) => {
       error: 'destinationName is required'
     });
   }
+  if (!destinationImage) {
+    return res.status(400).json({
+      error: 'destinationImage is required'
+    });
+  }
+  if (!destinationDates) {
+    return res.status(400).json({
+      error: 'DestinationDates is required'
+    });
+  }
 
 });
 
