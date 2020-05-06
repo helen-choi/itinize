@@ -14,12 +14,19 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.post('/api/destinations', (req, res, next) => {
-  const destinationName = req.body.destinationName;
-  const destinationImage = req.body.destinationImage;
-  const tripStart = req.body.tripStart;
-  const tripEnd = req.body.tripEnd;
-  const description = req.body.description;
-  const placeId = req.body.placeId;
+  const {
+    destinationName,
+    destinationImage,
+    tripStart,
+    tripEnd,
+    description,
+    placeId
+  } = req.body;
+  // const destinationImage = req.body.destinationImage;
+  // const tripStart = req.body.tripStart;
+  // const tripEnd = req.body.tripEnd;
+  // const description = req.body.description;
+  // const placeId = req.body.placeId;
   if (!destinationName) {
     return res.status(400).json({
       error: 'destinationName is required'
