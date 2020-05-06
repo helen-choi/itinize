@@ -133,12 +133,19 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
 });
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
+  const { destinationImage } = req.body;
   const destinationId = req.params.destinationId;
   const newImageString = req.body;
+  if (!destinationImage) {
+    return res.status(400).json({
+      error: 'destinationImage is required'
+    });
+  }
+
   const destinationPutSql = `
   update "Destinations"
   set " "destinationImage" = $2
-  where "productId" = $1;
+  where "destinationId" = $1;
   `;
 
   const value = [destinationId, newImageString];
