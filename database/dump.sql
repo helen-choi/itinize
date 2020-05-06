@@ -18,16 +18,20 @@ SET row_security = off;
 
 ALTER TABLE ONLY public."Lodging" DROP CONSTRAINT "Lodging_pkey";
 ALTER TABLE ONLY public."Locations" DROP CONSTRAINT "Locations_pkey";
+ALTER TABLE ONLY public."ItineraryList" DROP CONSTRAINT "ItineraryList_pkey";
 ALTER TABLE ONLY public."Flight" DROP CONSTRAINT "Flight_pkey";
 ALTER TABLE ONLY public."Destinations" DROP CONSTRAINT "Destinations_pkey";
 ALTER TABLE public."Lodging" ALTER COLUMN "lodgingId" DROP DEFAULT;
 ALTER TABLE public."Locations" ALTER COLUMN "locationId" DROP DEFAULT;
+ALTER TABLE public."ItineraryList" ALTER COLUMN "itineraryId" DROP DEFAULT;
 ALTER TABLE public."Flight" ALTER COLUMN "flightId" DROP DEFAULT;
 ALTER TABLE public."Destinations" ALTER COLUMN "destinationId" DROP DEFAULT;
 DROP SEQUENCE public."Lodging_lodgingId_seq";
 DROP TABLE public."Lodging";
 DROP SEQUENCE public."Locations_locationId_seq";
 DROP TABLE public."Locations";
+DROP SEQUENCE public."ItineraryList_itineraryId_seq";
+DROP TABLE public."ItineraryList";
 DROP SEQUENCE public."Flight_flightId_seq";
 DROP TABLE public."Flight";
 DROP SEQUENCE public."Destinations_destinationId_seq";
@@ -137,6 +141,40 @@ ALTER SEQUENCE public."Flight_flightId_seq" OWNED BY public."Flight"."flightId";
 
 
 --
+-- Name: ItineraryList; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public."ItineraryList" (
+    "itineraryId" integer NOT NULL,
+    "itineraryName" text NOT NULL,
+    "itineraryDay" text NOT NULL,
+    "itineraryNote" text NOT NULL,
+    "locationId" integer NOT NULL,
+    "destinationId" integer NOT NULL
+);
+
+
+--
+-- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public."ItineraryList_itineraryId_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public."ItineraryList_itineraryId_seq" OWNED BY public."ItineraryList"."itineraryId";
+
+
+--
 -- Name: Locations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -217,6 +255,13 @@ ALTER TABLE ONLY public."Flight" ALTER COLUMN "flightId" SET DEFAULT nextval('pu
 
 
 --
+-- Name: ItineraryList itineraryId; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ItineraryList" ALTER COLUMN "itineraryId" SET DEFAULT nextval('public."ItineraryList_itineraryId_seq"'::regclass);
+
+
+--
 -- Name: Locations locationId; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -235,9 +280,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-
-1	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
-
+2	Switzerland	https://cdn.britannica.com/65/162465-050-9CDA9BC9/Alps-Switzerland.jpg	2021-04-09	2021-04-15	This will be our first trip after the pandemic. Hope covid-19 continues until next year	awesdf
 \.
 
 
@@ -246,6 +289,19 @@ COPY public."Destinations" ("destinationId", "destinationName", "destinationImag
 --
 
 COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDeparture", "destinationId", status, "flightName") FROM stdin;
+4	1	2021-04-09	LAX	1	pending	Departing Flight
+5	1	2021-04-09	LAX	1	pending	Departing Flight
+6	1	2021-04-09	LAX	1	pending	Departing Flight
+7	1	2021-04-09	LAX	1	pending	Departing Flight
+8	1	2021-04-09	LAX	1	pending	Departing Flight
+\.
+
+
+--
+-- Data for Name: ItineraryList; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
 \.
 
 
@@ -269,16 +325,21 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 1, true);
-
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 2, true);
 
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 8, true);
+
+
+--
+-- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
 
 
 --
@@ -309,6 +370,14 @@ ALTER TABLE ONLY public."Destinations"
 
 ALTER TABLE ONLY public."Flight"
     ADD CONSTRAINT "Flight_pkey" PRIMARY KEY ("flightId");
+
+
+--
+-- Name: ItineraryList ItineraryList_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."ItineraryList"
+    ADD CONSTRAINT "ItineraryList_pkey" PRIMARY KEY ("itineraryId");
 
 
 --
