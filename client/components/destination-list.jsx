@@ -21,16 +21,26 @@ export default class DestinationList extends React.Component {
 
   render() {
     return (
-      <>
-        <h1>My Travels</h1>
-        {this.state.destinations ? this.state.destinations.map(destination => {
-          return (
-            <Link to="/destinations/:destinationId" key={destination.destinationId}>
-              <DestinationItem destination={destination}/>;
-            </Link>
-          );
-        }) : (<div> NO DESTINATIONS CURRENTLY AVAILABLE</div>)}
-      </>
+      <div className="container Destination-List">
+        <header className="row">
+          <Link to="destination/create" className="d-flex justify-content-end">
+            <img className="col-2" src="./images/plus.png" alt="plus sign"/>
+          </Link>
+        </header>
+        <h1 className="row flex-column">
+          <span>My</span>
+          <span>Travels</span>
+        </h1>
+        <div className="row">
+          {this.state.destinations ? this.state.destinations.map(destination => {
+            return (
+              <div className="col-6" to="/destinations/:destinationId" key={destination.destinationId}>
+                <DestinationItem destination={destination}/>
+              </div>
+            );
+          }) : (<div> LOADING DESTINATIONS)</div>)}
+        </div>
+      </div>
     );
   }
 }
