@@ -106,7 +106,58 @@ app.post('/api/destinations', (req, res, next) => {
 });
 
 app.post('/api/flights', (req, res, next) => {
-  res.send(req.body);
+  const {
+    flightNumber,
+    flightDate,
+    airportDeparture,
+    flightName,
+    destinationId,
+    status
+  } = req.body;
+
+  if (!flightNumber) {
+    return res.status(400).json({
+      error: 'flightNumber is required'
+    });
+  }
+  if (!flightDate) {
+    return res.status(400).json({
+      error: 'flightDate is required'
+    });
+  }
+  if (!airportDeparture) {
+    return res.status(400).json({
+      error: 'airportDeparture is required'
+    });
+  }
+  if (!flightName) {
+    return res.status(400).json({
+      error: 'flightName is required'
+    });
+  }
+  if (!destinationId) {
+    return res.status(400).json({
+      error: 'destinationId is required'
+    });
+  }
+  if (!status) {
+    return res.status(400).json({
+      error: 'status is required'
+    });
+  }
+
+  const sql = `
+  insert into "Flight" ("flightNumber", "flightDate","airportDeparture", "flightName", "destinationId", "status")
+  values ($1, $2, $3, $4, $5, $6)
+  returning *
+  `;
+  const values = [flightNumber, flightDate, airportDeparture, flightName, destinationId, status];
+
+  db.query(sql, values)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => console.error(err));
 });
 
 app.delete('/api/destinations/:destinationId', (req, res, next) => {
