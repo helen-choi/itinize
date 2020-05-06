@@ -192,7 +192,7 @@ app.delete('/api/destinations/:destinationId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.put('/api/destinations/:destinationId', (req, res, next) => {
+app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   const { destinationImage } = req.body;
   const { destinationId } = req.params;
   if (isNaN(destinationId)) {
