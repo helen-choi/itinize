@@ -33,7 +33,11 @@ app.post('/api/destinations', (req, res, next) => {
       error: 'DestinationDates is required'
     });
   }
-
+  if (typeof destinationDescription !== 'string') {
+    return res.status(400).json({
+      error: typeof destinationDescription
+    });
+  }
 });
 
 app.use('/api', (req, res, next) => {
