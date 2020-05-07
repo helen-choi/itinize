@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import DestinationList from './destination-list';
 import DestinationInfo from './destination-info';
+import AddFlightName from './flight-name';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,14 +25,11 @@ export default class App extends React.Component {
         <Route path="/destinations/create">
           AddDestinationName component
         </Route>
-        <Route path="/destinations/:destinationId" component={DestinationInfo}>
-        </Route>
+        <Route path="/destinations/:destinationId" component={DestinationInfo}/>
         <Route path="/flights">
-          ViewFlights component
+          {/* ViewFlights component */}
         </Route>
-        <Route path="/flights/create">
-          AddFlightName component
-        </Route>
+        <Route path="/flights/create" component={AddFlightName}/>
         <Route path="/lodgings">
           ViewLodgings component
         </Route>
