@@ -136,3 +136,6 @@ div.Destination-List > h1 {
 .input-container input {
   font-size: 20px;
 }
+.add-lodging-container {
+  height: 100vh;
+}

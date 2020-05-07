@@ -21,7 +21,7 @@ export default class App extends React.Component {
       <Router>
         <Route exact path="/">
           <DestinationList/>
-          <AddLodgingName/>
+          <AddLodgingName />
         </Route>
         <Route path="/destinations/create">
           AddDestinationName component
