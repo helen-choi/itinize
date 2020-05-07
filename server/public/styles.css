@@ -61,6 +61,7 @@ div.Destination-List > h1 {
 
 .progress-bar-custom {
   background-color: #6CC4C8;
+  height: 3px;
 }
 
 .main-text {

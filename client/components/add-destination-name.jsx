@@ -48,11 +48,15 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<h1 key={this.state.componentStage}>hi</h1>];
+    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>];
+    const progressBarCustom = 'progress-bar-custom';
     return (
       <div className="container h-100">
-        <div className="row progress mb-1">
-          <div className="progress-bar w-25"></div>
+        <div className="row mb-1">
+          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarCustom : progressBarCustom}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarCustom : 'null'}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarCustom : 'null'}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarCustom : 'null'}`}></div>
         </div>
         <header className="row">
           <div className="col d-flex justify-content-between">
