@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 export default function DestinationItem(props) {
   const destination = props.destination;
   return (
+
     <div className="card destination-item h-50 mt-3" style={{ backgroundImage: `url(${destination.destinationImage})` }}>
       <Link to="/destinations/:id">
         <div className="overlay"></div>
+
         <div className="card-body text-white d-flex justify-content-center align-items-center">
           <h5>{destination.destinationName}</h5>
         </div>
