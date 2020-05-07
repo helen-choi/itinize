@@ -1,3 +1,11 @@
+body #root {
+  height: 100vh;
+}
+
+.main-text-height {
+  height: 80%;
+}
+
 * {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
@@ -53,6 +61,27 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
+
+.icon-left {
+  width: 31px;
+}
+
+.progress-bar-complete {
+  background-color: #6CC4C8;
+  height: 12px;
+}
+
+.progress-bar-incomplete {
+  background-color: #C4C4C4;
+  height: 12px;
+}
+
+
+
+.main-text {
+  text-align: center;
+}
+
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
@@ -62,7 +91,6 @@ div.Destination-List > h1 {
     left: 0;
     right: 0;
     border-radius: 20px;
-}
 
 .overlay-edit {
     background-color: rgba(0,0,0,0.9);
@@ -72,6 +100,7 @@ div.Destination-List > h1 {
     bottom: 0;
     left: 0;
     right: 0;
+
 }
 
 .emphasize-text {
