@@ -6,7 +6,7 @@ export default function DestinationItem(props) {
   return (
 
     <div className="card destination-item h-50 mt-3" style={{ backgroundImage: `url(${destination.destinationImage})` }}>
-      <Link to="/destinations/:id">
+      <Link to={`/destinations/${destination.destinationId}`}>
         <div className="overlay"></div>
 
         <div className="card-body text-white d-flex justify-content-center align-items-center">
