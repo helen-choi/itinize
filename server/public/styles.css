@@ -91,6 +91,7 @@ div.Destination-List > h1 {
     left: 0;
     right: 0;
     border-radius: 20px;
+}
 
 .overlay-edit {
     background-color: rgba(0,0,0,0.9);
