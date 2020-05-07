@@ -7,7 +7,6 @@ import DestinationList from './destination-list';
 import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,10 +22,7 @@ export default class App extends React.Component {
         <Route exact path="/">
           <DestinationList/>
         </Route>
-        <Route path="/destinations/create" component={AddDestinationName}>
-          {/* <AddDestinationName /> */}
-          {/* if you want props and render method both, use a render method */}
-        </Route>
+        <Route path="/destinations/create" component={AddDestinationName} />
         <Route path="/destinations/:destinationId" component={DestinationInfo}>
         </Route>
         <Route path="/flights">
