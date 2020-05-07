@@ -38,7 +38,7 @@ export default class DestinationList extends React.Component {
                 <DestinationItem destination={destination}/>
               </div>
             );
-          }) : (<div> LOADING DESTINATIONS)</div>)}
+          }) : (<div className="loading-data"> LOADING DESTINATIONS)</div>)}
         </div>
       </div>
     );

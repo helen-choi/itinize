@@ -5,7 +5,7 @@ export default function DestinationItem(props) {
   const destination = props.destination;
   return (
     <div className="card h-50" style={{ backgroundImage: `url(${destination.destinationImage})` }}>
-      <Link to="/destinations/:id">
+      <Link to={`/destinations/${destination.destinationId}`}>
         <div className="card-body text-white d-flex justify-content-center align-items-center">
           <h5>{destination.destinationName}</h5>
         </div>
