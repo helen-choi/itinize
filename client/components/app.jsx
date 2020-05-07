@@ -4,6 +4,7 @@ import {
   Route
 } from 'react-router-dom';
 import DestinationList from './destination-list';
+import AddDestinationName from './add-destination-name';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,8 +21,9 @@ export default class App extends React.Component {
         <Route exact path="/">
           <DestinationList/>
         </Route>
-        <Route path="/destinations/create">
-          AddDestinationName component
+        <Route path="/destinations/create" component={AddDestinationName}>
+          {/* <AddDestinationName /> */}
+          {/* if both, use a render method */}
         </Route>
         <Route path="/destinations/:DestinationId">
           DestinationInfo component

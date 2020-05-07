@@ -23,7 +23,7 @@ export default class DestinationList extends React.Component {
     return (
       <div className="container Destination-List">
         <header className="row">
-          <Link to="destination/create" className="d-flex justify-content-end">
+          <Link to="destinations/create" className="d-flex justify-content-end">
             <img className="col-2" src="./images/plus.png" alt="plus sign"/>
           </Link>
         </header>
