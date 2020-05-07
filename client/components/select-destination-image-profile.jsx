@@ -5,12 +5,13 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       imageList: [],
-      imageChoice: null
+      imageChoice: 'yes'
     };
   }
 
+  // this.props.clickFunction(this.props.params)
   componentDidMount() {
-    this.getPexelPictures();
+    // this.getPexelPictures();
   }
 
   getPexelPictures() {
@@ -23,7 +24,6 @@ export default class SelectDestinationImageProfile extends React.Component {
       .then(data => {
         const photoArray = [];
         console.log(data);
-        console.log(data.photos[0].src.portrait);
         for (let i = 0; i < data.photos.length; i++) {
           photoArray.push(data.photos[i].src.portrait);
         }
@@ -32,8 +32,9 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
+    // console.log(this.props.hand);
     return (
-      <h1>test</h1>
+      <h1 onClick={() => { this.props.handleClick(this.state.imageChoice); }}>test</h1>
     );
   }
 }
