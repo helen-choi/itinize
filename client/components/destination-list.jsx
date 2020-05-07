@@ -21,24 +21,23 @@ export default class DestinationList extends React.Component {
 
   render() {
     return (
-      <div className="container Destination-List">
-        <header className="row">
-          <Link to="destination/create" className="d-flex justify-content-end">
-            <img className="col-2" src="./images/plus.png" alt="plus sign"/>
-          </Link>
+      <div className="container Destination-List p-4">
+        <header className="row pl-4">
+          <div className="list-controls col-12">
+            <Link to="destination/create" className="d-flex justify-content-end">
+              <img className="icon-add" src="./images/plus.png" alt="plus sign" />
+            </Link>
+          </div>
+          <h1 className="row flex-column">My<br />Travels</h1>
         </header>
-        <h1 className="row flex-column">
-          <span>My</span>
-          <span>Travels</span>
-        </h1>
-        <div className="row">
+        <div className="row destinations-container">
           {this.state.destinations ? this.state.destinations.map(destination => {
             return (
               <div className="col-6" to="/destinations/:destinationId" key={destination.destinationId}>
                 <DestinationItem destination={destination}/>
               </div>
             );
-          }) : (<div> LOADING DESTINATIONS)</div>)}
+          }) : (<div> LOADING DESTINATIONS...</div>)}
         </div>
       </div>
     );
