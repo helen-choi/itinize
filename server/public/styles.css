@@ -33,6 +33,10 @@ div.Destination-List > h1 {
   padding-left: 15px
 }
 
+footer .flight-button{
+  z-index: 1;
+}
+
 .circle-blue {
   background-color: #6CC4C8;
   border-radius: 50%;
