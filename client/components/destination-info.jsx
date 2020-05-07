@@ -27,19 +27,27 @@ export default class DestinationInfo extends React.Component {
     return (
       (!this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>) ||
 
-        <div className="DestinationInfo" style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
-          <div className="row justify-content-between">
+        <div className="DestinationInfo container"
+          style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
+          <div className="overlay container"></div>
+
+          <header className="row justify-content-between pt-2">
             <Link to="/" className="col-2">
-              <img className="icon" src="/images/back.png" alt="back arrow"/>
+              <i className="fas fa-arrow-left fa-2x"></i>
             </Link>
-            <img className="icon col-2" src="/images/pencil.png" alt="edit button"/>
-          </div>
+            <div className="col-2">
+              <i className="fas fa-pen fa-2x"></i>
+            </div>
+          </header>
+
           <form className="row">
-            <input className="h1 col-12 shadow-p" readOnly value={destinationInfo.destinationName}/>
-            <input className="p shadow-p" readOnly value={this.tripStart}/>
-            <p> - </p>
-            <input className="p shadow-p" readOnly value={this.tripEnd}/>
-            <textarea readOnly className="col-10" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
+            <input className="display-3 pt-5 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+            <div className=" col-12 ml-4 d-flex">
+              <input readOnly value={this.tripStart}/>
+              <p> - </p>
+              <input readOnly value={this.tripEnd}/>
+            </div>
+            <textarea readOnly className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
           </form>
         </div>
     );

@@ -1,6 +1,10 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
 h1 {
   font-family: 'Roboto Slab';
-  font-weight: 600;
+  font-weight: 700;
 }
 
 header > img {
@@ -8,11 +12,12 @@ header > img {
   height: 10%;
 }
 
-.card {
+.destination-item {
   min-height: 100px;
   padding-top: 100%;
   background-position: center;
   background-size: cover;
+  border-radius: 20px;
 }
 
 div.card-body {
@@ -21,6 +26,7 @@ div.card-body {
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 2;
 }
 
 div.Destination-List > h1 {
@@ -30,20 +36,36 @@ div.Destination-List > h1 {
 .circle-blue {
   background-color: #6CC4C8;
   border-radius: 50%;
+  width: 35px;
 }
 
 .circle-red {
   background-color: #EA6A61;
   border-radius: 50%;
+  width: 35px;
 }
 
 .icon {
-  width: 50%;
-  height: 50%;
+  position: relative;
+  width: 100%;
+}
+.icon-add {
+  width: 31px;
 }
 
-.darken-screen {
-  background-color: rgba(0,0,0,0.5)
+.overlay {
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 20px;
+}
+
+i {
+  color:white;
 }
 
 .emphasize-text {
@@ -57,37 +79,20 @@ div.Destination-List > h1 {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius: 20px;
 }
 
-.DestinationInfo input,textarea {
-  margin-left: 20px;
+.DestinationInfo input,textarea,p {
   background-color: transparent;
   border: none;
   color:white;
+  width: 40%;
 }
 
-.DestinationInfo input:not(:first-child) {
-  width: 31%;
+.DestinationInfo p {
   margin: 0;
-  padding: 0;
-  border: 0;
+  width: 5%;
 }
-
-.DestinationInfo > form > p {
-  color: white;
-  margin: 0;
-}
-.DestinationInfo input:nth-child(2) {
-  margin-left: 50px;
-}
-
-.DestinationInfo img {
-  margin: 20px 10px 0;
-  width: 17px;
-  height: 17px;
-  object-fit: scale-down;
-}
-
 .loading-data {
   background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif);
   background-size: contain;
@@ -98,4 +103,13 @@ div.Destination-List > h1 {
   align-items: center;
   font-size: 20vw;
   text-align: center;
+}
+.DestinationInfo > form > div > *{
+  height: 25%;
+}
+.DestinationInfo > form {
+  height: 80%;
+}
+.DestinationInfo header > *, .DestinationInfo form > *{
+  z-index: 2;
 }
