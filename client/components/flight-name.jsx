@@ -23,7 +23,7 @@ export default class AddFlightName extends React.Component {
         <div className="container">
           <header className="row mt-4 px-1">
             <div className="col d-flex justify-content-between">
-              <Link to="" className="text-dark">
+              <Link to="/" className="text-red">
                 <i className="fas fa-times fa-2x"></i>
               </Link>
               <Link to="" className="text-dark">
