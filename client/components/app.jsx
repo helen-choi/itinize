@@ -4,7 +4,9 @@ import {
   Route
 } from 'react-router-dom';
 import DestinationList from './destination-list';
+import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,25 +23,26 @@ export default class App extends React.Component {
         <Route exact path="/">
           <DestinationList/>
         </Route>
-        <Route path="/destinations/create">
-          AddDestinationName component
+        <Route path="/destinations/create" component={AddDestinationName}>
+          {/* <AddDestinationName /> */}
+          {/* if you want props and render method both, use a render method */}
         </Route>
         <Route path="/destinations/:destinationId" component={DestinationInfo}>
         </Route>
         <Route path="/flights">
-          ViewFlights component
+          {/* ViewFlights component */}
         </Route>
         <Route path="/flights/create">
-          AddFlightName component
+          {/* AddFlightName component */}
         </Route>
         <Route path="/lodgings">
-          ViewLodgings component
+          {/* ViewLodgings component */}
         </Route>
         <Route path='/itineraries'>
-          viewItineraries
+          {/* viewItineraries */}
         </Route>
         <Route path="/itineraries/create">
-          AddItinerariesName
+          {/* AddItinerariesName */}
         </Route>
       </Router>
     );
