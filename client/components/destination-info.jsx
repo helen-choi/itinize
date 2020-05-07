@@ -120,15 +120,13 @@ export default class DestinationInfo extends React.Component {
             </div>
             <textarea readOnly className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
 
-          </form>
+          </div>
           <footer>
             <Link to="/flights/create" className="col-2 flight-button">
               <i className="fas fa-plane fa-2x"></i>
             </Link>
           </footer>
-        </div>
 
-          </div>
         </>) ||
 
         (this.state.editIconIsClicked &&
