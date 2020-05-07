@@ -16,23 +16,19 @@ export default class AddDestinationName extends React.Component {
     if (this.state.componentStage === -1) {
       return (
         <div className="container">
+          <div className="row progress mb-1">
+            <div className="progress-bar w-25"></div>
+          </div>
           <header className="row">
-            <div className="row">
-              <div className="progress">
-                {/* <div className="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div> */}
-              </div>
-            </div>
-            <div className="row">
-              <Link className=""to="/">
-                <img className="" src="/./images/back.png" alt="back arrow"/>
-              </Link>
-            </div>
+            <Link className=""to="/">
+              <img className="icon-left" src="/./images/back.png" alt="back arrow"/>
+            </Link>
             <div className="row">
 
             </div>
           </header>
           <div className="row">
-            <h1>hello</h1>
+            <h4>Add a destination</h4>
           </div>
         </div>
       );

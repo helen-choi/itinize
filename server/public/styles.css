@@ -47,6 +47,14 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
+.icon-left {
+  width: 31px;
+}
+
+.progress-bar {
+  background-color: #6CC4C8;
+}
+
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
