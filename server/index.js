@@ -105,6 +105,19 @@ app.post('/api/destinations', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/flights', (req, res, next) => {
+  const viewFlightsSql = `
+  select *
+  from "Flight"
+  `;
+  db.query(viewFlightsSql)
+    .then(result => {
+      const flights = result.rows;
+      res.json(flights);
+    })
+    .catch(err => console.error(err));
+});
+
 app.post('/api/flights', (req, res, next) => {
   const {
     flightNumber,
@@ -165,34 +178,6 @@ app.post('/api/flights', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
-app.delete('/api/destinations/:destinationId', (req, res, next) => {
-  const { destinationId } = req.params;
-  if (!parseInt(destinationId, 10)) {
-    return res.status(400).json({
-      error: 'destinationId must be a positive integer'
-    });
-  }
-  const deleteDestinationSql = `
-    delete from "Destinations"
-    where "destinationId" = $1
-    returning *
-  `;
-  const deleteParam = [destinationId];
-  db.query(deleteDestinationSql, deleteParam)
-    .then(result => {
-      const destinationRow = result.rows[0];
-      if (!destinationRow) {
-        res.status(404).json({
-          error: `cannot find destination with "destinationId" ${destinationId}`
-        });
-      } else {
-        res.status(204).json(destinationRow);
-      }
-    })
-    .catch(err => next(err));
-});
-
-
 app.delete('/api/flights/:flightId', (req, res, next) => {
   const { flightId } = req.params;
   const sql = `
@@ -221,8 +206,7 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
       res.status(204).json(result.rows[0]);
     })
     .catch(err => console.error(err));
-})
-
+});
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
@@ -281,6 +265,33 @@ app.put('/api/destinations/:destinationId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/destinations/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
+  if (!parseInt(destinationId, 10)) {
+    return res.status(400).json({
+      error: 'destinationId must be a positive integer'
+    });
+  }
+  const deleteDestinationSql = `
+    delete from "Destinations"
+    where "destinationId" = $1
+    returning *
+  `;
+  const deleteParam = [destinationId];
+  db.query(deleteDestinationSql, deleteParam)
+    .then(result => {
+      const destinationRow = result.rows[0];
+      if (!destinationRow) {
+        res.status(404).json({
+          error: `cannot find destination with "destinationId" ${destinationId}`
+        });
+      } else {
+        res.status(204).json(destinationRow);
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   const { destinationImage } = req.body;
   const { destinationId } = req.params;
@@ -319,9 +330,7 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
       })
       .catch(err => next(err));
   }
- });
-
-
+});
 
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
