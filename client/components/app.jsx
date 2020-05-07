@@ -23,25 +23,25 @@ export default class App extends React.Component {
         </Route>
         <Route path="/destinations/create" component={AddDestinationName}>
           {/* <AddDestinationName /> */}
-          {/* if both, use a render method */}
+          {/* if you want props and render method both, use a render method */}
         </Route>
         <Route path="/destinations/:DestinationId">
-          DestinationInfo component
+          {/* DestinationInfo component */}
         </Route>
         <Route path="/flights">
-          ViewFlights component
+          {/* ViewFlights component */}
         </Route>
         <Route path="/flights/create">
-          AddFlightName component
+          {/* AddFlightName component */}
         </Route>
         <Route path="/lodgings">
-          ViewLodgings component
+          {/* ViewLodgings component */}
         </Route>
         <Route path='/itineraries'>
-          viewItineraries
+          {/* viewItineraries */}
         </Route>
         <Route path="/itineraries/create">
-          AddItinerariesName
+          {/* AddItinerariesName */}
         </Route>
       </Router>
     );
