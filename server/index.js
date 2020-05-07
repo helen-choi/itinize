@@ -238,7 +238,7 @@ app.put('/api/destinations/:destinationId', (req, res, next) => {
   }
   if (typeof description !== 'string') {
     return res.status(400).json({
-      error: typeof destinationDescription
+      error: 'description should be a string'
     });
   }
   const viewUpdateDestinationSql = `

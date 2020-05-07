@@ -1,3 +1,11 @@
+body #root {
+  height: 100vh;
+}
+
+.main-text-height {
+  height: 80%;
+}
+
 * {
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
@@ -57,6 +65,27 @@ footer .flight-button{
   width: 31px;
 }
 
+
+.icon-left {
+  width: 31px;
+}
+
+.progress-bar-complete {
+  background-color: #6CC4C8;
+  height: 12px;
+}
+
+.progress-bar-incomplete {
+  background-color: #C4C4C4;
+  height: 12px;
+}
+
+
+
+.main-text {
+  text-align: center;
+}
+
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
@@ -68,6 +97,16 @@ footer .flight-button{
     border-radius: 20px;
 }
 
+.overlay-edit {
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
 
 .emphasize-text {
   font-size: 36px;
@@ -80,7 +119,6 @@ footer .flight-button{
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 20px;
 }
 
 .DestinationInfo input,textarea,p {
@@ -111,6 +149,6 @@ footer .flight-button{
 .DestinationInfo > form {
   height: 80%;
 }
-.DestinationInfo header > *, .DestinationInfo form > *{
-  z-index: 2;
+.DestinationInfo header > *, .form-element > *{
+  z-index: 3;
 }
