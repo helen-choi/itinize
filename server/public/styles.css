@@ -2,9 +2,26 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
-h1 {
+h1,h2,h3 {
   font-family: 'Roboto Slab';
   font-weight: 700;
+}
+input, textarea {
+  caret-color: #6CC4C8;
+  transition: all 0.10s ease-in-out;
+    -webkit-transition: all 0.10s ease-in-out;
+    -moz-transition: all 0.10s ease-in-out;
+    -ms-transition: all 0.10s ease-in-out;
+    -o-transition: all 0.10s ease-in-out;
+  outline: none;
+  border:2px solid white;
+
+}
+input[type=text]:focus, textarea {
+  outline: none;
+  outline-offset: 0;
+  box-shadow: 0 0 5px #6CC4C8;
+  border: 2px solid #6CC4C8;
 }
 
 header > img {
@@ -63,13 +80,10 @@ div.Destination-List > h1 {
     right: 0;
     border-radius: 20px;
 }
-
-
 .emphasize-text {
   font-size: 36px;
   font-weight: 800;
 }
-
 .DestinationInfo {
   width: 100%;
   height: 100vh;
@@ -78,8 +92,7 @@ div.Destination-List > h1 {
   background-size: cover;
   border-radius: 20px;
 }
-
-.DestinationInfo input,textarea,p {
+.DestinationInfo input,.DestinationInfo textarea,.DestinationInfo p {
   background-color: transparent;
   border: none;
   color:white;
@@ -109,4 +122,17 @@ div.Destination-List > h1 {
 }
 .DestinationInfo header > *, .DestinationInfo form > *{
   z-index: 2;
+}
+/* AddLodgingName */
+.page-controls {
+  height: 12px;
+}
+.page-controls .completed {
+  background-color: #6CC4C8;
+}
+.page-controls .not-completed {
+  background-color: #C4C4C4;
+}
+.input-container input {
+  font-size: 20px;
 }
