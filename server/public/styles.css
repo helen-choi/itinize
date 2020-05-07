@@ -59,10 +59,17 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
-.progress-bar-custom {
+.progress-bar-complete {
   background-color: #6CC4C8;
-  height: 3px;
+  height: 12px;
 }
+
+.progress-bar-incomplete {
+  background-color: #C4C4C4;
+  height: 12px;
+}
+
+
 
 .main-text {
   text-align: center;

@@ -14,6 +14,7 @@ export default class AddDestinationName extends React.Component {
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
+    this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
   }
 
   handleChange() {
@@ -23,6 +24,12 @@ export default class AddDestinationName extends React.Component {
   handleRightArrowClick() {
     let newComponentStage = this.state.componentStage;
     newComponentStage = newComponentStage + 1;
+    this.setState({ componentStage: newComponentStage });
+  }
+
+  handleLeftArrowClick() {
+    let newComponentStage = this.state.componentStage;
+    newComponentStage = newComponentStage - 1;
     this.setState({ componentStage: newComponentStage });
   }
 
@@ -48,22 +55,56 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>];
-    const progressBarCustom = 'progress-bar-custom';
+    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>,
+      <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
+      <h1 key={this.state.componentStage}>Add description to destination </h1>,
+      <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
+    const progressBarComplete = 'progress-bar-complete';
+    const progressBarIncomplete = 'progress-bar-incomplete';
+    let leftIcon;
+    let rightIcon;
+    switch (this.state.componentStage) {
+      case -1:
+        leftIcon = (<Link className="text-dark" to="/">
+          <i className="far fa-times-circle fa-2x"></i>
+        </Link>);
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        break;
+      case 0:
+        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        break;
+      case 1:
+        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        break;
+      case 2:
+        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        break;
+      case 3:
+        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>;
+        break;
+      default:
+        leftIcon = (<Link className="text-dark" to="/">
+          <i className="far fa-times-circle fa-2x"></i>
+        </Link>);
+        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+    }
+
     return (
       <div className="container h-100">
         <div className="row mb-1">
-          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarCustom : progressBarCustom}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarCustom : 'null'}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarCustom : 'null'}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarCustom : 'null'}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarComplete : progressBarComplete}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarComplete : progressBarIncomplete}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarComplete : progressBarIncomplete}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarComplete : progressBarIncomplete}`}></div>
         </div>
         <header className="row">
           <div className="col d-flex justify-content-between">
-            <Link className="text-dark" to="/">
-              <i className="far fa-times-circle fa-2x"></i>
-            </Link>
-            <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>
+            {leftIcon}
+            {rightIcon}
             {/* history prop will be used at the end of the multi-page form */}
           </div>
         </header>
