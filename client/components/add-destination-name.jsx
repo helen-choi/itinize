@@ -1,14 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Script from 'react-load-script';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       componentStage: -1,
-      destinationName: ''
+      destinationName: '',
+      place_id: ''
     };
+    this.handleScriptLoad = this.handleScriptLoad.bind(this);
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleChange() {
+    this.setState({ destinationName: event.target.value });
+  }
+
+  handleScriptLoad() {
+    const options = { types: ['(regions)'] };
+    // eslint-disable-next-line no-undef
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('search'), options);
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id']);
+    this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
+  }
+
+  handlePlaceSelect() {
+    const addressObj = this.autocomplete.getPlace();
+
+    if (addressObj) {
+      const addressArray = addressObj.address_components;
+      const country = addressArray[addressArray.length - 1].long_name;
+      const placeId = addressObj.place_id;
+      this.setState({ destinationName: country, place_id: placeId });
+    }
   }
 
   render() {
@@ -22,7 +50,7 @@ export default class AddDestinationName extends React.Component {
         <header className="row">
           <div className="col d-flex justify-content-between">
             <Link className="text-dark" to="/">
-              <i className="fas fa-arrow-left fa-2x"></i>
+              <i className="far fa-times-circle fa-2x"></i>
             </Link>
             <i className="fas fa-arrow-right fa-2x"></i>
             {/* history prop will be used at the end of the multi-page form */}
@@ -38,7 +66,8 @@ export default class AddDestinationName extends React.Component {
                 </div>
               </div>
               <div className="col input-group justify-content-center">
-                <input type="text" className="form-control" placeholder="Country" name="" id=""/>
+                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
+                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
               </div>
             </div>
           </div>) || componentsArray[this.state.componentStage]}
