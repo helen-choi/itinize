@@ -13,10 +13,17 @@ export default class AddDestinationName extends React.Component {
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
   }
 
   handleChange() {
     this.setState({ destinationName: event.target.value });
+  }
+
+  handleRightArrowClick() {
+    let newComponentStage = this.state.componentStage;
+    newComponentStage = newComponentStage + 1;
+    this.setState({ componentStage: newComponentStage });
   }
 
   handleScriptLoad() {
@@ -41,7 +48,7 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [];
+    const componentsArray = [<h1 key={this.state.componentStage}>hi</h1>];
     return (
       <div className="container h-100">
         <div className="row progress mb-1">
@@ -52,7 +59,7 @@ export default class AddDestinationName extends React.Component {
             <Link className="text-dark" to="/">
               <i className="far fa-times-circle fa-2x"></i>
             </Link>
-            <i className="fas fa-arrow-right fa-2x"></i>
+            <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>
             {/* history prop will be used at the end of the multi-page form */}
           </div>
         </header>
