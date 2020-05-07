@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
+import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>,
+    const componentsArray = [<SelectDestinationImageProfile key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
