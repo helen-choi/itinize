@@ -6,6 +6,7 @@ import {
 import DestinationList from './destination-list';
 import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
+import AddFlightName from './flight-name';
 
 
 export default class App extends React.Component {
@@ -27,14 +28,17 @@ export default class App extends React.Component {
           {/* <AddDestinationName /> */}
           {/* if you want props and render method both, use a render method */}
         </Route>
-        <Route path="/destinations/:destinationId" component={DestinationInfo}>
-        </Route>
+
+        <Route path="/destinations/:destinationId" component={DestinationInfo}/>
+
         <Route path="/flights">
           {/* ViewFlights component */}
         </Route>
+
         <Route path="/flights/create">
-          {/* AddFlightName component */}
+          <AddFlightName />
         </Route>
+
         <Route path="/lodgings">
           {/* ViewLodgings component */}
         </Route>
