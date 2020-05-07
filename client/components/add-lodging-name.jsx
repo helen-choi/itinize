@@ -19,7 +19,11 @@ export default class AddLodgingName extends React.Component {
   }
 
   handleNextClick() {
-
+    let counter = this.state.counter;
+    counter++;
+    this.setState({
+      counter: counter
+    });
   }
 
   render() {
