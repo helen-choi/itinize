@@ -9,11 +9,18 @@ export default class AddFlightName extends React.Component {
       counter: -1
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event) {
     this.setState({
       flightName: event.target.value
+    });
+  }
+
+  handleClick() {
+    this.setState({
+      counter: +1
     });
   }
 
@@ -23,12 +30,10 @@ export default class AddFlightName extends React.Component {
         <div className="container">
           <header className="row mt-4 px-1">
             <div className="col d-flex justify-content-between">
-              <Link to="/" className="text-red">
+              <Link to="/destinations/3" className="text-red">
                 <i className="fas fa-times fa-2x"></i>
               </Link>
-              <Link to="" className="text-dark">
-                <i className="fas fa-arrow-right fa-2x"></i>
-              </Link>
+              <i onClick={this.handleClick()} className="fas fa-arrow-right fa-2x"></i>
             </div>
           </header>
           <div className="row d-flex justify-content-center mt-5">
