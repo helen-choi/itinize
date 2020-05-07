@@ -1,6 +1,10 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
 h1 {
   font-family: 'Roboto Slab';
-  font-weight: 600;
+  font-weight: 700;
 }
 
 header > img {
@@ -8,11 +12,12 @@ header > img {
   height: 10%;
 }
 
-.card {
+.destination-item {
   min-height: 100px;
   padding-top: 100%;
   background-position: center;
   background-size: cover;
+  border-radius: 20px;
 }
 
 div.card-body {
@@ -21,6 +26,7 @@ div.card-body {
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 2;
 }
 
 div.Destination-List > h1 {
@@ -30,14 +36,30 @@ div.Destination-List > h1 {
 .circle-blue {
   background-color: #6CC4C8;
   border-radius: 50%;
+  width: 35px;
 }
 
 .circle-red {
   background-color: #EA6A61;
   border-radius: 50%;
+  width: 35px;
 }
 
 .icon {
-  width: 50%;
-  height: 50%;
+  position: relative;
+  width: 100%;
+}
+.icon-add {
+  width: 31px;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 20px;
 }
