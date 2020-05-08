@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
+import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class AddDestinationName extends React.Component {
     this.state = {
       componentStage: -1,
       destinationName: '',
+      destinationImage: '',
       place_id: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
@@ -15,10 +17,15 @@ export default class AddDestinationName extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
+    this.handleSelectImage = this.handleSelectImage.bind(this);
   }
 
   handleChange() {
     this.setState({ destinationName: event.target.value });
+  }
+
+  handleSelectImage(imageString) {
+    this.setState({ destinationImage: imageString });
   }
 
   handleRightArrowClick() {
@@ -55,7 +62,7 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>,
+    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
@@ -118,7 +125,7 @@ export default class AddDestinationName extends React.Component {
                 </div>
               </div>
               <div className="col input-group justify-content-center">
-                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
+                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
                 <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AddLodgingConfNum from './add-lodging-conf-num';
+import AddLodgingConfNumber from './add-lodging-conf-number';
+import AddLodgingDates from './add-lodging-dates';
 import Confirmation from './confirmation';
 
 export default class AddLodgingName extends React.Component {
@@ -9,6 +10,8 @@ export default class AddLodgingName extends React.Component {
     this.state = {
       counter: -1,
       lodgingName: '',
+      lodgingNumber: '',
+      lodgingDates: '',
       isSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +22,7 @@ export default class AddLodgingName extends React.Component {
 
   handleChange() {
     this.setState({
-      lodgingName: event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -49,8 +52,8 @@ export default class AddLodgingName extends React.Component {
     const { counter } = this.state;
     let stage = counter + 2;
     const pageArr = [
-      <AddLodgingConfNum key={this.state.counter} />,
-      'AddLodgingDates'
+      <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange}/>,
+      <AddLodgingDates key={this.state.counter} value={this.state.lodgingDates} handleChange={this.handleChange}/>
     ];
     const statusArr = [];
     let leftIcon;
@@ -78,12 +81,10 @@ export default class AddLodgingName extends React.Component {
         leftIcon = <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>;
         rightIcon = <i className="fas fa-check fa-2x" onClick={this.handleSubmit}></i>;
         break;
-      case 2:
-        break;
     }
 
     return (
-      (this.state.isSubmitted && <Confirmation/>) ||
+      (this.state.isSubmitted && <Confirmation newItem="lodge" history={this.props.history} match={this.props.match}/>) ||
         <div className="add-lodging-container">
           <div className="page-controls d-flex flex-nowrap">
             <div className={`col-4 mr-2 ${statusArr[0]}`}></div>
