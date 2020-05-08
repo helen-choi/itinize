@@ -208,6 +208,40 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
+app.post('/api/lodgings', (req, res, next) => {
+  const {
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  } = req.body;
+  const sql = `
+  insert into "Lodging"
+  (
+    "lodgingName",
+    "lodgingConfNum",
+    "checkInDateTime",
+    "checkOutDateTime",
+    "locationId",
+    "destinationId"
+  )
+  values($1,$2,$3,$4,$5,$6)
+  returning *;
+  `;
+  const values = [
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  ];
+
+  db.query(sql, values);
+});
+
 app.put('/api/destinations/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
   const {

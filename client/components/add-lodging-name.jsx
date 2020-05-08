@@ -52,8 +52,8 @@ export default class AddLodgingName extends React.Component {
     const { counter } = this.state;
     let stage = counter + 2;
     const pageArr = [
-      <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange} />,
-      <AddLodgingDates key={this.state.counter}/>
+      <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange}/>,
+      <AddLodgingDates key={this.state.counter} value={this.state.lodgingDates} handleChange={this.handleChange}/>
     ];
     const statusArr = [];
     let leftIcon;
