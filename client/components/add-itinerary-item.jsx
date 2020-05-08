@@ -1,20 +1,62 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Script from 'react-load-script';
 import Confirmation from './confirmation';
 
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
     super(props);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleScriptLoad = this.handleScriptLoad.bind(this);
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.state = {
       componentStage: -1,
-      itineraryName: ''
+      itineraryName: '',
+      placeId: ''
     };
+  }
+
+  handleScriptLoad() {
+    // eslint-disable-next-line no-undef
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('search'));
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id']);
+    this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
+  }
+
+  handlePlaceSelect() {
+    const addressObj = this.autocomplete.getPlace();
+    if (addressObj) {
+      const addressArray = addressObj.address_components;
+      const country = addressArray[addressArray.length - 1].long_name;
+      const placeId = addressObj.place_id;
+      this.setState({ destinationName: country, place_id: placeId });
+    }
+  }
+
+  handleNextClick() {
+    const newStage = this.state.componentStage + 1;
+    this.setState({ componentStage: newStage });
+  }
+
+  handlePrevClick() {
+    const previousStage = this.state.componentStage - 1;
+    this.setState({ componentStage: previousStage });
+  }
+
+  handleOnChange(e) {
+    this.setState({ itineraryName: e.currentTarget.value });
   }
 
   render() {
     let icons = null;
-    const componentArray = ['AddItineraryDates', 'AddItineraryNote', 'Confirmation'];
-
+    const componentArray = ['AddItineraryDates', 'AddItineraryNote',
+      <Confirmation key={this.state.componentStage} newItem="Itinerary"
+        history={this.props.history} match={this.props.match}/>];
+    let headerClassCompleted2 = 'not-completed';
+    let headerClassCompleted3 = 'not-completed';
     if (this.state.componentStage === -1) {
       icons = (
         <>
@@ -24,6 +66,8 @@ export default class AddItineraryItem extends React.Component {
           <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>
         </>);
     } else if (this.state.componentStage < 2) {
+      headerClassCompleted2 = 'completed';
+      if (this.state.componentStage === 1) headerClassCompleted3 = 'completed';
       icons = (
         <>
           <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>
@@ -35,24 +79,30 @@ export default class AddItineraryItem extends React.Component {
       <div className="add-lodging-container">
         <header className="page-controls d-flex flex-nowrap">
           <div className="col-4 mr-2 completed"></div>
-          <div className="col-4 mr-2 not-completed"></div>
-          <div className="col-4 not-completed"></div>
+          <div className={`col-4 mr-2 ${headerClassCompleted2}`}></div>
+          <div className={`col-4 ${headerClassCompleted3}`}></div>
         </header>
 
-        {icons}
+        <div className="form-controls d-flex justify-content-between p-3">
+          {icons}
+        </div>
         {
           (this.state.componentStage === -1 &&
-            <div>
-              <h1>Add your itinerary</h1>
-              <p className="text-muted"> Enter Address or name of place</p>
-              <input type="text" value={this.state.itineraryName}/>
+            <div className="add-lodging-name-container">
+              <h3 className="text-center pt-5">Add your itinerary</h3>
+              <p className="text-muted text-center"> Enter Address or name of place</p>
+              <div className="input-container row justify-content-center mt-5">
+                <Script url={`https://maps.googleapis.com/maps/api/js?
+                key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places
+                &sessiontoken=2`} onLoad={this.handleScriptLoad} />
+
+                <input value={this.state.itineraryName} id="search" className="text-center p-2"
+                  placeholder="Itinerary Name" onChange={this.handleOnChange} onClick={this.handlePlaceSelect}/>
+              </div>
             </div>
           ) ||
           (
-            this.state.componentStage < 2 && componentArray[this.state.componentStage]
-          ) ||
-          (
-            !icons && this.state.componentStage === 2 && <Confirmation/>
+            this.state.componentStage <= 2 && componentArray[this.state.componentStage]
           )
         }
       </div>
