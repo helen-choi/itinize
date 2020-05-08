@@ -12,7 +12,6 @@ import AddLodgingName from './add-lodging-name';
 
 import AddFlightName from './flight-name';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +36,7 @@ export default class App extends React.Component {
 
           <Route path="/destinations/:destinationId" component={DestinationInfo}/>
 
-          <Route path="/flights">
+          <Route exact path="/flights">
             {/* ViewFlights component */}
           </Route>
 
@@ -45,11 +44,11 @@ export default class App extends React.Component {
             <AddFlightName />
           </Route>
 
-          <Route path="/lodgings">
+          <Route exact path="/lodgings">
             {/* ViewLodgings component */}
           </Route>
           <Route path="/lodgings/create" component={AddLodgingName} />
-          <Route path='/itineraries'>
+          <Route exact path='/itineraries'>
             {/* viewItineraries */}
           </Route>
           <Route path="/itineraries/create">
