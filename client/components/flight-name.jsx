@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FlightConfirmation from './flight-confirmation';
 
 export default class AddFlightName extends React.Component {
   constructor(props) {
@@ -10,21 +11,21 @@ export default class AddFlightName extends React.Component {
       flightNumber: '',
       componentStage: -1
     };
-    this.handleClickForward = this.handleClickForward.bind(this);
-    this.handleClickBackward = this.handleClickBackward.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.handlePrevClick = this.handlePrevClick.bind(this);
   }
 
   handleChange(stateName, e) {
     this.setState({ [stateName]: e.target.value });
   }
 
-  handleClickForward(event) {
+  handleNextClick(event) {
     this.setState({
       componentStage: this.state.componentStage + 1
     });
   }
 
-  handleClickBackward(event) {
+  handlePrevClick(event) {
     this.setState({
       componentStage: this.state.componentStage - 1
     });
@@ -33,6 +34,9 @@ export default class AddFlightName extends React.Component {
   render() {
     const { componentStage } = this.state;
     let stage = componentStage + 2;
+    const pageArr = [
+      <FlightConfirmation key={this.state.componentStage} />
+    ];
     const statusArr = [];
     let leftIcon;
     let rightIcon;
@@ -48,7 +52,7 @@ export default class AddFlightName extends React.Component {
 
     switch (componentStage) {
       case -1:
-        leftIcon = <Link to="/lodgings"><i className="fas fa-times fa-2x"></i></Link>;
+        leftIcon = <Link to="/"><i className="fas fa-times fa-2x"></i></Link>;
         rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
         break;
       case 0:
@@ -61,11 +65,11 @@ export default class AddFlightName extends React.Component {
         break;
       case 2:
         break;
-      default:
     }
 
     return (
-      <div className="add-lodging-container">
+      (this.state.isSubmitted && <FlightConfirmation />) ||
+      <div className="add-flight-container">
         <div className="page-controls d-flex flex-nowrap">
           <div className={`col-4 mr-2 ${statusArr[0]}`}></div>
           <div className={`col-4 mr-2 ${statusArr[1]}`}></div>
@@ -77,7 +81,7 @@ export default class AddFlightName extends React.Component {
           {rightIcon}
         </div>
         {(this.state.componentStage === -1 &&
-          <div className="add-lodging-name-container">
+          <div className="add-flight-name-container">
             <div className="row d-flex justify-content-center mt-5">
               <h2>Name your flight</h2>
             </div>
@@ -88,7 +92,7 @@ export default class AddFlightName extends React.Component {
               <input type="text" onChange={this.handleChange.bind(this, 'flightName')} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
             </div>
           </div>
-        )}
+        ) || pageArr[componentStage]}
       </div>
     );
 
@@ -100,7 +104,7 @@ export default class AddFlightName extends React.Component {
     //       <Link to='/' className="text-red">
     //         <i className="fas fa-times fa-2x"></i>
     //       </Link>
-    //       <i onClick={() => { this.handleClickForward(); }} className="fas fa-arrow-right fa-2x"></i>
+    //       <i onClick={() => { this.handleNextClick(); }} className="fas fa-arrow-right fa-2x"></i>
     //     </div>
     //   </header>
     //   <div className="row d-flex justify-content-center mt-5">
@@ -119,8 +123,8 @@ export default class AddFlightName extends React.Component {
     //     <div className="container">
     //       <header className="row mt-4 px-1">
     //         <div className="col d-flex justify-content-between">
-    //           <i onClick={() => { this.handleClickBackward(); }} className="fas fa-arrow-left fa-2x"></i>
-    //           <i onClick={() => { this.handleClickForward(); }} className="fas fa-arrow-right fa-2x"></i>
+    //           <i onClick={() => { this.handlePrevClick(); }} className="fas fa-arrow-left fa-2x"></i>
+    //           <i onClick={() => { this.handleNextClick(); }} className="fas fa-arrow-right fa-2x"></i>
     //         </div>
     //       </header>
     //       <div className="row d-flex justify-content-center text-center mt-5">

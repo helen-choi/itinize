@@ -80,14 +80,6 @@ export default class AddLodgingName extends React.Component {
         break;
       case 2:
         break;
-      default:
-        return (<div className="add-lodging-name-container">
-          <h3 className="text-center pt-5">Add Lodging Name</h3>
-          <p className="text-muted text-center">Enter name of your lodge</p>
-          <div className="input-container row justify-content-center mt-5">
-            <input className="text-center p-2" type="text" name="lodgingName" placeholder="Lodge Name" value={this.state.lodgingName} onChange={this.handleChange} />
-          </div>
-        </div>);
     }
 
     return (
