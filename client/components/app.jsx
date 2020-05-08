@@ -11,7 +11,6 @@ import DestinationInfo from './destination-info';
 import AddLodgingName from './add-lodging-name';
 
 import AddFlightName from './flight-name';
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
