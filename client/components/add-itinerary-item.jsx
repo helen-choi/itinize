@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import Confirmation from './confirmation';
+import AddItineraryDates from './add-itinerary-day-tags';
 
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ export default class AddItineraryItem extends React.Component {
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     let icons = null;
-    const componentArray = ['AddItineraryDates', 'AddItineraryNote',
+    const componentArray = [<AddItineraryDates key={this.state.componentStage} destinationId={this.props.location.state.destinationId}/>, 'AddItineraryNote',
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
         history={this.props.history} match={this.props.match}/>];
     let headerClassCompleted2 = 'not-completed';
