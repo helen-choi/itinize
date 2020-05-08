@@ -148,5 +148,6 @@ div.Destination-List > h1 {
 .pexels-photo-text{
   bottom: 0%;
   margin-bottom: 0;
-  font-size: x-small;
+  font-size: 5px;
+  background-color: black;
 }
