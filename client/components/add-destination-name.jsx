@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
+import AddDestinationDates from './add-trip-start-end-dates-front-end';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ export default class AddDestinationName extends React.Component {
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
-      <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
+      <AddDestinationDates key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
     const progressBarComplete = 'progress-bar-complete';
@@ -102,11 +103,11 @@ export default class AddDestinationName extends React.Component {
 
     return (
       <div className="container h-100">
-        <div className="row mb-1">
-          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarComplete : progressBarComplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarComplete : progressBarIncomplete}`}></div>
+        <div className="row page-controls mb-1">
+          <div className={`col-3 mr-2 ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
+          <div className={`col-3 mr-2 ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col-3 mr-2 ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
         </div>
         <header className="row">
           <div className="col d-flex justify-content-between">
