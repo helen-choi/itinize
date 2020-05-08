@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddLodgingConfNumber from './add-lodging-conf-number';
+import AddLodgingDates from './add-lodging-dates';
 import Confirmation from './confirmation';
 
 export default class AddLodgingName extends React.Component {
@@ -52,7 +53,7 @@ export default class AddLodgingName extends React.Component {
     let stage = counter + 2;
     const pageArr = [
       <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange} />,
-      'AddLodgingDates'
+      <AddLodgingDates key={this.state.counter}/>
     ];
     const statusArr = [];
     let leftIcon;
