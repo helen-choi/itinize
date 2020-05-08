@@ -8,7 +8,7 @@ export default class AddFlightDate extends React.Component {
           <h2>Enter Departure Date</h2>
         </div>
         <div className="row d-flex justify-content-center mt-5">
-          <p>date</p>
+            date
           <input type="date" name="flightDate" onChange={this.props.handleChange} value={this.props.flightDate.slice(0, 10)}/>
         </div>
       </div>
