@@ -8,7 +8,7 @@ export default class AddFlightName extends React.Component {
       flightName: '',
       airportDeparture: '',
       flightNumber: '',
-      componentStage: 0
+      componentStage: -1
     };
     this.handleClickForward = this.handleClickForward.bind(this);
     this.handleClickBackward = this.handleClickBackward.bind(this);
