@@ -17,7 +17,7 @@ export default class DestinationInfo extends React.Component {
       destinationName: '',
       tripStart: '',
       tripEnd: '',
-      destinationDescription: '',
+      description: '',
       editIconIsClicked: false,
       pictureIconIsClicked: false
     };
@@ -32,7 +32,7 @@ export default class DestinationInfo extends React.Component {
       destinationName: this.state.destinationName,
       tripStart: this.state.tripStart,
       tripEnd: this.state.tripEnd,
-      description: this.state.destinationDescription
+      description: this.state.description
     };
     const fetchParameter = {
       method: 'PUT',
@@ -43,7 +43,9 @@ export default class DestinationInfo extends React.Component {
     };
     fetch(`/api/destinations/${this.props.match.params.destinationId}`, fetchParameter)
       .then(res => res.json())
-      .then(data => this.setState({ destinationInfo: data }))
+      .then(data => {
+        this.setState({ destinationInfo: data });
+      })
       .catch(err => console.error(err));
   }
 
