@@ -4,8 +4,8 @@ export default class AddItineraryDates extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleHover = this.handleHover.bind(this);
     this.state = {
+      selectValue: '',
       tripStart: '',
       tripEnd: '',
       days: []
@@ -35,7 +35,8 @@ export default class AddItineraryDates extends React.Component {
   }
 
   handleOnChange(e) {
-    this.setState({ tripStart: e.currentTarget.value });
+    this.setState({ selectValue: e.currentTarget.value });
+    this.props.getInputs(e.currentTarget.value);
   }
 
   render() {
@@ -48,7 +49,7 @@ export default class AddItineraryDates extends React.Component {
           <h3 className="text-center pt-2">(optional)</h3>
           <p className="text-muted text-center">You can also add later if you dont know yet</p>
           <label className="input-container row justify-content-center mt-5">
-            <select className="p-2">
+            <select className="p-2" value={this.state.selectValue} onChange={this.handleOnChange}>
               Please Pick A day
               <option className={this.addClass} value="">Select A Day</option>
               {this.state.days}

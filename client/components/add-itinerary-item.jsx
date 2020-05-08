@@ -7,6 +7,7 @@ import AddItineraryDates from './add-itinerary-day-tags';
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
     super(props);
+    this.getInputs = this.getInputs.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -15,7 +16,9 @@ export default class AddItineraryItem extends React.Component {
     this.state = {
       componentStage: -1,
       itineraryName: '',
-      place_id: ''
+      place_id: '',
+      itineraryDay: '',
+      itineraryNote: ''
     };
   }
 
@@ -49,10 +52,19 @@ export default class AddItineraryItem extends React.Component {
     this.setState({ itineraryName: e.currentTarget.value });
   }
 
+  getInputs(inputVal) {
+    const pageInput = this.state.componentStage;
+    if (pageInput === 0) {
+      this.setState({ itineraryDay: inputVal });
+    } else if (pageInput === 1) {
+      this.setState({ itineraryNote: inputVal });
+    }
+  }
+
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     let icons = null;
-    const componentArray = [<AddItineraryDates key={this.state.componentStage} destinationId={this.props.location.state.destinationId}/>, 'AddItineraryNote',
+    const componentArray = [<AddItineraryDates key={this.state.componentStage} getInputs={this.getInputs} destinationId={this.props.location.state.destinationId}/>, 'AddItineraryNote',
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
         history={this.props.history} match={this.props.match}/>];
     let headerClassCompleted2 = 'not-completed';
