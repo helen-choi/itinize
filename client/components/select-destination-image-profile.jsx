@@ -5,21 +5,21 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      imageList: [],
+      imageList: dummyImageArray,
       imageChoice: '',
       isCheckVisible: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    // Enable this method after an hour and check to make sure you don't make
-    // too many GET requests. We're limited to 200 per hour
-    if (this.props.currentImage === '') {
-      console.log('the did mount went through');
-      this.getPexelPictures();
-    }
-  }
+  // componentDidMount() {
+  // Enable this method after an hour and check to make sure you don't make
+  // too many GET requests. We're limited to 200 per hour
+  // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
+  // if (this.props.currentImage === '') {
+  // this.getPexelPictures();
+  //   }
+  // }
 
   getPexelPictures() {
     const params = {
