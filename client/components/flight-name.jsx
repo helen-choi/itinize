@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddFlightConfirmation from './flight-confirmation';
+import AddFlightDate from './flight-date';
 
 export default class AddFlightName extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ export default class AddFlightName extends React.Component {
       flightName: '',
       airportDeparture: '',
       flightNumber: '',
-      componentStage: -1
+      flightDate: '',
+      componentStage: 1
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
@@ -36,7 +38,8 @@ export default class AddFlightName extends React.Component {
     const { componentStage } = this.state;
     let stage = componentStage + 2;
     const pageArr = [
-      <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />
+      <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />,
+      <AddFlightDate key={this.state.componentStage} flightDate={this.state.flightDate} handleChange={this.handleChange}/>
     ];
     const statusArr = [];
     let leftIcon;
