@@ -201,3 +201,7 @@ div.Destination-List > h1 {
   border:1px solid white;
   border-radius: 50%;
 }
+/* AddLodgingDates */
+.checkin input, .checkout input {
+  border:1px solid #C4C4C4;
+}

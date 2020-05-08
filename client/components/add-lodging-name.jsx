@@ -11,7 +11,8 @@ export default class AddLodgingName extends React.Component {
       counter: -1,
       lodgingName: '',
       lodgingNumber: '',
-      lodgingDates: '',
+      checkInDateTime: '',
+      checkOutDateTime: '',
       isSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -53,7 +54,7 @@ export default class AddLodgingName extends React.Component {
     let stage = counter + 2;
     const pageArr = [
       <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange} />,
-      <AddLodgingDates key={this.state.counter}/>
+      <AddLodgingDates key={this.state.counter} checkin={this.state.checkInDateTime} checkout={this.state.checkOutDateTime}/>
     ];
     const statusArr = [];
     let leftIcon;
