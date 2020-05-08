@@ -21,7 +21,6 @@ export default class App extends React.Component {
       <Router>
         <Route exact path="/">
           <DestinationList/>
-          <AddLodgingName />
         </Route>
         <Route path="/destinations/create">
           AddDestinationName component
@@ -35,8 +34,8 @@ export default class App extends React.Component {
           AddFlightName component
         </Route>
         <Route path="/lodgings">
-          ViewLodgings component
         </Route>
+        <Route path="/lodgings/create" component={AddLodgingName} />
         <Route path='/itineraries'>
           viewItineraries
         </Route>
