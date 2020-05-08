@@ -7,10 +7,9 @@ import {
 import DestinationList from './destination-list';
 import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
-
 import AddLodgingName from './add-lodging-name';
-
 import AddFlightName from './flight-name';
+import AddItineraryItem from './add-itinerary-item';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -51,7 +50,7 @@ export default class App extends React.Component {
           <Route exact path='/itineraries'>
             {/* viewItineraries */}
           </Route>
-          <Route path="/itineraries/create">
+          <Route path="/itineraries/create" component={AddItineraryItem}>
             {/* AddItinerariesName */}
           </Route>
         </Switch>
