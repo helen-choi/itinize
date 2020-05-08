@@ -7,11 +7,7 @@ export default class DestinationInfo extends React.Component {
     super(props);
     this.handleBodyClick = this.handleBodyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
-    this.handlePictureClick = this.handlePictureClick.bind(this);
-    this.handleNameOnChange = this.handleNameOnChange.bind(this);
-    this.handleTripEndOnChange = this.handleTripEndOnChange.bind(this);
-    this.handleTripStartOnChange = this.handleTripStartOnChange.bind(this);
-    this.handleDescriptionOnChange = this.handleDescriptionOnChange.bind(this);
+    this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -49,29 +45,24 @@ export default class DestinationInfo extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleEditClick() {
-    this.setState({ editIconIsClicked: true });
+  handleEditClick(e) {
+    const data = e.currentTarget.getAttribute('handler');
+    this.setState(state => {
+      state[data] = true;
+      return state[data];
+    });
   }
 
-  handlePictureClick() {
-    this.setState({ pictureIconIsClicked: true });
+  handleUserInputOnChange(e) {
+    const data = e.currentTarget.getAttribute('handler');
+    this.setState({ [data]: e.currentTarget.value });
   }
 
-  handleNameOnChange(e) {
-    this.setState({ destinationName: e.currentTarget.value });
-  }
-
-  handleTripStartOnChange(e) {
-    this.setState({ tripStart: e.currentTarget.value });
-  }
-
-  handleTripEndOnChange(e) {
-    this.setState({ tripEnd: e.currentTarget.value });
-
-  }
-
-  handleDescriptionOnChange(e) {
-    this.setState({ description: e.currentTarget.value });
+  handleClickDelete(destinationId) {
+    const fetchParams = { method: 'delete' };
+    fetch(`/api/destinations/${destinationId}`, fetchParams)
+      .then(res => this.props.history.push('/'))
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -109,7 +100,7 @@ export default class DestinationInfo extends React.Component {
               <i className="fas fa-arrow-left fa-2x"></i>
             </Link>
             <div className="col-2">
-              <i onClick={this.handleEditClick} className="fas fa-pen fa-2x text-white"></i>
+              <i onClick={this.handleEditClick} handler="editIconIsClicked" className="fas fa-pen fa-2x text-white"></i>
             </div>
           </header>
 
@@ -121,38 +112,42 @@ export default class DestinationInfo extends React.Component {
               <input readOnly value={this.tripEnd}/>
             </div>
             <textarea readOnly className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
-
           </div>
+
           <footer>
             <Link to="/flights/create" className="col-2 flight-button">
               <i className="fas fa-plane fa-2x"></i>
             </Link>
+            <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
+              <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt"></i>
+            </div>
           </footer>
 
         </>) ||
 
         (this.state.editIconIsClicked &&
           <>
-            <div onClick={this.handleBodyClick} className="overlay-edit container"></div>
+            <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
             <header className="row justify-content-between pt-2">
               <div className="text-dark">
                 <i className="fas fa-arrow-left fa-2x"></i>
               </div>
               <div>
-                <i onClick={this.handlePictureClick} className="fas fa-image fa-2x text-white mr-3"></i>
+                <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white mr-3"></i>
                 <i className="fas fa-pen fa-2x text-dark"></i>
               </div>
             </header>
 
             <div className="form-element row">
-              <input onChange={this.handleNameOnChange} className="display-3 pt-5 ml-4 col-11" value={this.state.destinationName} />
+              <input onChange={this.handleUserInputOnChange} handler="destinationName" className="display-3 pt-5 ml-4 col-11" value={this.state.destinationName} />
               <div className=" col-12 ml-4 d-flex">
-                <input onChange={this.handleTripStartOnChange} type="date" value={this.state.tripStart.slice(0, 10)} />
+                <input onChange={this.handleUserInputOnChange} handler="tripStart" type="date" value={this.state.tripStart.slice(0, 10)} />
                 <p> - </p>
-                <input onChange={this.handleTripEndOnChange} type="date" value={this.state.tripEnd.slice(0, 10)} />
+                <input onChange={this.handleUserInputOnChange} handler="tripEnd" type="date" value={this.state.tripEnd.slice(0, 10)} />
               </div>
-              <textarea onChange={this.handleDescriptionOnChange} className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={this.state.description}></textarea>
+              <textarea onChange={this.handleUserInputOnChange} handler="description" className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={this.state.description}></textarea>
             </div>
+
           </>)}
       </div>
 
