@@ -82,6 +82,7 @@ export default class DestinationInfo extends React.Component {
 
   render() {
     const destinationInfo = this.state.destinationInfo;
+    const destinationId = this.props.match.params.destinationId;
     if (this.state.destinationInfo) {
       this.tripStart = new Date(destinationInfo.tripStart).toDateString();
       this.tripEnd = new Date(destinationInfo.tripEnd).toDateString();
@@ -125,7 +126,10 @@ export default class DestinationInfo extends React.Component {
                 <i className="fas fa-hotel"></i>
               </div>
             </Link>
-            <Link to="/itineraries/create" className="col-3">
+            <Link to={{
+              pathname: '/itineraries/create',
+              state: { destinationId: destinationId }
+            }} className="col-3">
               <div className="circle yellow mt-3 p-2 d-flex justify-content-center align-items-center">
                 <i className="fas fa-map-marker-alt"></i>
               </div>
