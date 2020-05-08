@@ -41,10 +41,6 @@ div.Destination-List > h1 {
   padding-left: 15px
 }
 
-footer .flight-button{
-  z-index: 1;
-}
-
 .circle-blue {
   background-color: #6CC4C8;
   border-radius: 50%;
@@ -149,6 +145,11 @@ footer .flight-button{
 .DestinationInfo > form {
   height: 80%;
 }
-.DestinationInfo header > *, .form-element > *{
+.DestinationInfo header > *,
+.form-element > *,
+.DestinationInfo > footer > *,
+.DestinationInfo > footer > div.circle-red,
+.DestinationInfo > footer > div > fa-trash-alt{
+  position: relative;
   z-index: 3;
 }

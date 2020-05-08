@@ -67,11 +67,17 @@ export default class DestinationInfo extends React.Component {
 
   handleTripEndOnChange(e) {
     this.setState({ tripEnd: e.currentTarget.value });
-
   }
 
   handleDescriptionOnChange(e) {
     this.setState({ description: e.currentTarget.value });
+  }
+
+  handleClickDelete(destinationId) {
+    const fetchParams = { method: 'delete' };
+    fetch(`/api/destinations/${destinationId}`, fetchParams)
+      .then(res => this.props.history.push('/'))
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -127,6 +133,9 @@ export default class DestinationInfo extends React.Component {
             <Link to="/flights/create" className="col-2 flight-button">
               <i className="fas fa-plane fa-2x"></i>
             </Link>
+            <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
+              <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} className="fas fa-trash-alt"></i>
+            </div>
           </footer>
 
         </>) ||
