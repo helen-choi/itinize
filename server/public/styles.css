@@ -200,6 +200,10 @@ div.Destination-List > h1 {
   top: 0;
 }
 
+.input-destination-date{
+  font-size: 15px;
+}
+
 .pexels-photo-text{
   bottom: 0%;
   margin-bottom: 0;

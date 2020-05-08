@@ -21,6 +21,8 @@ export default class AddDestinationName extends React.Component {
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
     this.handleSelectImage = this.handleSelectImage.bind(this);
+    this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
+    this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
   }
 
   handleChange() {
@@ -29,6 +31,14 @@ export default class AddDestinationName extends React.Component {
 
   handleSelectImage(imageString) {
     this.setState({ destinationImage: imageString });
+  }
+
+  handleSelectTripStart(tripStartDate) {
+    this.setState({ tripStart: tripStartDate });
+  }
+
+  handleSelectTripEnd(tripEndDate) {
+    this.setState({ tripStart: tripEndDate });
   }
 
   handleRightArrowClick() {
@@ -65,12 +75,10 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
-      <AddDestinationDates key={this.state.componentStage}/>,
+    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
+      <AddDestinationDates handleTripStart={this.handleSelectTripStart} handleSelectTripEnd={this.handleSelectTripEnd} key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
-    const progressBarComplete = 'progress-bar-complete';
-    const progressBarIncomplete = 'progress-bar-incomplete';
     let leftIcon;
     let rightIcon;
     switch (this.state.componentStage) {
@@ -129,7 +137,7 @@ export default class AddDestinationName extends React.Component {
               </div>
               <div className="col input-group justify-content-center">
                 <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
-                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="destinationName" />
               </div>
             </div>
           </div>) || componentsArray[this.state.componentStage]}
