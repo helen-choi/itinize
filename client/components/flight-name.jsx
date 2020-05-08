@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FlightConfirmation from './flight-confirmation';
+import AddFlightConfirmation from './flight-confirmation';
 
 export default class AddFlightName extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export default class AddFlightName extends React.Component {
     const { componentStage } = this.state;
     let stage = componentStage + 2;
     const pageArr = [
-      <FlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />
+      <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />
     ];
     const statusArr = [];
     let leftIcon;
@@ -69,7 +69,7 @@ export default class AddFlightName extends React.Component {
     }
 
     return (
-      (this.state.isSubmitted && <FlightConfirmation />) ||
+      (this.state.isSubmitted && <AddFlightConfirmation />) ||
       <div className="add-flight-container">
         <div className="page-controls d-flex flex-nowrap">
           <div className={`col-4 mr-2 ${statusArr[0]}`}></div>

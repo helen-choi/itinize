@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class FlightConfirmation extends React.Component {
+export default class AddFlightConfirmation extends React.Component {
 
   render() {
 
