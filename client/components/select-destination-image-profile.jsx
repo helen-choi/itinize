@@ -12,7 +12,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   // this.props.clickFunction(this.props.params)
   // onClick={() => { this.props.handleClick(this.state.imageChoice); }}
   componentDidMount() {
-    // this.getPexelPictures();
+    this.getPexelPictures();
   }
 
   getPexelPictures() {
