@@ -216,7 +216,8 @@ CREATE TABLE public."Lodging" (
     "checkInDateTime" text NOT NULL,
     "checkOutDateTime" text NOT NULL,
     "destinationId" integer NOT NULL,
-    "locationId" integer NOT NULL
+    "locationId" integer NOT NULL,
+    "lodgingName" text NOT NULL
 );
 
 
@@ -280,8 +281,6 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-
-2	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 3	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 4	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 \.
@@ -309,14 +308,6 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 
 
 --
--- Data for Name: ItineraryList; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
-\.
-
-
---
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -328,7 +319,12 @@ COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdi
 -- Data for Name: Lodging; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId") FROM stdin;
+COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId", "lodgingName") FROM stdin;
+1	ASDF1234	2021-04-09	2021-04-15	1	1	Some Resort
+2	asdf1234	2021/04/09	2021/04/15	1	1	Some Resort
+3	asdf1234	2021/04/09	2021/04/15	1	1	Some Resort
+4	asdf1234	2021/04/09	2021/04/15	1	1	Some Resort
+5	asdf1234	2021/04/09	2021/04/15	1	1	Some Resort
 \.
 
 
@@ -336,7 +332,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 2, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 4, true);
 
 
 --
@@ -344,13 +340,6 @@ SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 2, true);
 --
 
 SELECT pg_catalog.setval('public."Flight_flightId_seq"', 8, true);
-
-
---
--- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
 
 
 --
@@ -371,7 +360,7 @@ SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 5, true);
 
 
 --
