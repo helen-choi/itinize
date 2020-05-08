@@ -139,3 +139,11 @@ div.Destination-List > h1 {
 .DestinationInfo header > *, .DestinationInfo form > *{
   z-index: 2;
 }
+
+
+
+.pexels-photo-text{
+  bottom: 0%;
+  margin-bottom: 0;
+  font-size: x-small;
+}
