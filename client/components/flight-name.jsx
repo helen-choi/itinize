@@ -78,10 +78,14 @@ export default class AddFlightName extends React.Component {
         </div>
         {(this.state.componentStage === -1 &&
           <div className="add-lodging-name-container">
-            <h3 className="text-center pt-5">Add Lodging Name</h3>
-            <p className="text-muted text-center">Enter name of your lodge</p>
-            <div className="input-container row justify-content-center mt-5">
-              <input className="text-center p-2" type="text" name="lodgingName" placeholder="Lodge Name" value={this.state.lodgingName} onChange={this.handleChange} />
+            <div className="row d-flex justify-content-center mt-5">
+              <h2>Name your flight</h2>
+            </div>
+            <div className="row d-flex justify-content-center mt-3">
+              <h6>Ex Returningflight, Going back home!</h6>
+            </div>
+            <div className="row d-flex justify-content-center mt-5">
+              <input type="text" onChange={this.handleChange.bind(this, 'flightName')} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
             </div>
           </div>
         )}
@@ -90,25 +94,25 @@ export default class AddFlightName extends React.Component {
 
     // if (this.state.componentStage === -1) {
     //   return (
-    //     <div className="container">
-    //       <header className="row mt-4 px-1">
-    //         <div className="col d-flex justify-content-between">
-    //           <Link to='/' className="text-red">
-    //             <i className="fas fa-times fa-2x"></i>
-    //           </Link>
-    //           <i onClick={() => { this.handleClickForward(); }} className="fas fa-arrow-right fa-2x"></i>
-    //         </div>
-    //       </header>
-    //       <div className="row d-flex justify-content-center mt-5">
-    //         <h2>Name your flight</h2>
-    //       </div>
-    //       <div className="row d-flex justify-content-center mt-3">
-    //         <h6>Ex Returningflight, Going back home!</h6>
-    //       </div>
-    //       <div className="row d-flex justify-content-center mt-5">
-    //         <input type="text" onChange={this.handleChange.bind(this, 'flightName')} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
-    //       </div>
+    // <div className="container">
+    //   <header className="row mt-4 px-1">
+    //     <div className="col d-flex justify-content-between">
+    //       <Link to='/' className="text-red">
+    //         <i className="fas fa-times fa-2x"></i>
+    //       </Link>
+    //       <i onClick={() => { this.handleClickForward(); }} className="fas fa-arrow-right fa-2x"></i>
     //     </div>
+    //   </header>
+    //   <div className="row d-flex justify-content-center mt-5">
+    //     <h2>Name your flight</h2>
+    //   </div>
+    //   <div className="row d-flex justify-content-center mt-3">
+    //     <h6>Ex Returningflight, Going back home!</h6>
+    //   </div>
+    //   <div className="row d-flex justify-content-center mt-5">
+    //     <input type="text" onChange={this.handleChange.bind(this, 'flightName')} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
+    //   </div>
+    // </div>;
     //   );
     // } else if (this.state.componentStage === 0) {
     //   return (
