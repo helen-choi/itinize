@@ -1,11 +1,17 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import DestinationList from './destination-list';
+import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
+
 import AddLodgingName from './add-lodging-name';
+
+import AddFlightName from './flight-name';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,29 +25,37 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-        <Route exact path="/">
-          <DestinationList/>
-        </Route>
-        <Route path="/destinations/create">
-          AddDestinationName component
-        </Route>
-        <Route path="/destinations/:destinationId" component={DestinationInfo}>
-        </Route>
-        <Route path="/flights">
-          ViewFlights component
-        </Route>
-        <Route path="/flights/create">
-          AddFlightName component
-        </Route>
-        <Route path="/lodgings">
-        </Route>
-        <Route path="/lodgings/create" component={AddLodgingName} />
-        <Route path='/itineraries'>
-          viewItineraries
-        </Route>
-        <Route path="/itineraries/create">
-          AddItinerariesName
-        </Route>
+
+        <Switch>
+          <Route exact path="/">
+            <DestinationList/>
+          </Route>
+          <Route path="/destinations/create" component={AddDestinationName}>
+            {/* <AddDestinationName /> */}
+            {/* if you want props and render method both, use a render method */}
+          </Route>
+
+          <Route path="/destinations/:destinationId" component={DestinationInfo}/>
+
+          <Route path="/flights">
+            {/* ViewFlights component */}
+          </Route>
+
+          <Route path="/flights/create">
+            <AddFlightName />
+          </Route>
+
+          <Route path="/lodgings">
+            {/* ViewLodgings component */}
+          </Route>
+          <Route path="/lodgings/create" component={AddLodgingName} />
+          <Route path='/itineraries'>
+            {/* viewItineraries */}
+          </Route>
+          <Route path="/itineraries/create">
+            {/* AddItinerariesName */}
+          </Route>
+        </Switch>
       </Router>
     );
   }

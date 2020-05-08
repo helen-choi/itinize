@@ -5,9 +5,25 @@ import { Link } from 'react-router-dom';
 export default class DestinationList extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
       destinations: null
     };
+  }
+
+  handleClickDelete(destinationId) {
+    const newDestinations = [];
+    const fetchParams = { method: 'delete' };
+    fetch(`/api/destinations/${destinationId}`, fetchParams)
+      .then(res => {
+        this.state.destinations.map(destination => {
+          if (destination.destinationId !== destinationId) {
+            newDestinations.push(destination);
+          }
+        });
+        this.setState({ destinations: newDestinations });
+      })
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -34,7 +50,7 @@ export default class DestinationList extends React.Component {
           {this.state.destinations ? this.state.destinations.map(destination => {
             return (
               <div className="col-6" to="/destinations/:destinationId" key={destination.destinationId}>
-                <DestinationItem destination={destination}/>
+                <DestinationItem handleClickDelete={this.handleClickDelete} destination={destination}/>
               </div>
             );
 
