@@ -9,6 +9,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       imageChoice: '',
       isCheckVisible: false
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,10 @@ export default class SelectDestinationImageProfile extends React.Component {
       });
   }
 
+  handleClick(imageSrc) {
+    this.setState({ imageChoice: imageSrc });
+  }
+
   addCheckClass() {
 
   }
@@ -47,8 +52,13 @@ export default class SelectDestinationImageProfile extends React.Component {
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <>
-          <div onClick={() => { this.props.handleClick(currentImage.portraitSrc); }} key={currentImage.photoId} className="col-3 w-100">
-            {/* <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p> */}
+          <div onClick={() => {
+            this.handleClick(currentImage.portraitSrc);
+            this.props.handleClick(currentImage.portraitSrc);
+          }}
+          key={currentImage.photoId}
+          className="col-3 w-100">
+            <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
             <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
             <div className='d-none h-100 w-100 position-absolute destination-image-modal-check'>
               <i className="confirm-icon fas fa-check fa-2x"></i>
