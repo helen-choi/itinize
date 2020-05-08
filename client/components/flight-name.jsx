@@ -11,12 +11,13 @@ export default class AddFlightName extends React.Component {
       flightNumber: '',
       componentStage: -1
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
   }
 
-  handleChange(stateName, e) {
-    this.setState({ [stateName]: e.target.value });
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleNextClick(event) {
@@ -35,7 +36,7 @@ export default class AddFlightName extends React.Component {
     const { componentStage } = this.state;
     let stage = componentStage + 2;
     const pageArr = [
-      <FlightConfirmation key={this.state.componentStage} />
+      <FlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />
     ];
     const statusArr = [];
     let leftIcon;
@@ -89,7 +90,7 @@ export default class AddFlightName extends React.Component {
               <h6>Ex Returningflight, Going back home!</h6>
             </div>
             <div className="row d-flex justify-content-center mt-5">
-              <input type="text" onChange={this.handleChange.bind(this, 'flightName')} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
+              <input type="text" name="flightName" onChange={this.handleChange} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
             </div>
           </div>
         ) || pageArr[componentStage]}
@@ -127,21 +128,21 @@ export default class AddFlightName extends React.Component {
     //           <i onClick={() => { this.handleNextClick(); }} className="fas fa-arrow-right fa-2x"></i>
     //         </div>
     //       </header>
-    //       <div className="row d-flex justify-content-center text-center mt-5">
-    //         <h2>Enter your flight information</h2>
-    //       </div>
-    //       <div className="row d-flex justify-content-center text-center mt-3">
-    //         <h6>Ex LAX</h6>
-    //       </div>
-    //       <div className="row d-flex justify-content-center text-center mt-3">
-    //         <h6>Ex SW-1110</h6>
-    //       </div>
-    //       <div className="row d-flex justify-content-center mt-4">
-    //         <input type="text" onChange={this.handleChange.bind(this, 'airportDeparture')} className="text-center flight-number" placeholder={'Departure Airport Name'} value={this.state.airportDeparture} />
-    //       </div>
-    //       <div className="row d-flex justify-content-center mt-4">
-    //         <input type="text" onChange={this.handleChange.bind(this, 'flightNumber')} className="text-center flight-number" placeholder={'Flight Number'} value={this.state.flightNumber} />
-    //       </div>
+    // <div className="row d-flex justify-content-center text-center mt-5">
+    //   <h2>Enter your flight information</h2>
+    // </div>
+    // <div className="row d-flex justify-content-center text-center mt-3">
+    //   <h6>Ex LAX</h6>
+    // </div>
+    // <div className="row d-flex justify-content-center text-center mt-3">
+    //   <h6>Ex SW-1110</h6>
+    // </div>
+    // <div className="row d-flex justify-content-center mt-4">
+    //   <input type="text" onChange={this.handleChange.bind(this, 'airportDeparture')} className="text-center flight-number" placeholder={'Departure Airport Name'} value={this.state.airportDeparture} />
+    // </div>
+    // <div className="row d-flex justify-content-center mt-4">
+    //   <input type="text" onChange={this.handleChange.bind(this, 'flightNumber')} className="text-center flight-number" placeholder={'Flight Number'} value={this.state.flightNumber} />
+    // </div>
     //     </div>
     //   );
     // }
