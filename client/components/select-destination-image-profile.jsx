@@ -6,7 +6,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     this.state = {
       // Change this back to empty during production for API call
       imageList: dummyImageArray,
-      imageChoice: ''
+      imageChoice: '',
+      isCheckVisible: false
     };
   }
 
@@ -38,11 +39,16 @@ export default class SelectDestinationImageProfile extends React.Component {
       });
   }
 
+  addCheckClass() {
+
+  }
+
   render() {
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <>
           <div onClick={() => { this.props.handleClick(currentImage.portraitSrc); }} key={currentImage.photoId} className="col-3 w-100">
+            <i className="d-none position-absolute confirm-icon fas fa-check fa-2x"></i>
             <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
             <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
           </div>

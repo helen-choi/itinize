@@ -7,7 +7,7 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: -1,
+      componentStage: 0,
       destinationName: '',
       destinationImage: '',
       place_id: ''
@@ -125,7 +125,7 @@ export default class AddDestinationName extends React.Component {
                 </div>
               </div>
               <div className="col input-group justify-content-center">
-                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
+                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
                 <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
               </div>
             </div>
