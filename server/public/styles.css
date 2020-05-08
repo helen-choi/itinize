@@ -3,7 +3,7 @@ body #root {
 }
 
 .main-text-height {
-  height: 80%;
+  /* min-height: 80%; */
 }
 
 * {
@@ -150,7 +150,7 @@ div.Destination-List > h1 {
   width: 5%;
 }
 .loading-data {
-  background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif);
+  /* background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif); */
   background-size: contain;
   height: 100vh;
   width: 100%;
@@ -205,4 +205,16 @@ div.Destination-List > h1 {
   height:200px;
   border:1px solid white;
   border-radius: 50%;
+}
+
+.destination-image-modal-check{
+  background-color: rgba(0, 0, 0, 0.486);
+  top: 0;
+}
+
+.pexels-photo-text{
+  bottom: 0%;
+  margin-bottom: 0;
+  font-size: 5px;
+  background-color: black;
 }

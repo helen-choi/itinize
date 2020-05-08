@@ -11,6 +11,7 @@ import AddLodgingName from './add-lodging-name';
 import AddFlightName from './flight-name';
 import AddItineraryItem from './add-itinerary-item';
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,6 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-
         <Switch>
           <Route exact path="/">
             <DestinationList/>
