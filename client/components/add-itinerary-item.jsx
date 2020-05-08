@@ -14,7 +14,7 @@ export default class AddItineraryItem extends React.Component {
     this.state = {
       componentStage: -1,
       itineraryName: '',
-      placeId: ''
+      place_id: ''
     };
   }
 
@@ -22,17 +22,15 @@ export default class AddItineraryItem extends React.Component {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('search'));
-    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id']);
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'name']);
     this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
   }
 
   handlePlaceSelect() {
     const addressObj = this.autocomplete.getPlace();
     if (addressObj) {
-      const addressArray = addressObj.address_components;
-      const country = addressArray[addressArray.length - 1].long_name;
       const placeId = addressObj.place_id;
-      this.setState({ destinationName: country, place_id: placeId });
+      this.setState({ itineraryName: addressObj.name, place_id: placeId });
     }
   }
 
@@ -51,6 +49,7 @@ export default class AddItineraryItem extends React.Component {
   }
 
   render() {
+    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     let icons = null;
     const componentArray = ['AddItineraryDates', 'AddItineraryNote',
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
@@ -92,9 +91,8 @@ export default class AddItineraryItem extends React.Component {
               <h3 className="text-center pt-5">Add your itinerary</h3>
               <p className="text-muted text-center"> Enter Address or name of place</p>
               <div className="input-container row justify-content-center mt-5">
-                <Script url={`https://maps.googleapis.com/maps/api/js?
-                key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places
-                &sessiontoken=2`} onLoad={this.handleScriptLoad} />
+                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`}
+                  onLoad={this.handleScriptLoad} />
 
                 <input value={this.state.itineraryName} id="search" className="text-center p-2"
                   placeholder="Itinerary Name" onChange={this.handleOnChange} onClick={this.handlePlaceSelect}/>
