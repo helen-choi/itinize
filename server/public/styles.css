@@ -140,7 +140,10 @@ div.Destination-List > h1 {
   z-index: 2;
 }
 
-
+.destination-image-modal-check{
+  background-color: rgba(0, 0, 0, 0.486);
+  top: 0;
+}
 
 .pexels-photo-text{
   bottom: 0%;

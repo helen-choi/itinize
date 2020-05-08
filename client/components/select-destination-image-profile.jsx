@@ -48,9 +48,11 @@ export default class SelectDestinationImageProfile extends React.Component {
       return (
         <>
           <div onClick={() => { this.props.handleClick(currentImage.portraitSrc); }} key={currentImage.photoId} className="col-3 w-100">
-            <i className="d-none position-absolute confirm-icon fas fa-check fa-2x"></i>
-            <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
+            {/* <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p> */}
             <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
+            <div className='d-none h-100 w-100 position-absolute destination-image-modal-check'>
+              <i className="confirm-icon fas fa-check fa-2x"></i>
+            </div>
           </div>
         </>
       );
