@@ -5,7 +5,7 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      imageList: dummyImageArray,
+      imageList: [],
       imageChoice: '',
       isCheckVisible: false
     };
@@ -15,8 +15,10 @@ export default class SelectDestinationImageProfile extends React.Component {
   componentDidMount() {
     // Enable this method after an hour and check to make sure you don't make
     // too many GET requests. We're limited to 200 per hour
-
-    // this.getPexelPictures();
+    if (this.props.currentImage === '') {
+      console.log('the did mount went through');
+      this.getPexelPictures();
+    }
   }
 
   getPexelPictures() {
@@ -24,7 +26,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       method: 'GET',
       headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
     };
-    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=15&page=1`, params)
+    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=1&page=1`, params)
       .then(res => res.json())
       .then(data => {
         const photoArray = [];

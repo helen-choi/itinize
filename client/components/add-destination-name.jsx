@@ -7,7 +7,7 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: 0,
+      componentStage: -1,
       destinationName: '',
       destinationImage: '',
       place_id: ''
@@ -62,7 +62,7 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<SelectDestinationImageProfile imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
+    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
