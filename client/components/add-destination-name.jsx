@@ -8,10 +8,12 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: -1,
+      componentStage: 1,
       destinationName: '',
       destinationImage: '',
-      place_id: ''
+      place_id: '',
+      tripStart: '',
+      tripEnd: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
