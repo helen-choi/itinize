@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function DestinationItem(props) {
   const destination = props.destination;
+
   return (
 
     <div className="card destination-item h-50 mt-3" style={{ backgroundImage: `url(${destination.destinationImage})` }}>
@@ -14,11 +15,11 @@ export default function DestinationItem(props) {
         </div>
       </Link>
       <div className="row justify-content-around pl-5 pr-5">
-        <div className="card-control circle-blue p-2 mt-3 d-flex justify-content-center align-items-center">
+        <div className="card-control circle teal p-2 mt-3 d-flex justify-content-center align-items-center">
           <img className="icon" src="./images/pencil.png" alt="" />
         </div>
-        <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
-          <img className="icon" src="./images/trash.png" alt="" />
+        <div className="circle red mt-3 p-2 d-flex justify-content-center align-items-center">
+          <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />
         </div>
       </div>
     </div>

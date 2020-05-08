@@ -208,6 +208,85 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
+app.post('/api/lodgings', (req, res, next) => {
+  const {
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  } = req.body;
+  const sql = `
+  insert into "Lodging"
+  (
+    "lodgingName",
+    "lodgingConfNum",
+    "checkInDateTime",
+    "checkOutDateTime",
+    "locationId",
+    "destinationId"
+  )
+  values($1,$2,$3,$4,$5,$6)
+  returning *;
+  `;
+  const values = [
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  ];
+
+  if (!lodgingName) {
+    return res.status(400).json({
+      error: 'lodgingName is required'
+    });
+  }
+  if (!lodgingConfNum) {
+    return res.status(400).json({
+      error: 'lodgingConfNum is required'
+    });
+  }
+  if (!checkInDateTime) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (!checkOutDateTime) {
+    return res.status(400).json({
+      error: 'checkOutDateTime is required'
+    });
+  }
+  if (!locationId) {
+    return res.status(400).json({
+      error: 'locationId is required'
+    });
+  }
+  if (!destinationId) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (locationId < 0 || locationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'locationId needs to be a positive integer'
+    });
+  }
+  if (destinationId < 0 || destinationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'destinationId needs to be a positive integer'
+    });
+  }
+
+  db.query(sql, values)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => console.error(err));
+});
+
 app.put('/api/destinations/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
   const {
@@ -238,7 +317,7 @@ app.put('/api/destinations/:destinationId', (req, res, next) => {
   }
   if (typeof description !== 'string') {
     return res.status(400).json({
-      error: typeof destinationDescription
+      error: 'description should be a string'
     });
   }
   const viewUpdateDestinationSql = `
