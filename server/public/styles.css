@@ -57,17 +57,24 @@ div.card-body {
 div.Destination-List > h1 {
   padding-left: 15px
 }
-
-.circle-blue {
-  background-color: #6CC4C8;
+.circle {
   border-radius: 50%;
   width: 35px;
 }
+.teal {
+  background-color: #6CC4C8;
+}
 
-.circle-red {
+.red {
   background-color: #EA6A61;
-  border-radius: 50%;
-  width: 35px;
+}
+
+.yellow {
+  background-color: #F0BF11;
+}
+
+.dark-blue {
+  background-color: #4059AD;
 }
 
 .icon {
@@ -161,9 +168,7 @@ div.Destination-List > h1 {
 }
 .DestinationInfo header > *,
 .form-element > *,
-.DestinationInfo > footer > *,
-.DestinationInfo > footer > div.circle-red,
-.DestinationInfo > footer > div > fa-trash-alt{
+.DestinationInfo > footer > * {
   position: relative;
   z-index: 3;
 }

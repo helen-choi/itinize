@@ -114,11 +114,23 @@ export default class DestinationInfo extends React.Component {
             <textarea readOnly className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
           </div>
 
-          <footer>
-            <Link to="/flights/create" className="col-2 flight-button">
-              <i className="fas fa-plane fa-2x"></i>
+          <footer className="row">
+            <Link to="/flights/create" className="col-3">
+              <div className="circle teal mt-3 p-2 d-flex justify-content-center align-items-center">
+                <i className="fas fa-plane fa-2x"></i>
+              </div>
             </Link>
-            <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
+            <Link to="/lodgings/create" className="col-3">
+              <div className="circle dark-blue mt-3 p-2 d-flex justify-content-center align-items-center">
+                <i className="fas fa-hotel"></i>
+              </div>
+            </Link>
+            <Link to="/itineraries/create" className="col-3">
+              <div className="circle yellow mt-3 p-2 d-flex justify-content-center align-items-center">
+                <i className="fas fa-map-marker-alt"></i>
+              </div>
+            </Link>
+            <div className="col-3 circle red mt-3 p-2 d-flex justify-content-center align-items-center">
               <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt"></i>
             </div>
           </footer>

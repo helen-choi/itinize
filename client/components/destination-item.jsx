@@ -15,10 +15,10 @@ export default function DestinationItem(props) {
         </div>
       </Link>
       <div className="row justify-content-around pl-5 pr-5">
-        <div className="card-control circle-blue p-2 mt-3 d-flex justify-content-center align-items-center">
+        <div className="card-control circle teal p-2 mt-3 d-flex justify-content-center align-items-center">
           <img className="icon" src="./images/pencil.png" alt="" />
         </div>
-        <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
+        <div className="circle red mt-3 p-2 d-flex justify-content-center align-items-center">
           <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />
         </div>
       </div>
