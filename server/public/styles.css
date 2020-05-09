@@ -182,6 +182,7 @@ div.Destination-List > h1 {
 }
 .add-lodging-container {
   height: 100vh;
+  margin-right:-15px;
 }
 /* Confirmation */
 .confirmation-container {
