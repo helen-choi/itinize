@@ -10,12 +10,12 @@ export default class AddDestinationName extends React.Component {
     super(props);
     this.state = {
       componentStage: 2,
-      destinationName: '',
-      destinationImage: '',
-      place_id: '',
-      tripStart: '',
-      tripEnd: '',
-      description: ''
+      destinationName: 'Japan',
+      destinationImage: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+      place_id: 'ChIJLxl_1w9OZzQRRFJmfNR1QvU',
+      tripStart: '2020-06-05',
+      tripEnd: '2020-06-12',
+      description: 'I want to eat some yummy ラメン'
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
