@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import Confirmation from './confirmation';
-
 import AddItineraryNote from './add-itinerary-notes';
-
 import AddItineraryDates from './add-itinerary-day-tags';
 
 export default class AddItineraryItem extends React.Component {
@@ -23,8 +21,8 @@ export default class AddItineraryItem extends React.Component {
       place_id: '',
       latitude: '',
       longitude: '',
-      itineraryDay: '',
-      itineraryNote: ''
+      itineraryDay: 'Day',
+      itineraryNote: 'At this location, I will'
 
     };
   }
@@ -52,8 +50,10 @@ export default class AddItineraryItem extends React.Component {
   }
 
   handleNextClick() {
-    const newStage = this.state.componentStage + 1;
-    this.setState({ componentStage: newStage });
+    if (this.state.place_id) {
+      const newStage = this.state.componentStage + 1;
+      this.setState({ componentStage: newStage });
+    }
   }
 
   handlePrevClick() {
@@ -68,13 +68,32 @@ export default class AddItineraryItem extends React.Component {
   handleCheckClick() {
     const state = this.state;
     const locationParam = {
-      latitude: state.latitude,
-      longitude: state.longitude,
-      placeId: state.place_id
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        latitude: state.latitude,
+        longitude: state.longitude,
+        placeId: state.place_id
+      })
     };
     fetch('/api/locations', locationParam)
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        const itineraryParam = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            locationId: data[0].locationId,
+            itineraryName: state.itineraryName,
+            itineraryDay: state.itineraryDay,
+            itineraryNote: state.itineraryNote,
+            destinationId: this.props.location.state.destinationId
+          })
+        };
+        fetch('/api/itineraries', itineraryParam)
+          .then(res => res.json())
+          .then(data => this.setState({ componentStage: 2 }));
+      })
       .catch(err => console.error(err));
   }
 
@@ -115,9 +134,14 @@ export default class AddItineraryItem extends React.Component {
       icons = (
         <>
           <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>
-          {this.state.componentStage === 1 ? <i onClick={this.handleNextClick} className="confirm-icon fas fa-check fa-2x"></i> : <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>}
+          {this.state.componentStage === 1 ? (
+            <i onClick={this.handleCheckClick}
+              className="confirm-icon fas fa-check fa-2x"></i>) : (
+            <i className="fas fa-arrow-right fa-2x"
+              onClick={this.handleNextClick}></i>)
+          }
         </>);
-    } else { return null; }
+    }
 
     return (
       <div className="add-lodging-container">

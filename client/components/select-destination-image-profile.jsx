@@ -48,10 +48,6 @@ export default class SelectDestinationImageProfile extends React.Component {
     });
   }
 
-  addCheckClass() {
-
-  }
-
   render() {
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
