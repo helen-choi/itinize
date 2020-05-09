@@ -2,8 +2,17 @@ import React from 'react';
 
 export default class AddDestinationDates extends React.Component {
   render() {
-    let currentDate = new Date();
-    currentDate = currentDate.toISOString().slice(0, 10);
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear().toString();
+    let currentMonth = currentDate.getMonth().toString();
+    if (currentMonth.length === 1) {
+      currentMonth = '0' + currentMonth;
+    }
+    let currentDay = currentDate.getDate().toString();
+    if (currentDay.length === 1) {
+      currentDay = '0' + currentDay;
+    }
+    const formattedDate = `${currentYear}-${currentMonth}-${currentDay}`;
 
     return (
       <div className="row">
@@ -17,7 +26,7 @@ export default class AddDestinationDates extends React.Component {
           <div className="row">
             <div className="col-5 justify-content-center mt-5">
               <label className="d-block text-center" htmlFor="tripStart">Trip Start</label>
-              <input className="input-destination-date text-center p-2" type="date" name="tripStart" min={currentDate} onChange={() => this.props.handleSelectTripStart(event.target.value)} />
+              <input className="input-destination-date text-center p-2" type="date" name="tripStart" min={formattedDate} onChange={() => this.props.handleSelectTripStart(event.target.value)} />
             </div>
             <div className="col-5 justify-content-center mt-5">
               <label className="d-block text-center" htmlFor="tripEnd">Trip End</label>
