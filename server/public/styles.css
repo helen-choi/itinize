@@ -204,6 +204,10 @@ div.Destination-List > h1 {
   font-size: 15px;
 }
 
+.destination-progress-bar-margin{
+  margin-right: 3px;
+}
+
 .pexels-photo-text{
   bottom: 0%;
   margin-bottom: 0;
