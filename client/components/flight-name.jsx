@@ -42,7 +42,9 @@ export default class AddFlightName extends React.Component {
     this.setState({
       isSubmitted: true
     });
-    this.postInformation();
+    if (this.state.isSubmitted) {
+      this.postInformation();
+    }
   }
 
   postInformation() {
@@ -50,7 +52,8 @@ export default class AddFlightName extends React.Component {
       flightName: this.state.flightName,
       airportDeparture: this.state.airportDeparture,
       flightNumber: this.state.flightNumber,
-      flightDate: this.state.flightDate
+      flightDate: this.state.flightDate,
+      destinationId: 2
     };
     const parameter = {
       method: 'POST',
@@ -59,7 +62,7 @@ export default class AddFlightName extends React.Component {
       },
       body: JSON.stringify(newFlightData)
     };
-    fetch('api/flights', parameter)
+    fetch('/api/flights', parameter)
       .then(res => res.json())
       .catch(err => console.error(err));
   }
