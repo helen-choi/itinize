@@ -47,7 +47,7 @@ export default class DestinationList extends React.Component {
           <h1 className="row flex-column">My<br />Travels</h1>
         </header>
         <div className="row destinations-container">
-          {this.state.destinations ? this.state.destinations.map(destination => { // passing id 1
+          {this.state.destinations ? this.state.destinations.map(destination => {
             return (
               <div className="col-6" to="/destinations/:destinationId" key={destination.destinationId}>
                 <DestinationItem handleClickDelete={this.handleClickDelete} destination={destination}/>
