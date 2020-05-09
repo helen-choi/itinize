@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Script from 'react-load-script';
 import AddLodgingConfNumber from './add-lodging-conf-number';
 import AddLodgingDates from './add-lodging-dates';
 import Confirmation from './confirmation';
@@ -13,6 +14,9 @@ export default class AddLodgingName extends React.Component {
       lodgingNumber: '',
       checkInDateTime: '',
       checkOutDateTime: '',
+      placeId: '',
+      latitude: '',
+      longitude: '',
       isSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -20,6 +24,8 @@ export default class AddLodgingName extends React.Component {
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCombine = this.handleCombine.bind(this);
+    this.handleScriptLoad = this.handleScriptLoad.bind(this);
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
   }
 
   handleChange() {
@@ -48,6 +54,7 @@ export default class AddLodgingName extends React.Component {
     this.setState({
       isSubmitted: true
     });
+
   }
 
   handleCombine(checkInDateTime, checkOutDateTime) {
@@ -55,6 +62,40 @@ export default class AddLodgingName extends React.Component {
       checkInDateTime: checkInDateTime,
       checkOutDateTime: checkOutDateTime
     });
+  }
+
+  handleScriptLoad() {
+    const options = { types: ['establishment'] };
+
+    // eslint-disable-next-line no-undef
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('lodgingName'), options);
+    this.autocomplete.setFields(['address_components',
+      'formatted_address', 'name', 'place_id', 'geometry']);
+    this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
+  }
+
+  handlePlaceSelect() {
+    const addressObject = this.autocomplete.getPlace();
+
+    if (addressObject) {
+      const name = addressObject.name;
+      const placeId = addressObject.place_id;
+      const geoLat = addressObject.geometry.location.lat();
+      const geoLng = addressObject.geometry.location.lng();
+
+      this.setState({
+        placeId: placeId,
+        lodgingName: name,
+        latitude: geoLat,
+        longitude: geoLng
+      });
+    }
+    this.getLocationId();
+  }
+
+  getLocationId() {
+
   }
 
   render() {
@@ -107,10 +148,13 @@ export default class AddLodgingName extends React.Component {
           </div>
           {(this.state.counter === -1 &&
           <div className="add-lodging-name-container">
+            <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1"
+              onLoad={this.handleScriptLoad}
+            />
             <h3 className="text-center pt-5">Add Lodging Name</h3>
             <p className="text-muted text-center">Enter name of your lodge</p>
             <div className="input-container row justify-content-center mt-5">
-              <input className="text-center p-2" type="text" name="lodgingName" placeholder="Lodge Name" value={this.state.lodgingName} onChange={this.handleChange} />
+              <input className="text-center p-2" id="lodgingName" type="text" name="lodgingName" placeholder="Lodge Name" value={this.state.lodgingName} onChange={this.handleChange} />
             </div>
           </div>
           ) || pageArr[counter]}

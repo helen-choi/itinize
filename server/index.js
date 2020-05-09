@@ -332,6 +332,26 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   }
 });
 
+app.post('/api/locations', (req, res, next) => {
+  const { latitude, longitude, placeId } = req.body;
+  if (!latitude || !longitude || !placeId) {
+    return res.status(404).json({ error: 'please input latitude longitude or placeId' });
+  }
+  if (!parseInt(latitude) || !parseInt(longitude)) {
+    return res.status(400).json({ error: 'please make latitude or longitude a number' });
+  }
+
+  const sql = `
+  insert into "Locations" ("coordinates","placeId")
+    values (POINT($1,$2),$3)
+  returning *
+  `;
+  const parameterizedArray = [latitude, longitude, placeId];
+  db.query(sql, parameterizedArray)
+    .then(results => res.status(201).json(results.rows))
+    .catch(err => console.error(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
