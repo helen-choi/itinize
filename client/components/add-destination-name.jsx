@@ -9,13 +9,13 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: 2,
+      componentStage: -1,
       destinationName: '',
       destinationImage: '',
-      place_id: '',
       tripStart: '',
       tripEnd: '',
-      description: ''
+      description: '',
+      placeId: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -26,6 +26,7 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
     this.handleSelectDescription = this.handleSelectDescription.bind(this);
+    this.handleSubmitDestinationInfo = this.handleSubmitDestinationInfo.bind(this);
 
   }
 
@@ -61,7 +62,7 @@ export default class AddDestinationName extends React.Component {
       const addressArray = addressObj.address_components;
       const country = addressArray[addressArray.length - 1].long_name;
       const placeId = addressObj.place_id;
-      this.setState({ destinationName: country, place_id: placeId });
+      this.setState({ destinationName: country, placeId: placeId });
     }
   }
 
@@ -81,9 +82,25 @@ export default class AddDestinationName extends React.Component {
     this.setState({ description: destinationDescription });
   }
 
+  handleSubmitDestinationInfo() {
+    const destinationInfo = {
+      destinationName: this.state.destinationName,
+      destinationImage: this.state.destinationImage,
+      tripStart: this.state.tripStart,
+      tripEnd: this.state.tripEnd,
+      description: this.state.description,
+      placeId: this.state.placeId
+    };
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(destinationInfo)
+    };
+    fetch('/api/destinations', init);
+  }
+
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
-    // use either a switch or a two conditional check if -1 for each component to render correctly
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
         handleSelectTripEnd={this.handleSelectTripEnd}
@@ -110,11 +127,13 @@ export default class AddDestinationName extends React.Component {
         break;
       case 2:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          this.handleSubmitDestinationInfo();
+          this.handleRightArrowClick();
+        }} className="fas fa-check fa-2x"></i>;
         break;
       case 3:
-        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>;
+
         break;
       default:
         leftIcon = (<Link className="text-dark" to="/">
