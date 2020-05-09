@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
 import AddDestinationDates from './add-trip-start-end-dates-front-end';
+import AddDestinationDescription from './add-description-to-destination';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: -1,
+      componentStage: 2,
       destinationName: '',
       destinationImage: '',
       place_id: '',
       tripStart: '',
-      tripEnd: ''
+      tripEnd: '',
+      description: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -23,6 +25,8 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectImage = this.handleSelectImage.bind(this);
     this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
+    this.handleSelectDescription = this.handleSelectDescription.bind(this);
+
   }
 
   handleRightArrowClick() {
@@ -39,18 +43,6 @@ export default class AddDestinationName extends React.Component {
 
   handleChange() {
     this.setState({ destinationName: event.target.value });
-  }
-
-  handleSelectImage(imageString) {
-    this.setState({ destinationImage: imageString });
-  }
-
-  handleSelectTripStart(tripStartDate) {
-    this.setState({ tripStart: tripStartDate });
-  }
-
-  handleSelectTripEnd(tripEndDate) {
-    this.setState({ tripEnd: tripEndDate });
   }
 
   handleScriptLoad() {
@@ -73,6 +65,22 @@ export default class AddDestinationName extends React.Component {
     }
   }
 
+  handleSelectImage(imageString) {
+    this.setState({ destinationImage: imageString });
+  }
+
+  handleSelectTripStart(tripStartDate) {
+    this.setState({ tripStart: tripStartDate });
+  }
+
+  handleSelectTripEnd(tripEndDate) {
+    this.setState({ tripEnd: tripEndDate });
+  }
+
+  handleSelectDescription(destinationDescription) {
+    this.setState({ description: destinationDescription });
+  }
+
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     // use either a switch or a two conditional check if -1 for each component to render correctly
@@ -80,7 +88,8 @@ export default class AddDestinationName extends React.Component {
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
         handleSelectTripEnd={this.handleSelectTripEnd}
         key={this.state.componentStage}/>,
-      <h1 key={this.state.componentStage}>Add description to destination </h1>,
+      <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
+        key={this.state.componentStage} />,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
     let leftIcon;
     let rightIcon;
@@ -130,21 +139,22 @@ export default class AddDestinationName extends React.Component {
           </div>
         </header>
         {(this.state.componentStage === -1 &&
-          <div className="main-text-height row align-items-center justify-content-center">
+      <div className="row">
+        <div className="col">
+          <div className="row">
             <div className="col">
-              <div className="row">
-                <div className="col">
-                  <h4 className="text-center font-weight-bold">Add a destination</h4>
-                  <h6 className="text-center">Enter the country of your destination</h6>
-                </div>
-              </div>
-              <div className="col input-group justify-content-center">
-                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
-                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
-
-              </div>
+              <h3 className="text-center pt-5">Add a Destination</h3>
+              <p className="text-muted text-center">Enter the country of your destination.</p>
             </div>
-          </div>) || componentsArray[this.state.componentStage]}
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-8 justify-content-center mt-5">
+              <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
+              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+            </div>
+          </div>
+        </div>
+      </div>) || componentsArray[this.state.componentStage]}
       </div>
     );
 
