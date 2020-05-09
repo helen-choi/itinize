@@ -13,8 +13,8 @@ export default class AddDestinationDescription extends React.Component {
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-8 justify-content-center mt-5">
-              <input type="text" id="destinationDescription" onChange={() => this.props.handleSelectDestinationDescription(event.target.value)} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. I want to..." name="" />
+            <div className="col-8 col-offset-4 mt-5 d-flex justify-content-center">
+              <textarea className="" placeholder="e.g. I want to..." onChange={() => this.props.handleSelectDestinationDescription(event.target.value)} name="destinationDescription" id="destinationDescription" cols="30" rows="10"></textarea>
             </div>
           </div>
         </div>
