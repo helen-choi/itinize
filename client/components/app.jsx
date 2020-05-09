@@ -10,7 +10,7 @@ import DestinationInfo from './destination-info';
 import AddLodgingName from './add-lodging-name';
 import AddFlightName from './flight-name';
 import AddItineraryItem from './add-itinerary-item';
-
+import TripInfo from './trip-info';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class App extends React.Component {
 
           <Route path="/destinations/:destinationId" component={DestinationInfo}/>
 
-          <Route exact path="/flights">
+          <Route exact path="/flights" component={TripInfo}>
             {/* ViewFlights component */}
           </Route>
 

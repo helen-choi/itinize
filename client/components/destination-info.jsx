@@ -129,17 +129,16 @@ export default class DestinationInfo extends React.Component {
                   rows="10"
                   value={destinationInfo.description}>
                 </textarea>
-              </div>
 
-              <footer className="row flex-fill align-items-center pb-5">
-                <div className="col-3 ">
-                  <Link to="/flights/create" className="circle teal m-auto d-flex justify-content-center align-items-center">
-                    <i className="fas fa-plane fa-lg "></i>
-                  </Link>
-                </div>
-                <div className="col-3">
-                  <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
-                    <i className="fas fa-hotel"></i>
+          <footer className="row">
+            <Link to={{ pathname: '/flights/create', state: { destinationId: destinationInfo.destinationId } }}className="col-3">
+              <div className="circle teal mt-3 p-2 d-flex justify-content-center align-items-center">
+                <i className="fas fa-plane fa-2x"></i>
+              </div>
+            </Link>
+            <Link to="/lodgings/create" className="col-3">
+              <div className="circle dark-blue mt-3 p-2 d-flex justify-content-center align-items-center">
+                <i className="fas fa-hotel"></i>
                   </Link>
                 </div>
                 <div className="col-3">

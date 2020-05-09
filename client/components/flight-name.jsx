@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AddFlightConfirmation from './flight-confirmation';
 import AddFlightDate from './flight-date';
+import Confirmation from './confirmation';
 
 export default class AddFlightName extends React.Component {
   constructor(props) {
@@ -11,11 +12,20 @@ export default class AddFlightName extends React.Component {
       airportDeparture: '',
       flightNumber: '',
       flightDate: '',
-      componentStage: -1
+      componentStage: -1,
+      isSubmitted: false,
+      destinationId: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      destinationId: this.props.location.state.destinationId
+    });
   }
 
   handleChange(event) {
@@ -32,6 +42,33 @@ export default class AddFlightName extends React.Component {
     this.setState({
       componentStage: this.state.componentStage - 1
     });
+  }
+
+  handleSubmit() {
+    this.setState({
+      isSubmitted: true
+    });
+    this.postInformation();
+  }
+
+  postInformation() {
+    const newFlightData = {
+      flightName: this.state.flightName,
+      airportDeparture: this.state.airportDeparture,
+      flightNumber: this.state.flightNumber,
+      flightDate: this.state.flightDate,
+      destinationId: this.state.destinationId
+    };
+    const parameter = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newFlightData)
+    };
+    fetch('/api/flights', parameter)
+      .then(res => res.json())
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -72,7 +109,7 @@ export default class AddFlightName extends React.Component {
     }
 
     return (
-      (this.state.isSubmitted && <AddFlightConfirmation />) ||
+      (this.state.isSubmitted && <Confirmation newItem="flight" history={this.props.history} match={this.props.match}/>) ||
       <div className="add-flight-container">
         <div className="page-controls d-flex flex-nowrap">
           <div className={`col-4 mr-2 ${statusArr[0]}`}></div>
