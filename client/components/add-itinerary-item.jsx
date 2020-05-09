@@ -22,12 +22,13 @@ export default class AddItineraryItem extends React.Component {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('search'));
-    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'name']);
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'name', 'types']);
     this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
   }
 
   handlePlaceSelect() {
     const addressObj = this.autocomplete.getPlace();
+    console.log(addressObj);
     if (addressObj) {
       const placeId = addressObj.place_id;
       this.setState({ itineraryName: addressObj.name, place_id: placeId });
@@ -91,7 +92,7 @@ export default class AddItineraryItem extends React.Component {
               <h3 className="text-center pt-5">Add your itinerary</h3>
               <p className="text-muted text-center"> Enter Address or name of place</p>
               <div className="input-container row justify-content-center mt-5">
-                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`}
+                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&types=geocode&sessiontoken=${sessionToken}`}
                   onLoad={this.handleScriptLoad} />
 
                 <input value={this.state.itineraryName} id="search" className="text-center p-2"

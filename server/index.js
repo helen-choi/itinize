@@ -411,6 +411,16 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   }
 });
 
+app.post('/api/locations', (req, res, next) => {
+
+});
+app.post('/api/itineraries', (req, res, next) => {
+  const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
+  if (!itineraryDay || !itineraryName || !itineraryNote || locationId || destinationId) {
+    return res.status(404).json({ error: 'please put the appropriate body' });
+  }
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
