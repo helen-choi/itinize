@@ -9,13 +9,13 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: 2,
-      destinationName: 'Japan',
-      destinationImage: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-      tripStart: '2020-06-05',
-      tripEnd: '2020-06-12',
-      description: 'I want to eat some yummy ラメン',
-      placeId: 'ChIJLxl_1w9OZzQRRFJmfNR1QvU'
+      componentStage: -1,
+      destinationName: '',
+      destinationImage: '',
+      tripStart: '',
+      tripEnd: '',
+      description: '',
+      placeId: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -101,7 +101,6 @@ export default class AddDestinationName extends React.Component {
 
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
-    // use either a switch or a two conditional check if -1 for each component to render correctly
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
         handleSelectTripEnd={this.handleSelectTripEnd}
@@ -129,7 +128,7 @@ export default class AddDestinationName extends React.Component {
       case 2:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
         rightIcon = <i onClick={() => {
-          // this.handleSubmitDestinationInfo();
+          this.handleSubmitDestinationInfo();
           this.handleRightArrowClick();
         }} className="fas fa-check fa-2x"></i>;
         break;
