@@ -81,7 +81,22 @@ export default class AddDestinationName extends React.Component {
     this.setState({ description: destinationDescription });
   }
 
-  handleCheckSubmit() {}
+  handleSubmitDestinationInfo() {
+    const destinationInfo = {
+      destinationName: this.state.destinationName,
+      destinationImage: this.state.destinationImage,
+      tripStart: this.state.tripStart,
+      tripEnd: this.state.tripEnd,
+      description: this.state.description,
+      placeId: this.state.placeId
+    };
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(destinationInfo)
+    };
+    fetch('/api/destinations', init);
+  }
 
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
