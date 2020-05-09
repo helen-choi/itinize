@@ -2,11 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import Confirmation from './confirmation';
+
 import AddItineraryNote from './add-itinerary-notes';
+
+import AddItineraryDates from './add-itinerary-day-tags';
+
 
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
     super(props);
+    this.getInputs = this.getInputs.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -16,8 +21,13 @@ export default class AddItineraryItem extends React.Component {
       componentStage: -1,
       itineraryName: '',
       place_id: '',
+
       latitude: '',
       longitude: ''
+
+      itineraryDay: '',
+      itineraryNote: ''
+
     };
   }
 
@@ -57,9 +67,19 @@ export default class AddItineraryItem extends React.Component {
     this.setState({ itineraryName: e.currentTarget.value });
   }
 
+  getInputs(inputVal) {
+    const pageInput = this.state.componentStage;
+    if (pageInput === 0) {
+      this.setState({ itineraryDay: inputVal });
+    } else if (pageInput === 1) {
+      this.setState({ itineraryNote: inputVal });
+    }
+  }
+
   render() {
     let icons = null;
-    const componentArray = ['AddItineraryDates', <AddItineraryNote state={this.state} key={this.state.componentStage}/>,
+    const componentArray = [<AddItineraryDates key={this.state.componentStage} getInputs={this.getInputs} destinationId={this.props.location.state.destinationId}/>, <AddItineraryNote state={this.state} key={this.state.componentStage}/>,
+
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
         history={this.props.history} match={this.props.match}/>];
     let headerClassCompleted2 = 'not-completed';
