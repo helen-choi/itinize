@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
+import AddDestinationDates from './add-trip-start-end-dates-front-end';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export default class AddDestinationName extends React.Component {
       componentStage: -1,
       destinationName: '',
       destinationImage: '',
-      place_id: ''
+      place_id: '',
+      tripStart: '',
+      tripEnd: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -18,14 +21,8 @@ export default class AddDestinationName extends React.Component {
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
     this.handleSelectImage = this.handleSelectImage.bind(this);
-  }
-
-  handleChange() {
-    this.setState({ destinationName: event.target.value });
-  }
-
-  handleSelectImage(imageString) {
-    this.setState({ destinationImage: imageString });
+    this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
+    this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
   }
 
   handleRightArrowClick() {
@@ -38,6 +35,22 @@ export default class AddDestinationName extends React.Component {
     let newComponentStage = this.state.componentStage;
     newComponentStage = newComponentStage - 1;
     this.setState({ componentStage: newComponentStage });
+  }
+
+  handleChange() {
+    this.setState({ destinationName: event.target.value });
+  }
+
+  handleSelectImage(imageString) {
+    this.setState({ destinationImage: imageString });
+  }
+
+  handleSelectTripStart(tripStartDate) {
+    this.setState({ tripStart: tripStartDate });
+  }
+
+  handleSelectTripEnd(tripEndDate) {
+    this.setState({ tripEnd: tripEndDate });
   }
 
   handleScriptLoad() {
@@ -63,12 +76,12 @@ export default class AddDestinationName extends React.Component {
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
-      <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
+    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
+      <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
+        handleSelectTripEnd={this.handleSelectTripEnd}
+        key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
-    const progressBarComplete = 'progress-bar-complete';
-    const progressBarIncomplete = 'progress-bar-incomplete';
     let leftIcon;
     let rightIcon;
     switch (this.state.componentStage) {
@@ -103,11 +116,11 @@ export default class AddDestinationName extends React.Component {
 
     return (
       <div className="container h-100">
-        <div className="row mb-1">
-          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarComplete : progressBarComplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarComplete : progressBarIncomplete}`}></div>
+        <div className="row page-controls mb-1">
+          <div className={`col-3 mr-2 ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
+          <div className={`col-3 mr-2 ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col-3 mr-2 ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col-3 ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
         </div>
         <header className="row">
           <div className="col d-flex justify-content-between">
@@ -128,6 +141,7 @@ export default class AddDestinationName extends React.Component {
               <div className="col input-group justify-content-center">
                 <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
                 <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+
               </div>
             </div>
           </div>) || componentsArray[this.state.componentStage]}

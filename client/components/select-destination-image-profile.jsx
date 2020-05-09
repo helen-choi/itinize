@@ -57,7 +57,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       return (
         <div onClick={() => {
           this.handleClick(currentImage.portraitSrc);
-          this.props.handleClick(currentImage.portraitSrc);
+          this.props.handleImageClick(currentImage.portraitSrc);
         }}
         key={currentImage.photoId}
         className="col-3 w-100">
