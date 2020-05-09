@@ -12,10 +12,10 @@ export default class AddDestinationName extends React.Component {
       componentStage: 2,
       destinationName: 'Japan',
       destinationImage: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-      place_id: 'ChIJLxl_1w9OZzQRRFJmfNR1QvU',
       tripStart: '2020-06-05',
       tripEnd: '2020-06-12',
-      description: 'I want to eat some yummy ラメン'
+      description: 'I want to eat some yummy ラメン',
+      placeId: 'ChIJLxl_1w9OZzQRRFJmfNR1QvU'
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -61,7 +61,7 @@ export default class AddDestinationName extends React.Component {
       const addressArray = addressObj.address_components;
       const country = addressArray[addressArray.length - 1].long_name;
       const placeId = addressObj.place_id;
-      this.setState({ destinationName: country, place_id: placeId });
+      this.setState({ destinationName: country, placeId: placeId });
     }
   }
 
@@ -80,6 +80,8 @@ export default class AddDestinationName extends React.Component {
   handleSelectDescription(destinationDescription) {
     this.setState({ description: destinationDescription });
   }
+
+  handleCheckSubmit() {}
 
   render() {
     const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
