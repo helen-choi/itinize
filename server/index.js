@@ -411,6 +411,53 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   }
 });
 
+app.post('/api/locations', (req, res, next) => {
+  const { latitude, longitude, placeId } = req.body;
+  if (!latitude || !longitude || !placeId) {
+    return res.status(404).json({ error: 'please input latitude longitude or placeId' });
+  }
+  if (!parseInt(latitude) || !parseInt(longitude)) {
+    return res.status(400).json({ error: 'please make latitude or longitude a number' });
+  }
+
+  const sql = `
+  insert into "Locations" ("coordinates","placeId")
+    values (POINT($1,$2),$3)
+  returning *
+  `;
+  const parameterizedArray = [latitude, longitude, placeId];
+  db.query(sql, parameterizedArray)
+    .then(results => res.status(201).json(results.rows))
+    .catch(err => console.error(err));
+});
+
+app.post('/api/itineraries', (req, res, next) => {
+  const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
+  if (!itineraryDay || !itineraryName || !itineraryNote || !locationId || !destinationId) {
+    return res.status(404).json({ error: 'please put all fields in the body' });
+  }
+  if (!itineraryDay.includes('Day')) {
+    return res.status(400).json({ error: 'please put the right day tag inside' });
+  }
+  if (!parseInt(locationId, 10) || !parseInt(destinationId, 10) || locationId < 0 || destinationId < 0) {
+    return res.status(400).json({ error: 'destinationId and locationId should be a positive number' });
+  }
+
+  const sql = `
+  insert into "ItineraryList" ( "itineraryDay",
+                              "itineraryName",
+                              "itineraryNote",
+                              "locationId",
+                              "destinationId")
+    values ($1, $2, $3, $4, $5)
+  returning *
+  `;
+  const parameterizedArray = [itineraryDay, itineraryName, itineraryNote, locationId, destinationId];
+  db.query(sql, parameterizedArray)
+    .then(result => res.status(201).json(result.rows))
+    .catch(err => console.error(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
