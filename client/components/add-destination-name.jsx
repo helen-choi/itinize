@@ -25,6 +25,18 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
   }
 
+  handleRightArrowClick() {
+    let newComponentStage = this.state.componentStage;
+    newComponentStage = newComponentStage + 1;
+    this.setState({ componentStage: newComponentStage });
+  }
+
+  handleLeftArrowClick() {
+    let newComponentStage = this.state.componentStage;
+    newComponentStage = newComponentStage - 1;
+    this.setState({ componentStage: newComponentStage });
+  }
+
   handleChange() {
     this.setState({ destinationName: event.target.value });
   }
@@ -38,19 +50,7 @@ export default class AddDestinationName extends React.Component {
   }
 
   handleSelectTripEnd(tripEndDate) {
-    this.setState({ tripStart: tripEndDate });
-  }
-
-  handleRightArrowClick() {
-    let newComponentStage = this.state.componentStage;
-    newComponentStage = newComponentStage + 1;
-    this.setState({ componentStage: newComponentStage });
-  }
-
-  handleLeftArrowClick() {
-    let newComponentStage = this.state.componentStage;
-    newComponentStage = newComponentStage - 1;
-    this.setState({ componentStage: newComponentStage });
+    this.setState({ tripEnd: tripEndDate });
   }
 
   handleScriptLoad() {
@@ -76,7 +76,9 @@ export default class AddDestinationName extends React.Component {
   render() {
     // use either a switch or a two conditional check if -1 for each component to render correctly
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
-      <AddDestinationDates handleTripStart={this.handleSelectTripStart} handleSelectTripEnd={this.handleSelectTripEnd} key={this.state.componentStage}/>,
+      <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
+        handleSelectTripEnd={this.handleSelectTripEnd}
+        key={this.state.componentStage}/>,
       <h1 key={this.state.componentStage}>Add description to destination </h1>,
       <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
     let leftIcon;
