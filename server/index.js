@@ -433,7 +433,7 @@ app.post('/api/locations', (req, res, next) => {
 
 app.post('/api/itineraries', (req, res, next) => {
   const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
-  if (!itineraryDay || !itineraryName || !itineraryNote || !locationId || !destinationId) {
+  if (!itineraryName || !locationId || !destinationId) {
     return res.status(404).json({ error: 'please put all fields in the body' });
   }
   if (!itineraryDay.includes('Day')) {
