@@ -116,7 +116,7 @@ export default class DestinationInfo extends React.Component {
           </div>
 
           <footer className="row">
-            <Link to="/flights/create" className="col-3">
+            <Link to={{ pathname: '/flights/create', state: { destinationId: destinationInfo.destinationId } }}className="col-3">
               <div className="circle teal mt-3 p-2 d-flex justify-content-center align-items-center">
                 <i className="fas fa-plane fa-2x"></i>
               </div>
