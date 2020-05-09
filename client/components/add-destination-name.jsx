@@ -125,7 +125,7 @@ export default class AddDestinationName extends React.Component {
                 </div>
               </div>
               <div className="col input-group justify-content-center">
-                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
+                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places" onLoad={this.handleScriptLoad} />
                 <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
               </div>
             </div>

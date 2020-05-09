@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import Confirmation from './confirmation';
+import AddItineraryNote from './add-itinerary-notes';
 
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
@@ -14,7 +15,9 @@ export default class AddItineraryItem extends React.Component {
     this.state = {
       componentStage: -1,
       itineraryName: '',
-      place_id: ''
+      place_id: '',
+      latitude: '',
+      longitude: ''
     };
   }
 
@@ -22,16 +25,21 @@ export default class AddItineraryItem extends React.Component {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('search'));
-    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'name', 'types']);
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'name', 'geometry']);
     this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
   }
 
   handlePlaceSelect() {
     const addressObj = this.autocomplete.getPlace();
-    console.log(addressObj);
     if (addressObj) {
+      const geo = { lat: addressObj.geometry.location.lat(), lng: addressObj.geometry.location.lng() };
       const placeId = addressObj.place_id;
-      this.setState({ itineraryName: addressObj.name, place_id: placeId });
+      this.setState({
+        itineraryName: addressObj.name,
+        place_id: placeId,
+        latitude: geo.lat,
+        longitude: geo.lng
+      });
     }
   }
 
@@ -50,9 +58,8 @@ export default class AddItineraryItem extends React.Component {
   }
 
   render() {
-    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     let icons = null;
-    const componentArray = ['AddItineraryDates', 'AddItineraryNote',
+    const componentArray = ['AddItineraryDates', <AddItineraryNote state={this.state} key={this.state.componentStage}/>,
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
         history={this.props.history} match={this.props.match}/>];
     let headerClassCompleted2 = 'not-completed';
@@ -92,7 +99,7 @@ export default class AddItineraryItem extends React.Component {
               <h3 className="text-center pt-5">Add your itinerary</h3>
               <p className="text-muted text-center"> Enter Address or name of place</p>
               <div className="input-container row justify-content-center mt-5">
-                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&types=geocode&sessiontoken=${sessionToken}`}
+                <Script url={'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places'}
                   onLoad={this.handleScriptLoad} />
 
                 <input value={this.state.itineraryName} id="search" className="text-center p-2"
