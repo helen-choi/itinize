@@ -8,7 +8,7 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: 1,
+      componentStage: -1,
       destinationName: '',
       destinationImage: '',
       place_id: '',
@@ -74,6 +74,7 @@ export default class AddDestinationName extends React.Component {
   }
 
   render() {
+    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     // use either a switch or a two conditional check if -1 for each component to render correctly
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
@@ -138,8 +139,9 @@ export default class AddDestinationName extends React.Component {
                 </div>
               </div>
               <div className="col input-group justify-content-center">
-                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
-                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="destinationName" />
+                <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
+                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+
               </div>
             </div>
           </div>) || componentsArray[this.state.componentStage]}
