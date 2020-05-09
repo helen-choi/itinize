@@ -6,7 +6,12 @@ export default class TripInfo extends React.Component {
     this.state = {
       view: { flights: [] }
     };
+    // this.postNewFlight = this.postNewFlight.bind(this);
   }
+
+  // postNewFlight(newFlight) {
+  //   fetch();
+  // }
 
   render() {
     return (

@@ -124,8 +124,7 @@ app.post('/api/flights', (req, res, next) => {
     flightDate,
     airportDeparture,
     flightName,
-    destinationId,
-    status
+    destinationId
   } = req.body;
 
   if (!flightNumber) {
@@ -158,18 +157,13 @@ app.post('/api/flights', (req, res, next) => {
       error: 'destinationId needs to be an integer'
     });
   }
-  if (!status) {
-    return res.status(400).json({
-      error: 'status is required'
-    });
-  }
 
   const sql = `
-  insert into "Flight" ("flightNumber", "flightDate","airportDeparture", "flightName", "destinationId", "status")
-  values ($1, $2, $3, $4, $5, $6)
+  insert into "Flight" ("flightNumber", "flightDate","airportDeparture", "flightName", "destinationId")
+  values ($1, $2, $3, $4, $5)
   returning *
   `;
-  const values = [flightNumber, flightDate, airportDeparture, flightName, destinationId, status];
+  const values = [flightNumber, flightDate, airportDeparture, flightName, destinationId];
 
   db.query(sql, values)
     .then(result => {
