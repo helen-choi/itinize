@@ -24,7 +24,9 @@ export default class AddLodgingDates extends React.Component {
   }
 
   handleCombine() {
-
+    const checkInDateTime = `${this.state.checkinDate} ${this.state.checkinTime}`;
+    const checkOutDateTime = `${this.state.checkoutDate} ${this.state.checkoutTime}`;
+    this.props.onComplete(checkInDateTime, checkOutDateTime);
   }
 
   render() {

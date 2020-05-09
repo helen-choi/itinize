@@ -19,6 +19,7 @@ export default class AddLodgingName extends React.Component {
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCombine = this.handleCombine.bind(this);
   }
 
   handleChange() {
@@ -49,12 +50,19 @@ export default class AddLodgingName extends React.Component {
     });
   }
 
+  handleCombine(checkInDateTime, checkOutDateTime) {
+    this.setState({
+      checkInDateTime: checkInDateTime,
+      checkOutDateTime: checkOutDateTime
+    });
+  }
+
   render() {
     const { counter } = this.state;
     let stage = counter + 2;
     const pageArr = [
       <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange} />,
-      <AddLodgingDates key={this.state.counter} checkin={this.state.checkInDateTime} checkout={this.state.checkOutDateTime}/>
+      <AddLodgingDates key={this.state.counter} onComplete={this.handleCombine}/>
     ];
     const statusArr = [];
     let leftIcon;
