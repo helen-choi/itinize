@@ -7,7 +7,6 @@ import AddItineraryNote from './add-itinerary-notes';
 
 import AddItineraryDates from './add-itinerary-day-tags';
 
-
 export default class AddItineraryItem extends React.Component {
   constructor(props) {
     super(props);
@@ -17,14 +16,13 @@ export default class AddItineraryItem extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
+    this.handleCheckClick = this.handleCheckClick.bind(this);
     this.state = {
       componentStage: -1,
       itineraryName: '',
       place_id: '',
-
       latitude: '',
-      longitude: ''
-
+      longitude: '',
       itineraryDay: '',
       itineraryNote: ''
 
@@ -67,21 +65,40 @@ export default class AddItineraryItem extends React.Component {
     this.setState({ itineraryName: e.currentTarget.value });
   }
 
+  handleCheckClick() {
+    const state = this.state;
+    const locationParam = {
+      latitude: state.latitude,
+      longitude: state.longitude,
+      placeId: state.place_id
+    };
+    fetch('/api/locations', locationParam)
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
+  }
+
   getInputs(inputVal) {
     const pageInput = this.state.componentStage;
     if (pageInput === 0) {
       this.setState({ itineraryDay: inputVal });
     } else if (pageInput === 1) {
       this.setState({ itineraryNote: inputVal });
+    } else if (pageInput === 2) {
+      this.setState({ itineraryNote: inputVal });
     }
   }
 
   render() {
     let icons = null;
-    const componentArray = [<AddItineraryDates key={this.state.componentStage} getInputs={this.getInputs} destinationId={this.props.location.state.destinationId}/>, <AddItineraryNote state={this.state} key={this.state.componentStage}/>,
-
+    const componentArray = [
+      <AddItineraryDates key={this.state.componentStage}
+        getInputs={this.getInputs} destinationId={this.props.location.state.destinationId}/>,
+      <AddItineraryNote state={this.state} key={this.state.componentStage} getInputs={this.getInputs}/>,
       <Confirmation key={this.state.componentStage} newItem="Itinerary"
-        history={this.props.history} match={this.props.match}/>];
+        history={this.props.history} match={this.props.match}/>
+    ];
+
     let headerClassCompleted2 = 'not-completed';
     let headerClassCompleted3 = 'not-completed';
     if (this.state.componentStage === -1) {
@@ -98,7 +115,7 @@ export default class AddItineraryItem extends React.Component {
       icons = (
         <>
           <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>
-          <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>
+          {this.state.componentStage === 1 ? <i onClick={this.handleNextClick} className="confirm-icon fas fa-check fa-2x"></i> : <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>}
         </>);
     } else { return null; }
 

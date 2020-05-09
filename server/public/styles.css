@@ -214,3 +214,7 @@ div.Destination-List > h1 {
   font-size: 5px;
   background-color: black;
 }
+
+::placeholder {
+  text-align: center;
+}
