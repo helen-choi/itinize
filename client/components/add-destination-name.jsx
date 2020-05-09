@@ -26,6 +26,7 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
     this.handleSelectDescription = this.handleSelectDescription.bind(this);
+    this.handleSubmitDestinationInfo = this.handleSubmitDestinationInfo.bind(this);
 
   }
 
@@ -127,11 +128,13 @@ export default class AddDestinationName extends React.Component {
         break;
       case 2:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          // this.handleSubmitDestinationInfo();
+          this.handleRightArrowClick();
+        }} className="fas fa-check fa-2x"></i>;
         break;
       case 3:
-        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>;
+
         break;
       default:
         leftIcon = (<Link className="text-dark" to="/">
