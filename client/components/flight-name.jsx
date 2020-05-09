@@ -13,13 +13,19 @@ export default class AddFlightName extends React.Component {
       flightNumber: '',
       flightDate: '',
       componentStage: -1,
-      isSubmitted: false
-
+      isSubmitted: false,
+      destinationId: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      destinationId: this.props.location.state.destinationId
+    });
   }
 
   handleChange(event) {
@@ -42,9 +48,7 @@ export default class AddFlightName extends React.Component {
     this.setState({
       isSubmitted: true
     });
-    if (this.state.isSubmitted) {
-      this.postInformation();
-    }
+    this.postInformation();
   }
 
   postInformation() {
@@ -53,7 +57,7 @@ export default class AddFlightName extends React.Component {
       airportDeparture: this.state.airportDeparture,
       flightNumber: this.state.flightNumber,
       flightDate: this.state.flightDate,
-      destinationId: 2
+      destinationId: this.state.destinationId
     };
     const parameter = {
       method: 'POST',
