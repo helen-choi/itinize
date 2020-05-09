@@ -23,7 +23,6 @@ export default class AddItineraryItem extends React.Component {
       longitude: '',
       itineraryDay: 'Day',
       itineraryNote: 'At this location, I will'
-
     };
   }
 
@@ -111,11 +110,19 @@ export default class AddItineraryItem extends React.Component {
   render() {
     let icons = null;
     const componentArray = [
-      <AddItineraryDates key={this.state.componentStage}
-        getInputs={this.getInputs} destinationId={this.props.location.state.destinationId}/>,
-      <AddItineraryNote state={this.state} key={this.state.componentStage} getInputs={this.getInputs}/>,
-      <Confirmation key={this.state.componentStage} newItem="Itinerary"
-        history={this.props.history} match={this.props.match}/>
+      <AddItineraryDates
+        key={this.state.componentStage}
+        getInputs={this.getInputs}
+        destinationId={this.props.location.state.destinationId}/>,
+      <AddItineraryNote
+        state={this.state}
+        key={this.state.componentStage}
+        getInputs={this.getInputs}/>,
+      <Confirmation
+        key={this.state.componentStage}
+        newItem="Itinerary"
+        history={this.props.history}
+        match={this.props.match}/>
     ];
 
     let headerClassCompleted2 = 'not-completed';
@@ -126,21 +133,24 @@ export default class AddItineraryItem extends React.Component {
           <Link to="/">
             <i className="fas fa-times fa-2x"></i>
           </Link>
+
           <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>
         </>);
     } else if (this.state.componentStage < 2) {
       headerClassCompleted2 = 'completed';
       if (this.state.componentStage === 1) headerClassCompleted3 = 'completed';
+
       icons = (
         <>
           <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>
-          {this.state.componentStage === 1 ? (
-            <i onClick={this.handleCheckClick}
-              className="confirm-icon fas fa-check fa-2x"></i>) : (
-            <i className="fas fa-arrow-right fa-2x"
-              onClick={this.handleNextClick}></i>)
+          {this.state.componentStage === 1
+            ? <i onClick={this.handleCheckClick}
+              className="confirm-icon fas fa-check fa-2x"></i>
+            : <i className="fas fa-arrow-right fa-2x"
+              onClick={this.handleNextClick}></i>
           }
-        </>);
+        </>
+      );
     }
 
     return (
@@ -173,7 +183,6 @@ export default class AddItineraryItem extends React.Component {
           )
         }
       </div>
-
     );
   }
 }
