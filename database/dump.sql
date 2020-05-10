@@ -180,8 +180,7 @@ ALTER SEQUENCE public."ItineraryList_itineraryId_seq" OWNED BY public."Itinerary
 
 CREATE TABLE public."Locations" (
     "locationId" integer NOT NULL,
-    latitude point NOT NULL,
-    longitude point NOT NULL,
+    coordinates point NOT NULL,
     "placeId" text NOT NULL
 );
 
@@ -216,7 +215,8 @@ CREATE TABLE public."Lodging" (
     "checkInDateTime" text NOT NULL,
     "checkOutDateTime" text NOT NULL,
     "destinationId" integer NOT NULL,
-    "locationId" integer NOT NULL
+    "locationId" integer NOT NULL,
+    "lodgingName" text NOT NULL
 );
 
 
@@ -280,10 +280,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-
-2	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
-3	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
-4	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
+3	Switzerland	https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg	2021-04-09	2021-04-15	Cannott wait	1
 \.
 
 
@@ -309,18 +306,21 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 
 
 --
--- Data for Name: ItineraryList; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
-\.
-
-
---
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
+COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
+1	(22.2222000000000008,33.3333000000000013)	3
+2	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+3	(22.2222000000000008,-33.3333000000000013)	3
+4	(33.3333000000000013,-44.4444000000000017)	1
+5	(34.0316299999999998,-118.473389600000004)	ChIJG0147Ue7woAR-iMwHNKC6Fc
+6	(33.8590423999999999,-117.924602699999994)	ChIJs5SSAwDW3IARGAPfCiasvfA
+7	(34.0156038000000009,-117.976831200000007)	ChIJBXJOToHWwoARNPdHXFrD2PQ
+8	(33.8590423999999999,-117.924602699999994)	ChIJs5SSAwDW3IARGAPfCiasvfA
+9	(33.9437264999999968,-118.140840400000002)	ChIJ6WF_J7LNwoAR5KqPxSSnPtE
+10	(32.9238580000000027,-117.077636299999995)	ChIJiy4avN_724AR5VXA7F3wZpc
+11	(32.8123628999999966,-117.150762299999997)	ChIJzVAb5MD_24ARuvXpnoZ8dL0
 \.
 
 
@@ -328,7 +328,7 @@ COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdi
 -- Data for Name: Lodging; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId") FROM stdin;
+COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId", "lodgingName") FROM stdin;
 \.
 
 
@@ -336,7 +336,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 2, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 3, true);
 
 
 --
@@ -354,17 +354,10 @@ SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
 
 
 --
--- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
-
-
---
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 11, true);
 
 
 --

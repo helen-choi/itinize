@@ -53,12 +53,29 @@ export default class AddLodgingName extends React.Component {
 
   handleSubmit() {
     const { destinationId } = this.props.location.state;
+    const data = {
+      lodgingName: this.state.lodgingName,
+      lodgingConfNum: this.state.lodgingNumber,
+      checkInDateTime: this.state.checkInDateTime,
+      checkOutDateTime: this.state.checkOutDateTime,
+      locationId: this.state.locationId,
+      destinationId: parseInt(destinationId)
+    };
+    const params = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
 
     this.setState({
       isSubmitted: true
     });
-    // eslint-disable-next-line no-console
-    console.log(destinationId);
+
+    fetch('/api/lodgings', params)
+      .then(res => res.json())
+      .catch(err => console.error(err));
   }
 
   handleCombine(checkInDateTime, checkOutDateTime) {
