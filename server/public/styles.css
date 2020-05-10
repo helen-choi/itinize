@@ -220,3 +220,7 @@ div.Destination-List > h1 {
 ::placeholder {
   text-align: center;
 }
+
+.flight-card {
+  background-color: rgb(244, 244, 244);
+}

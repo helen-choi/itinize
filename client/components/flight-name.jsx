@@ -104,8 +104,6 @@ export default class AddFlightName extends React.Component {
         leftIcon = <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>;
         rightIcon = <i className="fas fa-check fa-2x" onClick={this.handleSubmit}></i>;
         break;
-      case 2:
-        break;
     }
 
     return (
