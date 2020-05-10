@@ -17,6 +17,7 @@ export default class AddLodgingName extends React.Component {
       placeId: '',
       latitude: '',
       longitude: '',
+      locationId: '',
       isSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -95,8 +96,28 @@ export default class AddLodgingName extends React.Component {
   }
 
   getLocationId() {
-    // eslint-disable-next-line no-console
-    console.log(this.state);
+    const { placeId, latitude, longitude } = this.state;
+    const data = {
+      placeId: placeId,
+      latitude: latitude,
+      longitude: longitude
+    };
+    const params = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    fetch('/api/locations', params)
+      .then(res => res.json())
+      .then(data => {
+        const locationId = data[0].locationId;
+        this.setState({
+          locationId: locationId
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
