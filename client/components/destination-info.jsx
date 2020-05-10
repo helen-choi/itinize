@@ -8,6 +8,7 @@ export default class DestinationInfo extends React.Component {
     this.handleBodyClick = this.handleBodyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
+    this.handleExitEditImage = this.handleExitEditImage.bind(this);
     this.handleEditImage = this.handleEditImage.bind(this);
     this.state = {
       destinationInfo: null,
@@ -44,6 +45,10 @@ export default class DestinationInfo extends React.Component {
         this.setState({ destinationInfo: data });
       })
       .catch(err => console.error(err));
+  }
+
+  handleExitEditImage() {
+    this.setState({ pictureIconIsClicked: false });
   }
 
   handleEditImage(getMethod) {
@@ -101,7 +106,7 @@ export default class DestinationInfo extends React.Component {
         !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
       ) ||
       (
-        this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>
+        this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>
       ) ||
       (
         <div className="DestinationInfo container d-flex flex-wrap"

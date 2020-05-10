@@ -49,8 +49,8 @@ export default class SelectDestinationImageProfile extends React.Component {
   editHeader() {
     return (<header className="row">
       <div className="col d-flex justify-content-between">
-        <i className="far fa-times-circle fa-2x"></i>
-        <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>
+        <i onClick={() => this.props.handleExit()} className="far fa-times-circle fa-2x"></i>
+        <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>
       </div>
     </header>
     );
@@ -67,8 +67,9 @@ export default class SelectDestinationImageProfile extends React.Component {
       return (
         <div onClick={() => {
           this.handleClick(currentImage.portraitSrc);
-
-          this.props.handleImageClick(currentImage.portraitSrc);
+          if (this.props.handleImageClick) {
+            this.props.handleImageClick(currentImage.portraitSrc);
+          }
         }}
         key={currentImage.photoId}
         className="col-3 w-100">
