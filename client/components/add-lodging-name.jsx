@@ -95,7 +95,8 @@ export default class AddLodgingName extends React.Component {
   }
 
   getLocationId() {
-
+    // eslint-disable-next-line no-console
+    console.log(this.state);
   }
 
   render() {
@@ -148,7 +149,7 @@ export default class AddLodgingName extends React.Component {
           </div>
           {(this.state.counter === -1 &&
           <div className="add-lodging-name-container">
-            <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1"
+            <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1"
               onLoad={this.handleScriptLoad}
             />
             <h3 className="text-center pt-5">Add Lodging Name</h3>

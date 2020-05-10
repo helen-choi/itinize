@@ -16,17 +16,22 @@ export default class AddLodgingDates extends React.Component {
   handleChange() {
     this.setState({
       [event.target.name]: event.target.value
+    }, () => {
+      if (this.state.checkinDate &&
+        this.state.checkinTime &&
+        this.state.checkoutDate &&
+        this.state.checkoutTime) {
+        this.handleCombine();
+      }
     });
-    if (this.state.checkinDate !== '' &&
-      this.state.checkinTime !== '' &&
-      this.state.checkoutDate !== '' &&
-      this.state.checkoutTime !== '') { this.handleCombine(); }
   }
 
   handleCombine() {
-    const checkInDateTime = `${this.state.checkinDate} ${this.state.checkinTime}`;
-    const checkOutDateTime = `${this.state.checkoutDate} ${this.state.checkoutTime}`;
-    this.props.onComplete(checkInDateTime, checkOutDateTime);
+    if (this.state.checkinDate && this.state.checkinTime && this.state.checkoutDate && this.state.checkoutTime) {
+      const checkInDateTime = `${this.state.checkinDate} ${this.state.checkinTime}`;
+      const checkOutDateTime = `${this.state.checkoutDate} ${this.state.checkoutTime}`;
+      this.props.onComplete(checkInDateTime, checkOutDateTime);
+    }
   }
 
   render() {
@@ -45,21 +50,21 @@ export default class AddLodgingDates extends React.Component {
         <div className="checkin row justify-content-center mt-5">
           <div className="row flex-column col-6 mr-2">
             <label className="" htmlFor="checkinDate">Check-In Date</label>
-            <input className="p-2 mr" type="date" id="checkinDate" name="checkinDate" min={todayFormatted} max={this.state.checkoutTime} value={this.state.checkinDate} onChange={this.handleChange} />
+            <input className="p-2 mr" type="date" id="checkinDate" name="checkinDate" min={todayFormatted} onChange={this.handleChange}/>
           </div>
           <div className="row flex-column col-4">
             <label className="mr-2" htmlFor="checkinTime">Time</label>
-            <input className="p-2" type="time" id="checkinTime" name="checkinTime" value={this.state.checkinTime} onChange={this.handleChange} />
+            <input className="p-2" type="time" id="checkinTime" name="checkinTime" onChange={this.handleChange}/>
           </div>
         </div>
         <div className="checkout row justify-content-center mt-5">
           <div className="row flex-column col-6 mr-2">
             <label className="mr-2" htmlFor="checkoutDate">Check-Out Date</label>
-            <input className="p-2" type="date" id="checkoutDate" name="checkoutDate" min={checkOutMin} value={this.state.checkoutDate} onChange={this.handleChange} />
+            <input className="p-2" type="date" id="checkoutDate" name="checkoutDate" min={checkOutMin} onChange={this.handleChange}/>
           </div>
           <div className="row flex-column col-4">
             <label htmlFor="checkoutTime">Time</label>
-            <input className="p-2" type="time" id="checkoutTime" name="checkoutTime" value={this.state.checkoutTime} onChange={this.handleChange} />
+            <input className="p-2" type="time" id="checkoutTime" name="checkoutTime" onChange={this.handleChange}/>
           </div>
         </div>
       </div>

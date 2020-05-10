@@ -182,7 +182,6 @@ div.Destination-List > h1 {
 }
 .add-lodging-container {
   height: 100vh;
-  margin-right:-15px;
 }
 /* Confirmation */
 .confirmation-container {
@@ -205,4 +204,5 @@ div.Destination-List > h1 {
 /* AddLodgingDates */
 .checkin input, .checkout input {
   border:1px solid #C4C4C4;
+  background-color: white;
 }
