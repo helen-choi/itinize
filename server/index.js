@@ -456,21 +456,40 @@ app.post('/api/itineraries', (req, res, next) => {
 });
 
 app.get('/api/itineraries/:destinationId', (req, res, next) => {
-  const destinationId = req.params.destinationId;
+  const { destinationId } = req.params;
   if (!parseInt(destinationId, 10) || destinationId < 0) {
-    res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
   }
-  const mySQL = `
-  select *
-  from "ItineraryList"
-  where "destinationId" = $1;
-  `;
   const parameterizedArray = [destinationId];
+  const mySQL = `
+    select *
+      from "ItineraryList"
+    where "destinationId" = $1;
+    `;
   db.query(mySQL, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
 
+app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
+  const { destinationId, day } = req.params;
+  if (!parseInt(destinationId, 10) || destinationId < 0) {
+    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+  }
+  if (!day.includes('Day')) {
+    return res.status(400).json({ error: 'please put the correct parameter day: Day X' });
+  }
+  const parameterizedArray = [destinationId, day];
+  const mySQL = `
+    select *
+      from "ItineraryList"
+    where "destinationId" = $1
+    and "itineraryDay" = $2;
+    `;
+  db.query(mySQL, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
