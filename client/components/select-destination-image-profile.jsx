@@ -46,6 +46,15 @@ export default class SelectDestinationImageProfile extends React.Component {
       });
   }
 
+  editHeader() {
+    return (<header className="row">
+      <div className="col d-flex justify-content-between">
+        <i className="far fa-times-circle fa-2x"></i>
+        <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+      </div>
+    </header>);
+  }
+
   handleClick(imageSrc) {
     this.setState({
       imageChoice: imageSrc
@@ -71,17 +80,20 @@ export default class SelectDestinationImageProfile extends React.Component {
       );
     });
     return (
-      <div className="main-text-height row align-items-start">
-        <div className="row">
-          <div className="col">
-            <h4 className="text-center font-weight-bold">Select an image</h4>
-            <h6 className="text-center">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</h6>
+      <>
+        { this.state.editMode ? this.editHeader() : null }
+        <div className="main-text-height row align-items-start">
+          <div className="row">
+            <div className="col">
+              <h4 className="text-center font-weight-bold">Select an image</h4>
+              <h6 className="text-center">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</h6>
+            </div>
+          </div>
+          <div className="row flex-wrap no-gutters">
+            {reactElementArray}
           </div>
         </div>
-        <div className="row flex-wrap no-gutters">
-          {reactElementArray}
-        </div>
-      </div>
+      </>
     );
   }
 }
