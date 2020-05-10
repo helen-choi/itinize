@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DestinationList from './destination-list';
+// import DestinationList from './destination-list';
+import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -94,7 +95,7 @@ export default class DestinationInfo extends React.Component {
         !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
       ) ||
       (
-        this.state.pictureIconIsClicked && <DestinationList/>
+        this.state.pictureIconIsClicked && <SelectDestinationImageProfile/>
       ) ||
       (
         <div className="DestinationInfo container d-flex flex-wrap"
