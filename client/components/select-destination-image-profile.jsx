@@ -50,9 +50,10 @@ export default class SelectDestinationImageProfile extends React.Component {
     return (<header className="row">
       <div className="col d-flex justify-content-between">
         <i className="far fa-times-circle fa-2x"></i>
-        <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>
       </div>
-    </header>);
+    </header>
+    );
   }
 
   handleClick(imageSrc) {

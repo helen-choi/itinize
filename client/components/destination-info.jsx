@@ -16,7 +16,7 @@ export default class DestinationInfo extends React.Component {
       tripEnd: '',
       description: '',
       editIconIsClicked: false,
-      pictureIconIsClicked: false
+      pictureIconIsClicked: true
     };
   }
 
