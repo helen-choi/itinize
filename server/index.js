@@ -455,6 +455,22 @@ app.post('/api/itineraries', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
+app.get('/api/itineraries/:destinationId', (req, res, next) => {
+  const destinationId = req.params.destinationId;
+  if (!parseInt(destinationId, 10) || destinationId < 0) {
+    res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+  }
+  const mySQL = `
+  select *
+  from "ItineraryList"
+  where "destinationId" = $1;
+  `;
+  const parameterizedArray = [destinationId];
+  db.query(mySQL, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
