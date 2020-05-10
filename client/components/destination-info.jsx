@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import DestinationList from './destination-list';
 import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class DestinationInfo extends React.Component {

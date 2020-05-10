@@ -7,7 +7,8 @@ export default class SelectDestinationImageProfile extends React.Component {
       imageList: dummyImageArray,
       // imageList: [],
       imageChoice: '',
-      isCheckVisible: false
+      isCheckVisible: false,
+      editMode: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
