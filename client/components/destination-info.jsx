@@ -134,10 +134,10 @@ export default class DestinationInfo extends React.Component {
 
               <footer className="row flex-fill">
                 <div className="col-3">
-                   <Link to={{
-                      pathname: '/flights',
-                      state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                    }}className="col-3">
+                  <Link to={{
+                    pathname: '/flights',
+                    state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
+                  }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
@@ -147,7 +147,7 @@ export default class DestinationInfo extends React.Component {
                   </Link>
                 </div>
                 <div className="col-3">
-                  <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                  <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>
