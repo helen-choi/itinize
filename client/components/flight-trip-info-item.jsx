@@ -6,9 +6,9 @@ function FlightTripInfoItem(props) {
   return (
 
     <div className="col" >
-      <div key={flightData.flightId} className="card h-100 hover">
+      <div key={flightData.flightId} className="card">
         <div className="card-body">
-          <h5 className="card-title">{flightData.flightName}</h5>
+          <h5 className="card-title">{flightData.airportDeparture}</h5>
           <p className="card-departure">{flightData.flightNumber}</p>
           <p className="card-text">{flightData.flightDate.slice(0, 10)}</p>
         </div>

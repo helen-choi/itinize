@@ -29,7 +29,7 @@ export default class TripInfo extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
+        <div className="row ">
           <h2>{this.props.location.state.destinationName}</h2>
         </div>
         <div className="row">
