@@ -5,21 +5,17 @@ export default class TripInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flights: [],
-      destinationId: null
+      flights: []
     };
 
   }
 
   componentDidMount() {
-    this.getFlightData();
-    this.setState({
-      destinationId: this.props.location.state.destinationId
-    });
+    this.getFlightData(this.props.location.state.destinationId);
   }
 
-  getFlightData() {
-    fetch('/api/flights')
+  getFlightData(flightDestinationId) {
+    fetch(`/api/flights/${flightDestinationId}`)
       .then(res => res.json())
       .then(data => {
         console.log(data);
@@ -33,11 +29,13 @@ export default class TripInfo extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row d-flex justify-content-center mt-5">
-          <h2>Switzerland</h2>
+        <div className="row">
+          <h2>{this.props.location.state.destinationName}</h2>
+        </div>
+        <div className="row">
           {
             this.state.flights.map(flight => {
-              return <FlightTripInfoItem key={flight.flightId} flightData={flight}/>;
+              return <FlightTripInfoItem key={flight.flightId} flightData={flight} />;
             })
           }
         </div>

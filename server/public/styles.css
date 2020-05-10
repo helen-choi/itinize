@@ -218,3 +218,8 @@ div.Destination-List > h1 {
 ::placeholder {
   text-align: center;
 }
+
+
+.card-title {
+  background-color: beige;
+}

@@ -52,7 +52,7 @@ app.get('/api/destinations/:destinationId', (req, res, next) => {
           res.status(200).json(result.rows[0]);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => next(err));
   }
 });
 
@@ -108,17 +108,20 @@ app.post('/api/destinations', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/flights', (req, res, next) => {
+app.get('/api/flights/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
   const viewFlightsSql = `
   select *
   from "Flight"
+  where "destinationId" = $1;
   `;
-  db.query(viewFlightsSql)
+  const flightParam = [destinationId];
+  db.query(viewFlightsSql, flightParam)
     .then(result => {
       const flights = result.rows;
       res.json(flights);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.post('/api/flights', (req, res, next) => {
@@ -172,7 +175,7 @@ app.post('/api/flights', (req, res, next) => {
     .then(result => {
       res.status(201).json(result.rows[0]);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.delete('/api/flights/:flightId', (req, res, next) => {
@@ -202,7 +205,7 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
       }
       res.status(204).json(result.rows[0]);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.post('/api/lodgings', (req, res, next) => {
@@ -281,7 +284,7 @@ app.post('/api/lodgings', (req, res, next) => {
     .then(result => {
       res.status(201).json(result.rows[0]);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
@@ -425,7 +428,7 @@ app.post('/api/locations', (req, res, next) => {
   const parameterizedArray = [latitude, longitude, placeId];
   db.query(sql, parameterizedArray)
     .then(results => res.status(201).json(results.rows))
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.post('/api/itineraries', (req, res, next) => {
@@ -452,7 +455,7 @@ app.post('/api/itineraries', (req, res, next) => {
   const parameterizedArray = [itineraryDay, itineraryName, itineraryNote, locationId, destinationId];
   db.query(sql, parameterizedArray)
     .then(result => res.status(201).json(result.rows))
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {

@@ -117,7 +117,10 @@ export default class DestinationInfo extends React.Component {
 
           <footer className="row">
             {/* GOING TO THE TRIP INFO PAGE WHERE YOU WOULD PASS DESITNATION TO ADD ID */}
-            <Link to={{ pathname: '/flights', state: { destinationId: destinationInfo.destinationId } }}className="col-3">
+            <Link to={{
+              pathname: '/flights',
+              state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
+            }}className="col-3">
               <div className="circle teal mt-3 p-2 d-flex justify-content-center align-items-center">
                 <i className="fas fa-plane fa-2x"></i>
               </div>
