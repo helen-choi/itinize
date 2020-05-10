@@ -4,8 +4,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      // imageList: dummyImageArray,
-      imageList: [],
+      imageList: dummyImageArray,
+      // imageList: [],
       imageChoice: '',
       isCheckVisible: false
     };
@@ -17,7 +17,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   // too many GET requests. We're limited to 200 per hour
   // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
   // if (this.props.currentImage === '') {
-    this.getPexelPictures();
+    // this.getPexelPictures();
   //   }
   }
 
@@ -82,95 +82,95 @@ export default class SelectDestinationImageProfile extends React.Component {
 }
 
 // delete this after development
-// const dummyImageArray = [
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Belle Co',
-//     photoId: 402028,
-//     photoURL: 'https://www.pexels.com/photo/red-and-black-temple-surrounded-by-trees-photo-402028/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Bagus Pangestu',
-//     photoId: 1440476,
-//     photoURL: 'https://www.pexels.com/photo/close-up-photography-of-cherry-blossom-tree-1440476/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Aleksandar Pasaric',
-//     photoId: 1134166,
-//     photoURL: 'https://www.pexels.com/photo/woman-walking-in-the-street-during-night-time-1134166/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Pixabay',
-//     photoId: 46253,
-//     photoURL: 'https://www.pexels.com/photo/black-and-white-mountain-over-yellow-white-and-blue-sky-46253/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/301614/pexels-photo-301614.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Pixabay',
-//     photoId: 301614,
-//     photoURL: 'https://www.pexels.com/photo/ancient-architecture-asia-bench-301614/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Janko Ferlic',
-//     photoId: 590478,
-//     photoURL: 'https://www.pexels.com/photo/asia-japan-japanese-japanese-culture-590478/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Evgeny Tchebotarev',
-//     photoId: 2187605,
-//     photoURL: 'https://www.pexels.com/photo/photo-of-houses-2187605/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1822605/pexels-photo-1822605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'DSD',
-//     photoId: 1822605,
-//     photoURL: 'https://www.pexels.com/photo/man-holding-an-umbrella-1822605/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Liger Pham',
-//     photoId: 1108701,
-//     photoURL: 'https://www.pexels.com/photo/mt-fuji-japan-1108701/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Haugenzhays Zhang',
-//     photoId: 1798631,
-//     photoURL: 'https://www.pexels.com/photo/neon-signs-1798631/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1654748/pexels-photo-1654748.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Nien Tran Dinh',
-//     photoId: 1654748,
-//     photoURL: 'https://www.pexels.com/photo/photo-of-himeji-castle-behind-white-cherry-blossoms-1654748/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1829980/pexels-photo-1829980.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'DSD',
-//     photoId: 1829980,
-//     photoURL: 'https://www.pexels.com/photo/pagoda-temple-near-lake-under-cloudy-sky-1829980/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/315191/pexels-photo-315191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Pixabay',
-//     photoId: 315191,
-//     photoURL: 'https://www.pexels.com/photo/side-view-of-woman-in-illuminated-city-at-night-315191/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1510595/pexels-photo-1510595.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Aleksandar Pasaric',
-//     photoId: 1510595,
-//     photoURL: 'https://www.pexels.com/photo/people-walking-on-the-streets-surrounded-by-buildings-1510595/'
-//   },
-//   {
-//     portraitSrc: 'https://images.pexels.com/photos/1310788/pexels-photo-1310788.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-//     photographer: 'Vincent M.A. Janssen',
-//     photoId: 1310788,
-//     photoURL: 'https://www.pexels.com/photo/gray-concrete-pathway-between-red-and-black-pillars-1310788/'
-//   }
-// ];
+const dummyImageArray = [
+  {
+    portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Belle Co',
+    photoId: 402028,
+    photoURL: 'https://www.pexels.com/photo/red-and-black-temple-surrounded-by-trees-photo-402028/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Bagus Pangestu',
+    photoId: 1440476,
+    photoURL: 'https://www.pexels.com/photo/close-up-photography-of-cherry-blossom-tree-1440476/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Aleksandar Pasaric',
+    photoId: 1134166,
+    photoURL: 'https://www.pexels.com/photo/woman-walking-in-the-street-during-night-time-1134166/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Pixabay',
+    photoId: 46253,
+    photoURL: 'https://www.pexels.com/photo/black-and-white-mountain-over-yellow-white-and-blue-sky-46253/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/301614/pexels-photo-301614.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Pixabay',
+    photoId: 301614,
+    photoURL: 'https://www.pexels.com/photo/ancient-architecture-asia-bench-301614/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Janko Ferlic',
+    photoId: 590478,
+    photoURL: 'https://www.pexels.com/photo/asia-japan-japanese-japanese-culture-590478/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Evgeny Tchebotarev',
+    photoId: 2187605,
+    photoURL: 'https://www.pexels.com/photo/photo-of-houses-2187605/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1822605/pexels-photo-1822605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'DSD',
+    photoId: 1822605,
+    photoURL: 'https://www.pexels.com/photo/man-holding-an-umbrella-1822605/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Liger Pham',
+    photoId: 1108701,
+    photoURL: 'https://www.pexels.com/photo/mt-fuji-japan-1108701/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Haugenzhays Zhang',
+    photoId: 1798631,
+    photoURL: 'https://www.pexels.com/photo/neon-signs-1798631/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1654748/pexels-photo-1654748.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Nien Tran Dinh',
+    photoId: 1654748,
+    photoURL: 'https://www.pexels.com/photo/photo-of-himeji-castle-behind-white-cherry-blossoms-1654748/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1829980/pexels-photo-1829980.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'DSD',
+    photoId: 1829980,
+    photoURL: 'https://www.pexels.com/photo/pagoda-temple-near-lake-under-cloudy-sky-1829980/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/315191/pexels-photo-315191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Pixabay',
+    photoId: 315191,
+    photoURL: 'https://www.pexels.com/photo/side-view-of-woman-in-illuminated-city-at-night-315191/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1510595/pexels-photo-1510595.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Aleksandar Pasaric',
+    photoId: 1510595,
+    photoURL: 'https://www.pexels.com/photo/people-walking-on-the-streets-surrounded-by-buildings-1510595/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1310788/pexels-photo-1310788.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'Vincent M.A. Janssen',
+    photoId: 1310788,
+    photoURL: 'https://www.pexels.com/photo/gray-concrete-pathway-between-red-and-black-pillars-1310788/'
+  }
+];

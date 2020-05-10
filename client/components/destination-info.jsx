@@ -46,6 +46,11 @@ export default class DestinationInfo extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleEditImage(getMethod) {
+    // call another getMethod to update to the current src
+    // this.setState({ destinationInfo.destinationImage: changedSrc });
+  }
+
   handleEditClick(e) {
     const editIcon = e.currentTarget.getAttribute('handler');
     this.setState(state => {
@@ -95,7 +100,7 @@ export default class DestinationInfo extends React.Component {
         !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
       ) ||
       (
-        this.state.pictureIconIsClicked && <SelectDestinationImageProfile/>
+        this.state.pictureIconIsClicked && <SelectDestinationImageProfile imageParam={this.state.destinationName}/>
       ) ||
       (
         <div className="DestinationInfo container d-flex flex-wrap"
