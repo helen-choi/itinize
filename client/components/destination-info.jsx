@@ -123,31 +123,27 @@ export default class DestinationInfo extends React.Component {
                   <p className="my-auto"> - </p>
                   <input readOnly value={this.tripEnd}/>
                 </div>
-                <textarea
-                  readOnly className="col-10 ml-4 align-self-end"
-                  cols="40 shadow-p"
-                  rows="10"
-                  value={destinationInfo.description}>
-                </textarea>
-
-          <footer className="row">
-            <Link to={{ pathname: '/flights/create', state: { destinationId: destinationInfo.destinationId } }}className="col-3">
-              <div className="circle teal mt-3 p-2 d-flex justify-content-center align-items-center">
-                <i className="fas fa-plane fa-2x"></i>
               </div>
-            </Link>
-            <Link to="/lodgings/create" className="col-3">
-              <div className="circle dark-blue mt-3 p-2 d-flex justify-content-center align-items-center">
-                <i className="fas fa-hotel"></i>
+              <textarea
+                readOnly className="col-10 ml-4 align-self-end"
+                cols="40 shadow-p"
+                rows="10"
+                value={destinationInfo.description}>
+              </textarea>
+
+              <footer className="row flex-fill">
+                <div className="col-3">
+                  <Link to={{ pathname: '/flights/create', state: { destinationId: destinationInfo.destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
                 <div className="col-3">
-                  <Link to={
-                    {
-                      pathname: '/itineraries/create',
-                      state: { destinationId: destinationId }
-                    }
-                  } className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                  <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-hotel"></i>
+                  </Link>
+                </div>
+                <div className="col-3">
+                  <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>
@@ -200,15 +196,15 @@ export default class DestinationInfo extends React.Component {
                     value={this.state.description}></textarea>
                 </div>
 
-                <footer className="row flex-fill align-items-end pb-5">
+                <footer className="row flex-fill">
                   <div className="col-3 ">
-                    <Link to="/flights/create" className="circle teal m-auto py-2 d-flex justify-content-center align-items-center">
-                      <i className="fas fa-plane"></i>
+                    <Link to="/flights/create" className="circle teal m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-plane fa-lg"></i>
                     </Link>
                   </div>
                   <div className="col-3">
-                    <Link to="/lodgings/create" className="circle dark-blue m-auto py-2 d-flex justify-content-center align-items-center">
-                      <i className="fas fa-hotel"></i>
+                    <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-hotel fa-lg"></i>
                     </Link>
                   </div>
                   <div className="col-3">
@@ -217,13 +213,13 @@ export default class DestinationInfo extends React.Component {
                         pathname: '/itineraries/create',
                         state: { destinationId: destinationId }
                       }
-                    } className="circle yellow m-auto py-2 d-flex justify-content-center align-items-center">
-                      <i className="fas fa-map-marker-alt"></i>
+                    } className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-map-marker-alt fa-lg"></i>
                     </Link>
                   </div>
                   <div className="col-3">
-                    <div className="circle red m-auto py-2 d-flex justify-content-center align-items-center">
-                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt"></i>
+                    <div className="circle red m-auto d-flex justify-content-center align-items-center">
+                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
                     </div>
                   </div>
                 </footer>
