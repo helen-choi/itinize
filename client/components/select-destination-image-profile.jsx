@@ -17,6 +17,9 @@ export default class SelectDestinationImageProfile extends React.Component {
   // Enable this method after an hour and check to make sure you don't make
   // too many GET requests. We're limited to 200 per hour
   // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
+    if (this.props.handleCheck) {
+      this.setState({ editMode: true });
+    }
   // if (this.props.currentImage === '') {
     // this.getPexelPictures();
   //   }
@@ -54,6 +57,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       return (
         <div onClick={() => {
           this.handleClick(currentImage.portraitSrc);
+
           this.props.handleImageClick(currentImage.portraitSrc);
         }}
         key={currentImage.photoId}
