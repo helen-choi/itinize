@@ -118,6 +118,14 @@ export default class DestinationInfo extends React.Component {
             <Link to="/flights/create" className="col-2 flight-button">
               <i className="fas fa-plane fa-2x"></i>
             </Link>
+            <Link to={{
+              pathname: '/lodgings/create',
+              state: {
+                destinationId: this.props.match.params.destinationId
+              }
+            }} className="col-2 flight-button">
+              <i className="fas fa-home fa-2x"></i>
+            </Link>
             <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
               <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt"></i>
             </div>

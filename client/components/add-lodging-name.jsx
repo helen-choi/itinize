@@ -52,10 +52,13 @@ export default class AddLodgingName extends React.Component {
   }
 
   handleSubmit() {
+    const { destinationId } = this.props.location.state;
+
     this.setState({
       isSubmitted: true
     });
-
+    // eslint-disable-next-line no-console
+    console.log(destinationId);
   }
 
   handleCombine(checkInDateTime, checkOutDateTime) {
