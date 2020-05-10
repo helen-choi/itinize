@@ -4,6 +4,7 @@ import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
 import AddDestinationDates from './add-trip-start-end-dates-front-end';
 import AddDestinationDescription from './add-description-to-destination';
+import Confirmation from './confirmation';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -107,7 +108,7 @@ export default class AddDestinationName extends React.Component {
         key={this.state.componentStage}/>,
       <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
         key={this.state.componentStage} />,
-      <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
+      <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />];
     let leftIcon;
     let rightIcon;
     switch (this.state.componentStage) {
@@ -144,12 +145,12 @@ export default class AddDestinationName extends React.Component {
 
     return (
       <div className="container h-100">
-        <div className="row page-controls no-gutters mb-1">
+        {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
-        </div>
+        </div>) : null }
         <header className="row">
           <div className="col d-flex justify-content-between">
             {leftIcon}

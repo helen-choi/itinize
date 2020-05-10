@@ -15,19 +15,6 @@ export default class AddItineraryNotes extends React.Component {
     this.props.getInputs(e.currentTarget.value);
   }
 
-  componentDidMount() {
-    // fetch('/api/locations', {
-    //   method: 'post',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     latitude: this.props.state.latitude, longitude: this.props.state.longitude, placeId: this.state.notes
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then(data => this.setState({ locations: data }))
-    //   .catch(err => console.error(err));
-  }
-
   render() {
     return (
       <div className="add-lodging-name-container">

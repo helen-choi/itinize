@@ -8,7 +8,7 @@ export default class AddItineraryDates extends React.Component {
       selectValue: '',
       tripStart: '',
       tripEnd: '',
-      days: []
+      totalDays: 0
     };
   }
 
@@ -22,12 +22,8 @@ export default class AddItineraryDates extends React.Component {
             const splitDateEnd = data.tripEnd.slice(0, 10).split('-');
             const startMinutes = new Date(splitDateStart[0], splitDateStart[1], splitDateStart[2]).setMinutes(59);
             const endMinutes = new Date(splitDateEnd[0], splitDateEnd[1], splitDateEnd[2]).setMinutes(59);
-            const total = (endMinutes - startMinutes) / (1000 * 24 * 3600);
-            const days = [];
-            for (let i = 1; i <= total; i++) {
-              days.push(<option key={i} value={'Day ' + i}>Day {i}</option>);
-            }
-            return { tripStart: data.tripStart, tripEnd: data.tripEnd, days };
+            const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
+            return { tripStart: data.tripStart, tripEnd: data.tripEnd, totalDays };
           });
         })
         .catch(err => console.error(err));
@@ -41,8 +37,18 @@ export default class AddItineraryDates extends React.Component {
 
   render() {
     if (!this.state.tripStart) {
-      return <div>Hello from AddItineraryDates</div>;
+      return <div className="loading-data">Loading Itineraries...</div>;
     } else {
+
+      const daysArray = [];
+      if (this.state.totalDays) {
+        for (let i = 1; i <= this.state.totalDays; i++) {
+          daysArray.push(<option key={i} value={'Day ' + i}>Day {i}</option>);
+        }
+      } else {
+        daysArray.push(null);
+      }
+
       return (
         <div className="add-lodging-name-container">
           <h1 className="text-center pt-2">Which day of travel are you planning to visit?</h1>
@@ -52,7 +58,7 @@ export default class AddItineraryDates extends React.Component {
             <select className="p-2" value={this.state.selectValue} onChange={this.handleOnChange}>
               Please Pick A day
               <option className={this.addClass} value="">Select A Day</option>
-              {this.state.days}
+              {daysArray}
             </select>
           </label>
         </div>

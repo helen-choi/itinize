@@ -180,8 +180,7 @@ ALTER SEQUENCE public."ItineraryList_itineraryId_seq" OWNED BY public."Itinerary
 
 CREATE TABLE public."Locations" (
     "locationId" integer NOT NULL,
-    latitude point NOT NULL,
-    longitude point NOT NULL,
+    coordinates point NOT NULL,
     "placeId" text NOT NULL
 );
 
@@ -282,7 +281,6 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
 3	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
-4	Japan	https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-09-09	2020-09-19	I am going to Japan!	dummyplaceId
 \.
 
 
@@ -304,6 +302,22 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 --
 
 COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
+1	david	Day 2	Hello	5	10
+2	Tiger Sugar	Day 2	place	-8	10
+3	Tiger Sugar	Day 2	place	8	10
+4	Tiger Sugar	Day 2	place	8	10
+5	Tiger Sugar	Day 2	place	8	10
+6	Tiger Sugar	Day	At this location, I will	24	4
+7	Tiger Sugar	Day	At this location, I will	25	4
+8	Tiger Sugar	Day	At this location, I will	26	4
+9	Tiger Sugar	Day	At this location, I will	27	4
+10	Tiger Sugar	Day	At this location, I will	28	4
+11	Tiger Sugar	Day	At this location, I will	29	4
+12	Tiger Sugar	Day	At this location, I will	30	4
+13	Tiger Sugar	Day	At this location, I will	31	5
+14	Tiger Sugar	Day	At this location, I will	32	5
+15	Tiger Sugar	Day	At this location, I will	33	4
+16	Tiger Sugar	Day	At this location, I will	34	3
 \.
 
 
@@ -311,7 +325,41 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
+COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
+1	(1,4)	stuff
+2	(1,4)	stuff
+3	(1,4)	stuff
+4	(1,3)	stuff
+5	(1,3)	stuff
+6	(12,12)	asdf
+7	(33.9880386999999899,-117.904589400000006)	Some stuff in locations
+8	(33.9880386999999899,-117.904589400000006)	Some stuff in locations
+9	(12,12)	asdf
+10	(12,-12)	asdf
+11	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+12	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+13	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+14	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+15	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+16	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+17	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+18	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+19	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+20	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+21	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+22	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+23	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+24	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+25	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+26	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+27	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+28	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+29	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+30	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+31	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+32	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+33	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+34	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
 \.
 
 
@@ -332,7 +380,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 4, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 9, true);
 
 
 --
@@ -346,14 +394,14 @@ SELECT pg_catalog.setval('public."Flight_flightId_seq"', 8, true);
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 16, true);
 
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 34, true);
 
 
 --

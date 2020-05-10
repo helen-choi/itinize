@@ -49,7 +49,7 @@ export default class DestinationList extends React.Component {
         <div className="row destinations-container">
           {this.state.destinations ? this.state.destinations.map(destination => {
             return (
-              <div className="col-6" to="/destinations/:destinationId" key={destination.destinationId}>
+              <div className="col-6" key={destination.destinationId}>
                 <DestinationItem handleClickDelete={this.handleClickDelete} destination={destination}/>
               </div>
             );

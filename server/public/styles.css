@@ -51,15 +51,18 @@ div.card-body {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 2;
+  z-index: 0;
 }
-
+div.card-body   h5 {
+  position: relative;
+  z-index: 1;
+}
 div.Destination-List > h1 {
   padding-left: 15px
 }
 .circle {
   border-radius: 50%;
-  width: 35px;
+  padding: 25%;
 }
 .teal {
   background-color: #6CC4C8;
@@ -96,7 +99,7 @@ div.Destination-List > h1 {
 
 .overlay {
     background-color: rgba(0,0,0,0.5);
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -107,17 +110,13 @@ div.Destination-List > h1 {
 
 .overlay-edit {
     background-color: rgba(0,0,0,0.9);
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
 
-}
-.emphasize-text {
-  font-size: 36px;
-  font-weight: 800;
 }
 .DestinationInfo {
   width: 100%;
@@ -148,17 +147,20 @@ div.Destination-List > h1 {
   font-size: 20vw;
   text-align: center;
 }
-.DestinationInfo > form > div > *{
+/* .DestinationInfo > form > div > *{
   height: 25%;
 }
 .DestinationInfo > form {
   height: 80%;
-}
+} */
 .DestinationInfo header > *,
-.form-element > *,
-.DestinationInfo > footer > * {
+.form-element > *{
   position: relative;
   z-index: 3;
+}
+.DestinationInfo > footer > * {
+  position:relative;
+  z-index: 1;
 }
 /* AddLodgingName */
 .page-controls {
