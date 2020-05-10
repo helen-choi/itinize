@@ -123,6 +123,7 @@ export default class DestinationInfo extends React.Component {
                   <p className="my-auto"> - </p>
                   <input readOnly value={this.tripEnd}/>
                 </div>
+
               </div>
               <textarea
                 readOnly className="col-10 ml-4 align-self-end"
@@ -133,7 +134,10 @@ export default class DestinationInfo extends React.Component {
 
               <footer className="row flex-fill">
                 <div className="col-3">
-                  <Link to={{ pathname: '/flights/create', state: { destinationId: destinationInfo.destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                   <Link to={{
+                      pathname: '/flights',
+                      state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
+                    }}className="col-3">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>

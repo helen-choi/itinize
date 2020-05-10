@@ -10,7 +10,7 @@ import DestinationInfo from './destination-info';
 import AddLodgingName from './add-lodging-name';
 import AddFlightName from './flight-name';
 import AddItineraryItem from './add-itinerary-item';
-import TripInfo from './trip-info';
+import TripInfo from './flight-trip-info';
 
 export default class App extends React.Component {
   constructor(props) {
