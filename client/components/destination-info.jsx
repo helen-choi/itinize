@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DestinationList from './destination-list';
+import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -8,6 +8,8 @@ export default class DestinationInfo extends React.Component {
     this.handleBodyClick = this.handleBodyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
+    this.handleExitEditImage = this.handleExitEditImage.bind(this);
+    this.handleEditImage = this.handleEditImage.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -18,6 +20,9 @@ export default class DestinationInfo extends React.Component {
       pictureIconIsClicked: false
     };
   }
+
+  // add a componentDidUpdate to check when the picture info is changed
+  // componentDidUpdate
 
   handleBodyClick() {
     this.setState({
@@ -41,6 +46,32 @@ export default class DestinationInfo extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ destinationInfo: data });
+      })
+      .catch(err => console.error(err));
+  }
+
+  handleExitEditImage() {
+    this.setState({ pictureIconIsClicked: false });
+  }
+
+  handleEditImage(changedSrc) {
+    const data = { destinationImage: changedSrc };
+    const init = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    fetch(`/api/destinations/image/${this.state.destinationInfo.destinationId}`, init)
+      .then(res => res.json())
+      .then(res => {
+        const copiedDestinationInfo = { ...this.state.destinationInfo };
+        copiedDestinationInfo.destinationImage = changedSrc;
+        this.setState({ destinationInfo: copiedDestinationInfo });
+        setTimeout(() => {
+          this.setState({ pictureIconIsClicked: false });
+        }, 500);
       })
       .catch(err => console.error(err));
   }
@@ -94,7 +125,7 @@ export default class DestinationInfo extends React.Component {
         !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
       ) ||
       (
-        this.state.pictureIconIsClicked && <DestinationList/>
+        this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>
       ) ||
       (
         <div className="DestinationInfo container d-flex flex-wrap"
