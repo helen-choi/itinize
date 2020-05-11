@@ -20,7 +20,7 @@ export default class TripInfo extends React.Component {
     fetch(`/api/flights/${flightDestinationId}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        console.log(data[0].flightId);
         this.setState({
           flights: data
         });
@@ -28,13 +28,13 @@ export default class TripInfo extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleClickDelete(destinationId) {
+  handleClickDelete(flightId) {
     const newFlights = [];
     const fetchParams = { method: 'delete' };
-    fetch(`api/destinations${destinationId}`, fetchParams)
+    fetch(`/api/flights/${flightId}`, fetchParams)
       .then(res => {
         this.state.flights.map(flight => {
-          if (this.props.location.state.destinationId !== destinationId) {
+          if (flight.flightId !== flightId) {
             newFlights.push(flight);
           }
         });
@@ -60,7 +60,7 @@ export default class TripInfo extends React.Component {
         <div>
           {
             this.state.flights.map(flight => {
-              return <FlightTripInfoItem handleClickDelete key={flight.flightId} flightData={flight} />;
+              return <FlightTripInfoItem handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
             })
           }
         </div>
