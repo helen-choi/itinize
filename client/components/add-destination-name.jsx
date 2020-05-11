@@ -120,7 +120,11 @@ export default class AddDestinationName extends React.Component {
         break;
       case 0:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          if (this.state.destinationImage) {
+            this.handleRightArrowClick();
+          }
+        }} className="fas fa-arrow-right fa-2x"></i>;
         break;
       case 1:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;

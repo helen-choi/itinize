@@ -55,11 +55,7 @@ export default class DestinationInfo extends React.Component {
   }
 
   handleEditImage(changedSrc) {
-    // const copiedObj = { ...this.state.destinationInfo };
     const data = { destinationImage: changedSrc };
-    // console.log('copied obj', copiedObj);
-    // console.log('this.state.destinationImage === copiedObj', this.state.destinationImage === copiedObj); // outputs: false
-    // console.log('data', changedSrc);
     const init = {
       method: 'PUT',
       headers: {
