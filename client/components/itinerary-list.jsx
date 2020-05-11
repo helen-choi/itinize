@@ -2,7 +2,35 @@ import React from 'react';
 import ListItineraryItem from './itinerary-item';
 
 export default class ItineraryList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      itineraryItems: []
+    };
+  }
+
+  componentDidMount() {
+    console.log(this.props.location.state.destinationId);
+    this.getItineraryItems();
+  }
+
+  getItineraryItems() {
+    fetch(`/api/itineraries/${this.props.location.state.destinationId}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ itineraryItems: res });
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
+    const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
+      return (<ListItineraryItem key={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
+        itineraryDay={currentItem.itineraryDay}
+        itineraryNote={currentItem.itineraryNote}
+      />);
+    });
+
     return (
       <div className="container">
         <div className="mt-2 row">
@@ -29,9 +57,9 @@ export default class ItineraryList extends React.Component {
             <button type="button" className='mr-1 btn btn-sm btn-outline-success'>Day Three</button>
           </div>
         </div>
-        {/* list items mockup below */}
+        {/* list items below */}
         <div className="mt-2 row justify-content-center">
-          <ListItineraryItem />
+          {reactItineraryItems}
 
           <div className="mt-1 border border-secondary col-9">
             <h3>Tiger Sugar</h3>
