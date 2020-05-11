@@ -433,8 +433,15 @@ app.post('/api/locations', (req, res, next) => {
 });
 
 app.get('/api/lodgings', (req, res, next) => {
-  // eslint-disable-next-line no-console
-  console.log('hi');
+  const sql = `
+  select *
+  from "Lodging"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => console.error(err));
 });
 app.post('/api/lodgings', (req, res, next) => {
   const {
