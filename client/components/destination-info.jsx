@@ -148,27 +148,29 @@ export default class DestinationInfo extends React.Component {
               </header>
 
               <div className="form-element row">
-                <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                {destinationInfo.destinationName.length < 9
+                  ? <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                }
                 <div className=" col-12 ml-4 d-flex">
                   <input readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
                   <input readOnly value={this.tripEnd}/>
                 </div>
-
+                <textarea
+                  readOnly className="col-10 ml-4 align-self-end"
+                  cols="40 shadow-p"
+                  rows="10"
+                  value={destinationInfo.description}>
+                </textarea>
               </div>
-              <textarea
-                readOnly className="col-10 ml-4 align-self-end"
-                cols="40 shadow-p"
-                rows="10"
-                value={destinationInfo.description}>
-              </textarea>
 
               <footer className="row flex-fill">
                 <div className="col-3">
                   <Link to={{
                     pathname: '/flights',
                     state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                  }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-dark yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
@@ -178,8 +180,8 @@ export default class DestinationInfo extends React.Component {
                     state: {
                       destinationId: this.props.match.params.destinationId
                     }
-                  }} className="col-2 flight-button">
-                    <i className="fas fa-home fa-2x"></i>
+                  }} className="circle text-dark dark-blue m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-home fa-lg"></i>
                   </Link>
                 </div>
                 <div className="col-3">

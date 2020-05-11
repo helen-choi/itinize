@@ -431,6 +431,18 @@ app.post('/api/locations', (req, res, next) => {
     .catch(err => console.error(err));
 
 });
+
+app.get('/api/lodgings', (req, res, next) => {
+  const sql = `
+  select *
+  from "Lodging"
+  `;
+  db.query(sql)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => console.error(err));
+});
 app.post('/api/lodgings', (req, res, next) => {
   const {
     lodgingName,
