@@ -227,3 +227,10 @@ div.Destination-List > h1 {
   text-align: center;
 
 }
+/* LodgingList */
+.lodging {
+  background-color:#F4F4F4;
+}
+.lodging p {
+  margin-bottom:0;
+}
