@@ -71,10 +71,11 @@ export default class DestinationInfo extends React.Component {
       .then(res => res.json())
       .then(res => {
         const copiedDestinationInfo = { ...this.state.destinationInfo };
-        // console.log(copiedDestinationInfo);
         copiedDestinationInfo.destinationImage = changedSrc;
-        // console.log('after chabge', copiedDestinationInfo);
         this.setState({ destinationInfo: copiedDestinationInfo });
+        setTimeout(() => {
+          this.setState({ pictureIconIsClicked: false });
+        }, 500);
       })
       .catch(err => console.error(err));
   }
