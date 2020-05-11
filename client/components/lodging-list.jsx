@@ -25,8 +25,11 @@ export default class LodgingList extends React.Component {
   }
 
   render() {
+    const { destinationName } = this.props.location.state;
     return (
-      <h1>Hello World!</h1>
+      <div className="lodging-list-container">
+        <h1>{destinationName}</h1>
+      </div>
     );
   }
 }
