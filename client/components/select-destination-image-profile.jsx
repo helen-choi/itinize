@@ -20,8 +20,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     if (this.props.handleCheck) {
       this.setState({ editMode: true });
     }
-  // if (this.props.currentImage === '') {
-    // this.getPexelPictures();
+    // if (this.props.currentImage === '') {
+    this.getPexelPictures();
   //   }
   }
 

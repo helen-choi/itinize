@@ -11,6 +11,7 @@ import AddLodgingName from './add-lodging-name';
 import AddFlightName from './flight-name';
 import AddItineraryItem from './add-itinerary-item';
 import TripInfo from './flight-trip-info';
+import ItineraryList from './itinerary-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -45,8 +46,7 @@ export default class App extends React.Component {
             {/* ViewLodgings component */}
           </Route>
           <Route path="/lodgings/create" component={AddLodgingName} />
-          <Route exact path='/itineraries'>
-            {/* viewItineraries */}
+          <Route exact path='/itineraries' component={ItineraryList}>
           </Route>
           <Route path="/itineraries/create" component={AddItineraryItem}>
             {/* AddItinerariesName */}
