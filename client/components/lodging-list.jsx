@@ -10,6 +10,7 @@ export default class LodgingList extends React.Component {
       editModeOn: false
     };
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleExitClick = this.handleExitClick.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,11 @@ export default class LodgingList extends React.Component {
     });
   }
 
+  handleExitClick() {
+    // eslint-disable-next-line no-console
+    console.log('edit mode off');
+  }
+
   render() {
     const modalStyle = this.state.editModeOn ? { display: 'block' } : { display: 'none' };
     const { destinationName } = this.props.location.state;
@@ -42,7 +48,7 @@ export default class LodgingList extends React.Component {
         <div className="edit-control text-right">
           <i className="fas fa-pen fa-2x" onClick={this.handleEditClick}></i>
         </div>
-        <div className="lodging-edit-modal" style={modalStyle}></div>
+        <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
         <h1 className="text-center mt-5 mb-4">{destinationName}</h1>
         <div className="toggle row">
           <Link to={{
