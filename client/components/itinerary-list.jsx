@@ -16,7 +16,7 @@ export default class ItineraryList extends React.Component {
         </div>
         <div className="row">
           <div className="col">
-            title
+            <h1>{this.props.location.state.destinationName}</h1>
           </div>
         </div>
         <div className="row">
