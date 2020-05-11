@@ -36,8 +36,9 @@ export default class LodgingList extends React.Component {
   }
 
   handleExitClick() {
-    // eslint-disable-next-line no-console
-    console.log('edit mode off');
+    this.setState({
+      editModeOn: false
+    });
   }
 
   render() {
