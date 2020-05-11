@@ -24,6 +24,14 @@ export default class ItineraryList extends React.Component {
   }
 
   render() {
+    const bootstrapButtonClassNames = [
+      'btn-outline-danger',
+      'btn-outline-warning',
+      'btn-outline-success',
+      'btn-outline-dark',
+      'btn-outline-primary',
+      'btn-outline-secondary'
+    ];
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
       return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
@@ -32,8 +40,9 @@ export default class ItineraryList extends React.Component {
     });
     const dayButtons = [];
     for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
+
       dayButtons.push(
-        <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>Day {dayCounter + 1}</button>
+        <button type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
       );
     }
 
@@ -63,13 +72,10 @@ export default class ItineraryList extends React.Component {
             <h1>{this.props.location.state.destinationName}</h1>
           </div>
         </div>
-        <div className="row">
+        <div className="row justify-content-center">
           {/* todo: pass days via props to see how many tags to render */}
-          <div className="col">
-            <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>All</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-secondary'>Day One</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-danger'>Day Two</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-success'>Day Three</button>
+          <div className="scroll-menu col-9 border border-dark">
+            <button type="button" className='mr-1 btn btn-sm btn-outline-info'>All</button>
             {/* buttons rendered */}
             {dayButtons}
           </div>
