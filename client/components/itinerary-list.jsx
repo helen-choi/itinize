@@ -40,9 +40,17 @@ export default class ItineraryList extends React.Component {
             </Link>
           </div>
           <div className="col-6 d-flex justify-content-end">
-            <i className="fas ml-2 fa-pen fa-2x text-black"></i>
-            <i className="fas ml-2 fa-plus fa-2x text-black"></i>
-            <i className="far ml-2 fa-compass fa-2x text-black"></i>
+            <i className="fas ml-2 fa-pen fa-2x text-dark"></i>
+            <Link to={{
+              pathname: '/itineraries/create',
+              state: {
+                destinationId: this.props.location.state.destinationId,
+                destinationName: this.props.location.state.destinationName
+              }
+            }}>
+              <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
+            </Link>
+            <i className="far ml-2 fa-compass fa-2x text-dark"></i>
           </div>
         </div>
         <div className="mt-2 row">
@@ -51,7 +59,7 @@ export default class ItineraryList extends React.Component {
           </div>
         </div>
         <div className="row">
-          {/* pass days via props to see how many tags to render */}
+          {/* todo: pass days via props to see how many tags to render */}
           <div className="col">
             <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>All</button>
             <button type="button" className='mr-1 btn btn-sm btn-outline-secondary'>Day One</button>

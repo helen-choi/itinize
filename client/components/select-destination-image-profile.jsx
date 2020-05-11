@@ -4,8 +4,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      // imageList: dummyImageArray,
-      imageList: [],
+      imageList: dummyImageArray,
+      // imageList: [],
       imageChoice: '',
       isCheckVisible: false,
       editMode: false
