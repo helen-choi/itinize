@@ -32,7 +32,7 @@ export default class LodgingList extends React.Component {
     return (
       <div className="lodging-list-container p-3">
         <h1 className="text-center mt-5">Japan</h1>
-        <div className="lodgings">
+        <div className="lodgings pl-3 pr-3">
           {this.state.lodgings.map(lodging => {
             return <LodgingItem key={lodging.lodgingId} lodging={lodging} />;
           })}
