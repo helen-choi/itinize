@@ -249,6 +249,7 @@ div.Destination-List > h1 {
 }
 .toggle-lodgings {
   right:41%;
+  z-index: 1;
 }
 .toggle-hidden {
   position: absolute;
@@ -258,12 +259,17 @@ div.Destination-List > h1 {
 }
 .lodging-edit-modal {
   background-color: rgba(0,0,0,0.5);
-  z-index: 3;
-  position: absolute;
+  z-index: 2;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+}
+.delete-control {
+  right: 20px;
+  top: 10px;
+  z-index: 3;
 }
 /* Flights */
 .flight-card {
