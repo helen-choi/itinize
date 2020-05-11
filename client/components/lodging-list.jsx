@@ -13,8 +13,12 @@ export default class LodgingList extends React.Component {
   }
 
   getLodgingList() {
-    // eslint-disable-next-line no-console
-    console.log('hello');
+    const { destinationId } = this.props.location.state;
+    fetch(`/api/lodgings/${destinationId}`)
+      .then(res => res.json())
+      // eslint-disable-next-line no-console
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   }
 
   render() {
