@@ -431,6 +431,22 @@ app.post('/api/locations', (req, res, next) => {
     .catch(err => console.error(err));
 
 });
+
+app.get('/api/lodgings/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
+  const sql = `
+  select *
+  from "Lodging"
+  where "destinationId" = $1;
+  `;
+  const value = [destinationId];
+  db.query(sql, value)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => console.error(err));
+});
+
 app.post('/api/lodgings', (req, res, next) => {
   const {
     lodgingName,
@@ -536,7 +552,7 @@ app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
       })
       .catch(err => console.error(err));
   }
-
+});
 
 app.post('/api/itineraries', (req, res, next) => {
   const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
