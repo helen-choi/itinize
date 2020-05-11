@@ -1,4 +1,5 @@
 import React from 'react';
+import LodgingItem from './lodging-item';
 
 export default class LodgingList extends React.Component {
   constructor(props) {
@@ -27,25 +28,14 @@ export default class LodgingList extends React.Component {
   }
 
   render() {
-    // const {
-    //   destinationName,
-    //   lodgingName,
-    //   lodgingConfNum,
-    //   locationId,
-    //   checkInDateTime,
-    //   checkOutDateTime
-    // } = this.state.lodgings;
 
     return (
       <div className="lodging-list-container p-3">
         <h1 className="text-center mt-5">Japan</h1>
         <div className="lodgings">
-          <div className="lodging p-3 mt-5">
-            <h5>Hilton</h5>
-            <p><strong>Confirmation: </strong>ASDF234</p>
-            <p><strong>Check-In:</strong> asdf</p>
-            <p><strong>Check-Out:</strong> asdf</p>
-          </div>
+          {this.state.lodgings.map(lodging => {
+            return <LodgingItem key={lodging.lodgingId} lodging={lodging} />;
+          })}
         </div>
       </div>
     );
