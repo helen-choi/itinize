@@ -584,8 +584,12 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
   }
   const parameterizedArray = [destinationId];
   const sql = `
-    select *
+    select "itineraryName",
+            "itineraryDay",
+            "itineraryNote",
+            "coordinates"
       from "ItineraryList"
+      join "Locations" using ("locationId")
     where "destinationId" = $1;
     `;
   db.query(sql, parameterizedArray)

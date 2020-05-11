@@ -58,7 +58,6 @@ export default class AddDestinationName extends React.Component {
 
   handlePlaceSelect() {
     const addressObj = this.autocomplete.getPlace();
-
     if (addressObj) {
       const addressArray = addressObj.address_components;
       const country = addressArray[addressArray.length - 1].long_name;
