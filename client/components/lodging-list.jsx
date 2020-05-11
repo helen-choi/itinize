@@ -16,8 +16,11 @@ export default class LodgingList extends React.Component {
     const { destinationId } = this.props.location.state;
     fetch(`/api/lodgings/${destinationId}`)
       .then(res => res.json())
-      // eslint-disable-next-line no-console
-      .then(data => console.log(data))
+      .then(lodgingData => {
+        this.setState({
+          lodgings: lodgingData
+        });
+      })
       .catch(err => console.error(err));
   }
 
