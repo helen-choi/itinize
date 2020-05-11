@@ -44,8 +44,7 @@ export default class ItineraryList extends React.Component {
             <Link to={{
               pathname: '/itineraries/create',
               state: {
-                destinationId: this.props.location.state.destinationId,
-                destinationName: this.props.location.state.destinationName
+                destinationId: this.props.location.state.destinationId
               }
             }}>
               <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
