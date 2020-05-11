@@ -6,7 +6,8 @@ export default class LodgingList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lodgings: []
+      lodgings: [],
+      editModeOn: false
     };
     this.handleEditClick = this.handleEditClick.bind(this);
   }
@@ -28,18 +29,20 @@ export default class LodgingList extends React.Component {
   }
 
   handleEditClick() {
-    // eslint-disable-next-line no-console
-    console.log('edit mode on');
+    this.setState({
+      editModeOn: true
+    });
   }
 
   render() {
+    const modalStyle = this.state.editModeOn ? { display: 'block' } : { display: 'none' };
     const { destinationName } = this.props.location.state;
     return (
       <div className="lodging-list-container p-3">
         <div className="edit-control text-right">
           <i className="fas fa-pen fa-2x" onClick={this.handleEditClick}></i>
         </div>
-        <div className="lodging-edit-modal" style={{ display: 'none' }}></div>
+        <div className="lodging-edit-modal" style={modalStyle}></div>
         <h1 className="text-center mt-5 mb-4">{destinationName}</h1>
         <div className="toggle row">
           <Link to={{
