@@ -227,3 +227,14 @@ div.Destination-List > h1 {
   text-align: center;
 
 }
+
+.flight-card {
+  background-color: rgb(244, 244, 244);
+}
+.flight-create {
+  background-color: rgb(244, 244, 244);
+  height: 100px;
+}
+.off {
+  visibility: hidden
+}
