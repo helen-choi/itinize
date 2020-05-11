@@ -61,38 +61,12 @@ export default class ItineraryList extends React.Component {
         </div>
         {/* list items below */}
         <div className="mt-2 row justify-content-center">
-          {reactItineraryItems}
+          {(this.state.itineraryItems.length === 0)
+            ? <div className="mt-1 border border-secondary col-9">
+              <h3>No Itinerary Items Added</h3>
+            </div>
+            : reactItineraryItems}
 
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
-          <div className="mt-1 border border-secondary col-9">
-            <h3>Tiger Sugar</h3>
-            <p className="text-secondary">Day 2</p>
-            <p className="text-secondary">I want to do thissssssss</p>
-          </div>
         </div>
       </div>
     );
