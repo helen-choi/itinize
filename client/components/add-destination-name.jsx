@@ -16,7 +16,8 @@ export default class AddDestinationName extends React.Component {
       tripStart: '',
       tripEnd: '',
       description: '',
-      placeId: ''
+      placeId: '',
+      coordinates: null
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -52,18 +53,18 @@ export default class AddDestinationName extends React.Component {
     // eslint-disable-next-line no-undef
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('search'), options);
-    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id']);
+    this.autocomplete.setFields(['address_components', 'formatted_address', 'place_id', 'geometry']);
     this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
   }
 
   handlePlaceSelect() {
     const addressObj = this.autocomplete.getPlace();
-
     if (addressObj) {
+      const geo = { lat: addressObj.geometry.location.lat(), lng: addressObj.geometry.location.lng() };
       const addressArray = addressObj.address_components;
       const country = addressArray[addressArray.length - 1].long_name;
       const placeId = addressObj.place_id;
-      this.setState({ destinationName: country, placeId: placeId });
+      this.setState({ destinationName: country, placeId: placeId, coordinates: geo });
     }
   }
 
@@ -97,7 +98,20 @@ export default class AddDestinationName extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(destinationInfo)
     };
-    fetch('/api/destinations', init);
+    fetch('/api/destinations', init)
+      .then(res => res.json())
+      .then(data => {
+        const latitude = this.state.coordinates.lat;
+        const longitude = this.state.coordinates.lng;
+        const locationInit = {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ placeId: this.state.placeId, latitude, longitude })
+        };
+        fetch('/api/locations', locationInit)
+          .then(res => res.json());
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
