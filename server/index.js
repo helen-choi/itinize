@@ -510,7 +510,32 @@ app.post('/api/lodgings', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
+app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
+  const { lodgingId } = req.params;
+  if (lodgingId < 0 || lodgingId % 1 !== 0) {
+    res.status(400).json({
+      error: 'lodgingId needs to be a positive integer'
+    });
+  } else {
+    const sql = `
+      delete from "Lodging"
+      where "lodgingId" = $1
+      returning *
+      `;
+    const value = [lodgingId];
 
+    db.query(sql, value)
+      .then(result => {
+        if (result.rows.length === 0) {
+          res.status(404).json({
+            error: `Cannot find lodgingId ${lodgingId}`
+          });
+        } else {
+          res.status(204).json(result.rows[0]);
+        }
+      })
+      .catch(err => console.error(err));
+  }
 
 
 app.post('/api/itineraries', (req, res, next) => {
