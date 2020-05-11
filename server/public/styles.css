@@ -263,6 +263,11 @@ div.Destination-List > h1 {
   background-color: rgb(244, 244, 244);
   height: 100px;
 }
+
+.itinerary-display{
+  transition: height 2s 1s ease-in;
+}
+
 .off {
   visibility: hidden
 }

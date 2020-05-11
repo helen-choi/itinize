@@ -25,7 +25,7 @@ export default class ItineraryList extends React.Component {
 
   render() {
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
-      return (<ListItineraryItem key={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
+      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
       />);
@@ -44,8 +44,7 @@ export default class ItineraryList extends React.Component {
             <Link to={{
               pathname: '/itineraries/create',
               state: {
-                destinationId: this.props.location.state.destinationId,
-                destinationName: this.props.location.state.destinationName
+                destinationId: this.props.location.state.destinationId
               }
             }}>
               <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
