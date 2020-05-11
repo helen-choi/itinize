@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DestinationList from './destination-list';
+import SelectDestinationImageProfile from './select-destination-image-profile';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -8,6 +8,8 @@ export default class DestinationInfo extends React.Component {
     this.handleBodyClick = this.handleBodyClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
+    this.handleExitEditImage = this.handleExitEditImage.bind(this);
+    this.handleEditImage = this.handleEditImage.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -18,6 +20,9 @@ export default class DestinationInfo extends React.Component {
       pictureIconIsClicked: false
     };
   }
+
+  // add a componentDidUpdate to check when the picture info is changed
+  // componentDidUpdate
 
   handleBodyClick() {
     this.setState({
@@ -41,6 +46,32 @@ export default class DestinationInfo extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ destinationInfo: data });
+      })
+      .catch(err => console.error(err));
+  }
+
+  handleExitEditImage() {
+    this.setState({ pictureIconIsClicked: false });
+  }
+
+  handleEditImage(changedSrc) {
+    const data = { destinationImage: changedSrc };
+    const init = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    fetch(`/api/destinations/image/${this.state.destinationInfo.destinationId}`, init)
+      .then(res => res.json())
+      .then(res => {
+        const copiedDestinationInfo = { ...this.state.destinationInfo };
+        copiedDestinationInfo.destinationImage = changedSrc;
+        this.setState({ destinationInfo: copiedDestinationInfo });
+        setTimeout(() => {
+          this.setState({ pictureIconIsClicked: false });
+        }, 500);
       })
       .catch(err => console.error(err));
   }
@@ -94,7 +125,7 @@ export default class DestinationInfo extends React.Component {
         !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
       ) ||
       (
-        this.state.pictureIconIsClicked && <DestinationList/>
+        this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>
       ) ||
       (
         <div className="DestinationInfo container d-flex flex-wrap"
@@ -117,32 +148,35 @@ export default class DestinationInfo extends React.Component {
               </header>
 
               <div className="form-element row">
-                <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                {destinationInfo.destinationName.length < 9
+                  ? <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                }
                 <div className=" col-12 ml-4 d-flex">
                   <input readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
                   <input readOnly value={this.tripEnd}/>
                 </div>
-
+                <textarea
+                  readOnly className="col-10 ml-4 align-self-end"
+                  cols="40 shadow-p"
+                  rows="10"
+                  value={destinationInfo.description}>
+                </textarea>
               </div>
-              <textarea
-                readOnly className="col-10 ml-4 align-self-end"
-                cols="40 shadow-p"
-                rows="10"
-                value={destinationInfo.description}>
-              </textarea>
 
               <footer className="row flex-fill">
                 <div className="col-3">
                   <Link to={{
                     pathname: '/flights',
                     state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                  }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-dark yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
                 <div className="col-3">
                   <Link to={{
+
                     pathname: '/lodgings',
                     state: {
                       destinationId: this.props.match.params.destinationId,
@@ -150,10 +184,18 @@ export default class DestinationInfo extends React.Component {
                     }
                   }} className="col-2 flight-button">
                     <i className="fas fa-home fa-2x"></i>
+
                   </Link>
                 </div>
                 <div className="col-3">
-                  <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                  {/* prepare to pass destinationName via the state property in the Link component! */}
+                  <Link to={{
+                    pathname: '/itineraries',
+                    state: {
+                      destinationId: destinationId,
+                      destinationName: this.state.destinationInfo.destinationName
+                    }
+                  }} className="circle teal m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>

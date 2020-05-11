@@ -129,7 +129,7 @@ div.Destination-List > h1 {
   background-color: transparent;
   border: none;
   color:white;
-  width: 40%;
+  width: 35%;
 }
 
 .DestinationInfo p {
@@ -227,6 +227,7 @@ div.Destination-List > h1 {
   text-align: center;
 
 }
+
 /* LodgingList */
 .lodging {
   background-color:#F4F4F4;
@@ -254,4 +255,14 @@ div.Destination-List > h1 {
   left:37%;
   width:50px;
   height:50px;
+
+.flight-card {
+  background-color: rgb(244, 244, 244);
+}
+.flight-create {
+  background-color: rgb(244, 244, 244);
+  height: 100px;
+}
+.off {
+  visibility: hidden
 }
