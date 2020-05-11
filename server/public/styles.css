@@ -228,6 +228,34 @@ div.Destination-List > h1 {
 
 }
 
+/* LodgingList */
+.lodging {
+  background-color:#F4F4F4;
+}
+.lodging p {
+  margin-bottom:0;
+}
+.toggle-icon {
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  position: absolute;
+  border:6px solid #F4F4F4;
+
+}
+.toggle-flights {
+  left:41%;
+  z-index: -1;
+}
+.toggle-lodgings {
+  right:41%;
+}
+.toggle-hidden {
+  position: absolute;
+  left:37%;
+  width:50px;
+  height:50px;
+
 .flight-card {
   background-color: rgb(244, 244, 244);
 }

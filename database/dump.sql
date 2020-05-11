@@ -279,9 +279,11 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
+
 3	Mexico	https://format-com-cld-res.cloudinary.com/image/private/s--nD-qTZvF--/c_limit,g_center,h_65535,w_1600/fl_keep_iptc.progressive,q_95/v1/eeebce33a3e17f78f38c4504195b359e/Ajijic_Malecon_Portrait_-_Super_HiRes.jpg	2020-10-04	2020-10-10	going to Mexico	Mexico
 5	Japan	https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-24	2020-05-30	Fly away	ChIJLxl_1w9OZzQRRFJmfNR1QvU
 4	Switzerland	https://img.emg-services.net/HtmlPages/HtmlPage4239/switzerland-header-2.jpg	2021-11-11	2021-12-01	please work	Switzerland
+
 \.
 
 
@@ -310,7 +312,9 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 --
 
 COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
+
 17	Tiger Sugar	Day	At this location, I will	35	10
+
 \.
 
 
@@ -319,7 +323,9 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 --
 
 COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
+
 35	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+
 \.
 
 
@@ -332,6 +338,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 7	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
 8	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
 9	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
+
 \.
 
 
@@ -339,9 +346,10 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 9, true);
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 11, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 12, true);
+
+
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
@@ -354,6 +362,7 @@ SELECT pg_catalog.setval('public."Flight_flightId_seq"', 19, true);
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
+
 SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 17, true);
 
 
@@ -361,11 +370,15 @@ SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 17, true);
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
+
 SELECT pg_catalog.setval('public."Locations_locationId_seq"', 35, true);
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
+
+
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 12, true);
 
 
 SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 9, true);
