@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ListItineraryItem from './itinerary-item';
 
 export default class ItineraryList extends React.Component {
@@ -10,7 +11,6 @@ export default class ItineraryList extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.state.destinationId);
     this.getItineraryItems();
   }
 
@@ -35,7 +35,9 @@ export default class ItineraryList extends React.Component {
       <div className="container">
         <div className="mt-2 row">
           <div className="col-6">
-            <i className="far fa-times-circle fa-2x"></i>
+            <Link to={`/destinations/${this.props.location.state.destinationId}`}>
+              <i className="far fa-times-circle fa-2x text-dark"></i>
+            </Link>
           </div>
           <div className="col-6 d-flex justify-content-end">
             <i className="fas ml-2 fa-pen fa-2x text-black"></i>
