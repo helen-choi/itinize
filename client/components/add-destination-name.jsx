@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
+import SelectDestinationImageProfile from './select-destination-image-profile';
+import AddDestinationDates from './add-trip-start-end-dates-front-end';
+import AddDestinationDescription from './add-description-to-destination';
+import Confirmation from './confirmation';
 
 export default class AddDestinationName extends React.Component {
   constructor(props) {
@@ -8,17 +12,23 @@ export default class AddDestinationName extends React.Component {
     this.state = {
       componentStage: -1,
       destinationName: '',
-      place_id: ''
+      destinationImage: '',
+      tripStart: '',
+      tripEnd: '',
+      description: '',
+      placeId: ''
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRightArrowClick = this.handleRightArrowClick.bind(this);
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);
-  }
+    this.handleSelectImage = this.handleSelectImage.bind(this);
+    this.handleSelectTripStart = this.handleSelectTripStart.bind(this);
+    this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
+    this.handleSelectDescription = this.handleSelectDescription.bind(this);
+    this.handleSubmitDestinationInfo = this.handleSubmitDestinationInfo.bind(this);
 
-  handleChange() {
-    this.setState({ destinationName: event.target.value });
   }
 
   handleRightArrowClick() {
@@ -31,6 +41,10 @@ export default class AddDestinationName extends React.Component {
     let newComponentStage = this.state.componentStage;
     newComponentStage = newComponentStage - 1;
     this.setState({ componentStage: newComponentStage });
+  }
+
+  handleChange() {
+    this.setState({ destinationName: event.target.value });
   }
 
   handleScriptLoad() {
@@ -49,18 +63,52 @@ export default class AddDestinationName extends React.Component {
       const addressArray = addressObj.address_components;
       const country = addressArray[addressArray.length - 1].long_name;
       const placeId = addressObj.place_id;
-      this.setState({ destinationName: country, place_id: placeId });
+      this.setState({ destinationName: country, placeId: placeId });
     }
   }
 
+  handleSelectImage(imageString) {
+    this.setState({ destinationImage: imageString });
+  }
+
+  handleSelectTripStart(tripStartDate) {
+    this.setState({ tripStart: tripStartDate });
+  }
+
+  handleSelectTripEnd(tripEndDate) {
+    this.setState({ tripEnd: tripEndDate });
+  }
+
+  handleSelectDescription(destinationDescription) {
+    this.setState({ description: destinationDescription });
+  }
+
+  handleSubmitDestinationInfo() {
+    const destinationInfo = {
+      destinationName: this.state.destinationName,
+      destinationImage: this.state.destinationImage,
+      tripStart: this.state.tripStart,
+      tripEnd: this.state.tripEnd,
+      description: this.state.description,
+      placeId: this.state.placeId
+    };
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(destinationInfo)
+    };
+    fetch('/api/destinations', init);
+  }
+
   render() {
-    // use either a switch or a two conditional check if -1 for each component to render correctly
-    const componentsArray = [<h1 key={this.state.componentStage}>Select destination Image</h1>,
-      <h1 key={this.state.componentStage}>Add depature/arrival dates</h1>,
-      <h1 key={this.state.componentStage}>Add description to destination </h1>,
-      <h1 key={this.state.componentStage}>User Can confirm added destination</h1>];
-    const progressBarComplete = 'progress-bar-complete';
-    const progressBarIncomplete = 'progress-bar-incomplete';
+    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
+    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
+      <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
+        handleSelectTripEnd={this.handleSelectTripEnd}
+        key={this.state.componentStage}/>,
+      <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
+        key={this.state.componentStage} />,
+      <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />];
     let leftIcon;
     let rightIcon;
     switch (this.state.componentStage) {
@@ -80,11 +128,13 @@ export default class AddDestinationName extends React.Component {
         break;
       case 2:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          this.handleSubmitDestinationInfo();
+          this.handleRightArrowClick();
+        }} className="fas fa-check fa-2x"></i>;
         break;
       case 3:
-        leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-check fa-2x"></i>;
+
         break;
       default:
         leftIcon = (<Link className="text-dark" to="/">
@@ -95,12 +145,12 @@ export default class AddDestinationName extends React.Component {
 
     return (
       <div className="container h-100">
-        <div className="row mb-1">
-          <div className={`col-3 ${(this.state.componentStage === -1) ? progressBarComplete : progressBarComplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 0) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 1) ? progressBarComplete : progressBarIncomplete}`}></div>
-          <div className={`col-3 ${(this.state.componentStage === 2) ? progressBarComplete : progressBarIncomplete}`}></div>
-        </div>
+        {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
+          <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
+          <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
+          <div className={`col ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
+        </div>) : null }
         <header className="row">
           <div className="col d-flex justify-content-between">
             {leftIcon}
@@ -109,20 +159,22 @@ export default class AddDestinationName extends React.Component {
           </div>
         </header>
         {(this.state.componentStage === -1 &&
-          <div className="main-text-height row align-items-center justify-content-center">
+      <div className="row">
+        <div className="col">
+          <div className="row">
             <div className="col">
-              <div className="row">
-                <div className="col">
-                  <h4 className="text-center font-weight-bold">Add a destination</h4>
-                  <h6 className="text-center">Enter the country of your destination</h6>
-                </div>
-              </div>
-              <div className="col input-group justify-content-center">
-                <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyvuSt5fOGYijGD5-oh1HqjZZrfAxxea0&libraries=places&sessiontoken=1" onLoad={this.handleScriptLoad} />
-                <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
-              </div>
+              <h3 className="text-center pt-5">Add a Destination</h3>
+              <p className="text-muted text-center">Enter the country of your destination.</p>
             </div>
-          </div>) || componentsArray[this.state.componentStage]}
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-8 justify-content-center mt-5">
+              <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
+              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+            </div>
+          </div>
+        </div>
+      </div>) || componentsArray[this.state.componentStage]}
       </div>
     );
 

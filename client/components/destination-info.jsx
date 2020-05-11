@@ -46,16 +46,16 @@ export default class DestinationInfo extends React.Component {
   }
 
   handleEditClick(e) {
-    const data = e.currentTarget.getAttribute('handler');
+    const editIcon = e.currentTarget.getAttribute('handler');
     this.setState(state => {
-      state[data] = true;
-      return state[data];
+      state[editIcon] = true;
+      return state[editIcon];
     });
   }
 
   handleUserInputOnChange(e) {
-    const data = e.currentTarget.getAttribute('handler');
-    this.setState({ [data]: e.currentTarget.value });
+    const inputTag = e.currentTarget.getAttribute('handler');
+    this.setState({ [inputTag]: e.currentTarget.value });
   }
 
   handleClickDelete(destinationId) {
@@ -82,43 +82,67 @@ export default class DestinationInfo extends React.Component {
 
   render() {
     const destinationInfo = this.state.destinationInfo;
+    const destinationId = this.props.match.params.destinationId;
+
     if (this.state.destinationInfo) {
       this.tripStart = new Date(destinationInfo.tripStart).toDateString();
       this.tripEnd = new Date(destinationInfo.tripEnd).toDateString();
     }
+
     return (
-      (!this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>) ||
-      (this.state.pictureIconIsClicked && <DestinationList/>) ||
-      (<div className="DestinationInfo container"
-        style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
+      (
+        !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
+      ) ||
+      (
+        this.state.pictureIconIsClicked && <DestinationList/>
+      ) ||
+      (
+        <div className="DestinationInfo container d-flex flex-wrap"
+          style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
+          {
+            (!this.state.editIconIsClicked &&
+            <>
+              <div className="overlay container"></div>
+              <header className="row justify-content-between pt-2 flex-fill">
+                <Link to="/" className="col-2 text-white">
+                  <i className="fas fa-arrow-left fa-2x"></i>
+                </Link>
+                <div className="col-2">
+                  <i
+                    onClick={this.handleEditClick}
+                    handler="editIconIsClicked"
+                    className="fas fa-pen fa-2x text-white">
+                  </i>
+                </div>
+              </header>
 
-        {(!this.state.editIconIsClicked &&
-        <>
-          <div className="overlay container"></div>
-          <header className="row justify-content-between pt-2">
-            <Link to="/" className="col-2 text-white">
-              <i className="fas fa-arrow-left fa-2x"></i>
-            </Link>
-            <div className="col-2">
-              <i onClick={this.handleEditClick} handler="editIconIsClicked" className="fas fa-pen fa-2x text-white"></i>
-            </div>
-          </header>
+              <div className="form-element row">
+                <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                <div className=" col-12 ml-4 d-flex">
+                  <input readOnly value={this.tripStart}/>
+                  <p className="my-auto"> - </p>
+                  <input readOnly value={this.tripEnd}/>
+                </div>
 
-          <div className="form-element row">
-            <input className="display-3 pt-5 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
-            <div className=" col-12 ml-4 d-flex">
-              <input readOnly value={this.tripStart}/>
-              <p> - </p>
-              <input readOnly value={this.tripEnd}/>
-            </div>
-            <textarea readOnly className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={destinationInfo.description}></textarea>
-          </div>
+              </div>
+              <textarea
+                readOnly className="col-10 ml-4 align-self-end"
+                cols="40 shadow-p"
+                rows="10"
+                value={destinationInfo.description}>
+              </textarea>
 
-          <footer>
-            <Link to="/flights/create" className="col-2 flight-button">
-              <i className="fas fa-plane fa-2x"></i>
-            </Link>
-            <Link to={{
+              <footer className="row flex-fill">
+                <div className="col-3">
+                  <Link to={{
+                    pathname: '/flights',
+                    state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
+                  }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-plane fa-lg"></i>
+                  </Link>
+                </div>
+                <div className="col-3">
+                  <Link to={{
               pathname: '/lodgings/create',
               state: {
                 destinationId: this.props.match.params.destinationId
@@ -126,39 +150,92 @@ export default class DestinationInfo extends React.Component {
             }} className="col-2 flight-button">
               <i className="fas fa-home fa-2x"></i>
             </Link>
-            <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
-              <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt"></i>
-            </div>
-          </footer>
+                </div>
+                <div className="col-3">
+                  <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-map-marker-alt fa-lg"></i>
+                  </Link>
+                </div>
+                <div className="col-3">
+                  <div className="circle red m-auto d-flex justify-content-center align-items-center">
+                    <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+                  </div>
+                </div>
+              </footer>
+            </>
+            ) ||
 
-        </>) ||
+            (this.state.editIconIsClicked &&
+              <>
+                <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
+                <header className="row justify-content-between pt-2 flex-fill align-items-start">
+                  <div className="col-3 text-dark">
+                    <i className="fas fa-arrow-left fa-2x"></i>
+                  </div>
+                  <div className="col-4 d-flex justify-content-end">
+                    <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white pr-3"></i>
+                    <i className="fas fa-pen fa-2x text-dark"></i>
+                  </div>
+                </header>
 
-        (this.state.editIconIsClicked &&
-          <>
-            <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
-            <header className="row justify-content-between pt-2">
-              <div className="text-dark">
-                <i className="fas fa-arrow-left fa-2x"></i>
-              </div>
-              <div>
-                <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white mr-3"></i>
-                <i className="fas fa-pen fa-2x text-dark"></i>
-              </div>
-            </header>
+                <div className="form-element row">
+                  <input onChange={this.handleUserInputOnChange}
+                    handler="destinationName"
+                    className="display-3 ml-4 col-11"
+                    value={this.state.destinationName} />
+                  <div className=" col-12 ml-4 d-flex align-items-center">
+                    <input
+                      onChange={this.handleUserInputOnChange}
+                      handler="tripStart"
+                      type="date"
+                      value={this.state.tripStart.slice(0, 10)} />
+                    <p className="my-auto"> - </p>
+                    <input
+                      onChange={this.handleUserInputOnChange}
+                      handler="tripEnd"
+                      type="date"
+                      value={this.state.tripEnd.slice(0, 10)} />
+                  </div>
+                  <textarea
+                    onChange={this.handleUserInputOnChange}
+                    handler="description"
+                    className="col-10 ml-4 align-self-end"
+                    cols="40 shadow-p"
+                    rows="10"
+                    value={this.state.description}></textarea>
+                </div>
 
-            <div className="form-element row">
-              <input onChange={this.handleUserInputOnChange} handler="destinationName" className="display-3 pt-5 ml-4 col-11" value={this.state.destinationName} />
-              <div className=" col-12 ml-4 d-flex">
-                <input onChange={this.handleUserInputOnChange} handler="tripStart" type="date" value={this.state.tripStart.slice(0, 10)} />
-                <p> - </p>
-                <input onChange={this.handleUserInputOnChange} handler="tripEnd" type="date" value={this.state.tripEnd.slice(0, 10)} />
-              </div>
-              <textarea onChange={this.handleUserInputOnChange} handler="description" className="col-10 ml-4 align-self-end" cols="40 shadow-p" rows="10" value={this.state.description}></textarea>
-            </div>
-
-          </>)}
-      </div>
-
+                <footer className="row flex-fill">
+                  <div className="col-3 ">
+                    <Link to="/flights/create" className="circle teal m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-plane fa-lg"></i>
+                    </Link>
+                  </div>
+                  <div className="col-3">
+                    <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-hotel fa-lg"></i>
+                    </Link>
+                  </div>
+                  <div className="col-3">
+                    <Link to={
+                      {
+                        pathname: '/itineraries/create',
+                        state: { destinationId: destinationId }
+                      }
+                    } className="circle yellow m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-map-marker-alt fa-lg"></i>
+                    </Link>
+                  </div>
+                  <div className="col-3">
+                    <div className="circle red m-auto d-flex justify-content-center align-items-center">
+                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+                    </div>
+                  </div>
+                </footer>
+              </>
+            )
+          }
+        </div>
       )
     );
   }

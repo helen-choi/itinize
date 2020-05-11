@@ -11,7 +11,7 @@ export default class Confirmation extends React.Component {
       if (url.includes('/lodgings')) {
         history.push('/lodgings');
       } else if (url.includes('/destinations')) {
-        history.push('/destinations');
+        history.push('/');
       } else if (url.includes('/flights')) {
         history.push('/flights');
       } else if (url.includes('/itineraries')) {

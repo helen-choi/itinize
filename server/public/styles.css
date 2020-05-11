@@ -3,7 +3,7 @@ body #root {
 }
 
 .main-text-height {
-  height: 80%;
+  /* min-height: 80%; */
 }
 
 * {
@@ -51,23 +51,33 @@ div.card-body {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 2;
+  z-index: 0;
 }
-
+div.card-body   h5 {
+  position: relative;
+  z-index: 1;
+}
 div.Destination-List > h1 {
   padding-left: 15px
 }
-
-.circle-blue {
-  background-color: #6CC4C8;
+.circle {
   border-radius: 50%;
-  width: 35px;
+  padding: 25%;
+}
+.teal {
+  background-color: #6CC4C8;
 }
 
-.circle-red {
+.red {
   background-color: #EA6A61;
-  border-radius: 50%;
-  width: 35px;
+}
+
+.yellow {
+  background-color: #F0BF11;
+}
+
+.dark-blue {
+  background-color: #4059AD;
 }
 
 .icon {
@@ -83,25 +93,13 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
-.progress-bar-complete {
-  background-color: #6CC4C8;
-  height: 12px;
-}
-
-.progress-bar-incomplete {
-  background-color: #C4C4C4;
-  height: 12px;
-}
-
-
-
 .main-text {
   text-align: center;
 }
 
 .overlay {
     background-color: rgba(0,0,0,0.5);
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -112,17 +110,13 @@ div.Destination-List > h1 {
 
 .overlay-edit {
     background-color: rgba(0,0,0,0.9);
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
 
-}
-.emphasize-text {
-  font-size: 36px;
-  font-weight: 800;
 }
 .DestinationInfo {
   width: 100%;
@@ -143,7 +137,7 @@ div.Destination-List > h1 {
   width: 5%;
 }
 .loading-data {
-  background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif);
+  /* background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif); */
   background-size: contain;
   height: 100vh;
   width: 100%;
@@ -153,19 +147,20 @@ div.Destination-List > h1 {
   font-size: 20vw;
   text-align: center;
 }
-.DestinationInfo > form > div > *{
+/* .DestinationInfo > form > div > *{
   height: 25%;
 }
 .DestinationInfo > form {
   height: 80%;
-}
+} */
 .DestinationInfo header > *,
-.form-element > *,
-.DestinationInfo > footer > *,
-.DestinationInfo > footer > div.circle-red,
-.DestinationInfo > footer > div > fa-trash-alt{
+.form-element > *{
   position: relative;
   z-index: 3;
+}
+.DestinationInfo > footer > * {
+  position:relative;
+  z-index: 1;
 }
 /* AddLodgingName */
 .page-controls {
@@ -201,8 +196,34 @@ div.Destination-List > h1 {
   border:1px solid white;
   border-radius: 50%;
 }
+
 /* AddLodgingDates */
 .checkin input, .checkout input {
   border:1px solid #C4C4C4;
   background-color: white;
+}
+
+.destination-image-modal-check{
+  background-color: rgba(0, 0, 0, 0.486);
+  top: 0;
+}
+
+.input-destination-date{
+  font-size: 15px;
+}
+
+.destination-progress-bar-margin{
+  margin-right: 3px;
+}
+
+.pexels-photo-text{
+  bottom: 0%;
+  margin-bottom: 0;
+  font-size: 5px;
+  background-color: black;
+}
+
+::placeholder {
+  text-align: center;
+
 }

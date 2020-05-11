@@ -7,10 +7,11 @@ import {
 import DestinationList from './destination-list';
 import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
-
 import AddLodgingName from './add-lodging-name';
-
 import AddFlightName from './flight-name';
+import AddItineraryItem from './add-itinerary-item';
+import TripInfo from './flight-trip-info';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,6 @@ export default class App extends React.Component {
   render() {
     return (
       <Router>
-
         <Switch>
           <Route exact path="/">
             <DestinationList/>
@@ -35,13 +35,11 @@ export default class App extends React.Component {
 
           <Route path="/destinations/:destinationId" component={DestinationInfo}/>
 
-          <Route exact path="/flights">
+          <Route exact path="/flights" component={TripInfo}>
             {/* ViewFlights component */}
           </Route>
 
-          <Route path="/flights/create">
-            <AddFlightName />
-          </Route>
+          <Route path="/flights/create" component={AddFlightName} />
 
           <Route exact path="/lodgings">
             {/* ViewLodgings component */}
@@ -50,7 +48,7 @@ export default class App extends React.Component {
           <Route exact path='/itineraries'>
             {/* viewItineraries */}
           </Route>
-          <Route path="/itineraries/create">
+          <Route path="/itineraries/create" component={AddItineraryItem}>
             {/* AddItinerariesName */}
           </Route>
         </Switch>
