@@ -142,9 +142,14 @@ export default class DestinationInfo extends React.Component {
                   </Link>
                 </div>
                 <div className="col-3">
-                  <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
-                    <i className="fas fa-hotel"></i>
-                  </Link>
+                  <Link to={{
+              pathname: '/lodgings/create',
+              state: {
+                destinationId: this.props.match.params.destinationId
+              }
+            }} className="col-2 flight-button">
+              <i className="fas fa-home fa-2x"></i>
+            </Link>
                 </div>
                 <div className="col-3">
                   <Link to={{ pathname: '/itineraries/create', state: { destinationId: destinationId } }} className="circle teal m-auto d-flex justify-content-center align-items-center">

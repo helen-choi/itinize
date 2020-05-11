@@ -428,8 +428,90 @@ app.post('/api/locations', (req, res, next) => {
   const parameterizedArray = [latitude, longitude, placeId];
   db.query(sql, parameterizedArray)
     .then(results => res.status(201).json(results.rows))
-    .catch(err => next(err));
+    .catch(err => console.error(err));
+
 });
+app.post('/api/lodgings', (req, res, next) => {
+  const {
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  } = req.body;
+  const sql = `
+  insert into "Lodging"
+  (
+    "lodgingName",
+    "lodgingConfNum",
+    "checkInDateTime",
+    "checkOutDateTime",
+    "locationId",
+    "destinationId"
+  )
+  values($1,$2,$3,$4,$5,$6)
+  returning *;
+  `;
+  const values = [
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  ];
+
+  if (!lodgingName) {
+    return res.status(400).json({
+      error: 'lodgingName is required'
+    });
+  }
+  if (!lodgingConfNum) {
+    return res.status(400).json({
+      error: 'lodgingConfNum is required'
+    });
+  }
+  if (!checkInDateTime) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (!checkOutDateTime) {
+    return res.status(400).json({
+      error: 'checkOutDateTime is required'
+    });
+  }
+  if (!locationId) {
+    return res.status(400).json({
+      error: 'locationId is required'
+    });
+  }
+  if (!destinationId) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (locationId < 0 || locationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'locationId needs to be a positive integer'
+    });
+  }
+  if (destinationId < 0 || destinationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'destinationId needs to be a positive integer'
+    });
+  }
+
+  db.query(sql, values)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => console.error(err));
+});
+
+
+
 
 app.post('/api/itineraries', (req, res, next) => {
   const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
@@ -493,6 +575,7 @@ app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
