@@ -1,4 +1,5 @@
 import React from 'react';
+import ListItineraryItem from './itinerary-item';
 
 export default class ItineraryList extends React.Component {
   render() {
@@ -23,13 +24,25 @@ export default class ItineraryList extends React.Component {
           {/* pass days via props to see how many tags to render */}
           <div className="col">
             <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>All</button>
-            <button type="button" className='btn btn-sm btn-outline-secondary'>Day One</button>
-            <button type="button" className='btn btn-sm btn-outline-danger'>Day Two</button>
-            <button type="button" className='btn btn-sm btn-outline-success'>All</button>
+            <button type="button" className='mr-1 btn btn-sm btn-outline-secondary'>Day One</button>
+            <button type="button" className='mr-1 btn btn-sm btn-outline-danger'>Day Two</button>
+            <button type="button" className='mr-1 btn btn-sm btn-outline-success'>Day Three</button>
           </div>
         </div>
         {/* list items mockup below */}
         <div className="mt-2 row justify-content-center">
+          <ListItineraryItem />
+
+          <div className="mt-1 border border-secondary col-9">
+            <h3>Tiger Sugar</h3>
+            <p className="text-secondary">Day 2</p>
+            <p className="text-secondary">I want to do thissssssss</p>
+          </div>
+          <div className="mt-1 border border-secondary col-9">
+            <h3>Tiger Sugar</h3>
+            <p className="text-secondary">Day 2</p>
+            <p className="text-secondary">I want to do thissssssss</p>
+          </div>
           <div className="mt-1 border border-secondary col-9">
             <h3>Tiger Sugar</h3>
             <p className="text-secondary">Day 2</p>
