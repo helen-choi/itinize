@@ -571,12 +571,12 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
     return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
   }
   const parameterizedArray = [destinationId];
-  const mySQL = `
+  const sql = `
     select *
       from "ItineraryList"
     where "destinationId" = $1;
     `;
-  db.query(mySQL, parameterizedArray)
+  db.query(sql, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
@@ -590,17 +590,57 @@ app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
     return res.status(400).json({ error: 'please put the correct parameter day: Day X' });
   }
   const parameterizedArray = [destinationId, day];
-  const mySQL = `
+  const sql = `
     select *
       from "ItineraryList"
     where "destinationId" = $1
     and "itineraryDay" = $2;
     `;
-  db.query(mySQL, parameterizedArray)
+  db.query(sql, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
 
+app.put('/api/itineraries/:itineraryId', (req, res, next) => {
+  const itineraryId = req.params.itineraryId;
+  const { itineraryDay, itineraryName, itineraryNote, locationId } = req.body;
+  if (!itineraryDay || !itineraryName || !itineraryNote || !parseInt(locationId, 10)) {
+    return res.status(400).json({ error: 'please the itineraryDay, itineraryName, itineraryNote and locationId as a positive number into the body' });
+  }
+  if (!parseInt(itineraryId, 10) || parseInt(itineraryId) < 0) {
+    return res.status(404).json({ error: 'please input a postive interger for itineraryId' });
+  }
+
+  const parameterizedArray = [itineraryName, itineraryDay, itineraryNote, locationId, itineraryId];
+  const sql = `
+    update "ItineraryList"
+      set "itineraryName" = $1,
+          "itineraryDay" = $2,
+          "itineraryNote" = $3,
+          "locationId" = $4
+    where "itineraryId" = $5
+    returning *;
+  `;
+  db.query(sql, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
+app.delete('/api/itineraries/:itineraryId', (req, res, next) => {
+  const itineraryId = req.params.itineraryId;
+  if (!parseInt(itineraryId)) {
+    return res.status(400).json({ error: 'please input a postive interger for the itineraryId' });
+  }
+  const parameterizedArray = [itineraryId];
+  const sql = `
+    delete from "ItineraryList"
+    where "itineraryId" = $1
+    returning *
+  `;
+  db.query(sql, parameterizedArray)
+    .then(result => res.status(200).json(result.row))
+    .catch(err => next(err));
+});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
