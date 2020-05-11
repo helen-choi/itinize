@@ -9,7 +9,7 @@ export default class ItineraryList extends React.Component {
     this.handleCompassClick = this.handleCompassClick.bind(this);
     this.state = {
       itineraryItems: [],
-      mapIconIsClick: true
+      mapIconIsClick: false
     };
   }
 
@@ -39,6 +39,7 @@ export default class ItineraryList extends React.Component {
     });
 
     return (
+      (this.state.itineraryItems.length === 0 && <div>Loading</div>) ||
       <div className="container">
         <div className="mt-2 row">
           {
@@ -51,7 +52,7 @@ export default class ItineraryList extends React.Component {
                   </div>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <Link>
+                  <Link to="/">
                     <i className="fas fa-bars fa-2x text-dark"></i>
                   </Link>
                 </div>
@@ -100,7 +101,7 @@ export default class ItineraryList extends React.Component {
           (
             this.state.mapIconIsClick &&
             <div className="mt-5">
-              <ItineraryMap itineraries={this.state.itineraryItems}></ItineraryMap>
+              <ItineraryMap destinationId={this.props.location.state.destinationId} itineraries={this.state.itineraryItems}></ItineraryMap>
             </div>
           ) ||
           (
