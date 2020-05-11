@@ -6,10 +6,12 @@ export default class TripInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flights: []
+      flights: [],
+      deleteIconEdit: false
     };
     this.handleClickDelete = this.handleClickDelete.bind(this);
-    // this.handleClickDelete(this.props.location.state.destinationId);
+    this.deleteIconEdit = this.deleteIconEdit.bind(this);
+    this.toggleDeleteEdit = this.toggleDeleteEdit.bind(this);
   }
 
   componentDidMount() {
@@ -20,12 +22,24 @@ export default class TripInfo extends React.Component {
     fetch(`/api/flights/${flightDestinationId}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data[0].flightId);
         this.setState({
           flights: data
         });
       })
       .catch(err => console.error(err));
+  }
+
+  deleteIconEdit() {
+    this.setState({ deleteIconEdit: !this.state.deleteIconEdit });
+  }
+
+  toggleDeleteEdit() {
+    const mode = this.state.deleteIconEdit;
+    if (mode === false) {
+      return 'fas fa-times fa-lg pt-2 pr-3 off';
+    } else {
+      return 'fas fa-times fa-lg pt-2 pr-3';
+    }
   }
 
   handleClickDelete(flightId) {
@@ -50,7 +64,7 @@ export default class TripInfo extends React.Component {
           <Link to={`/destinations/${this.props.location.state.destinationId}`} className="col-2">
             <i className="fas fa-arrow-left fa-2x text-black"></i>
           </Link>
-          <div className="col-2">
+          <div onClick={this.deleteIconEdit} className="col-2">
             <i className="fas fa-trash fa-2x text-black"></i>
           </div>
         </header>
@@ -60,7 +74,7 @@ export default class TripInfo extends React.Component {
         <div>
           {
             this.state.flights.map(flight => {
-              return <FlightTripInfoItem handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
+              return <FlightTripInfoItem toggle={this.toggleDeleteEdit} handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
             })
           }
         </div>

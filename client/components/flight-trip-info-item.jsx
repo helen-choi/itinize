@@ -7,7 +7,7 @@ function FlightTripInfoItem(props) {
     <div key={flightData.flightId} className="flight-card pl-3">
       <div>
         <h5 className="d-flex justify-content-between">{flightData.flightName}
-          <i onClick={() => props.handleClickDelete(flightData.flightId)} className="fas fa-times fa-lg pt-2 pr-3"></i>
+          <i className={props.toggle()} onClick={() => props.handleClickDelete(flightData.flightId)}></i>
         </h5>
         <p>{flightData.airportDeparture}</p>
         <p>Flight Number: {flightData.flightNumber}</p>
