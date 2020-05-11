@@ -129,7 +129,7 @@ div.Destination-List > h1 {
   background-color: transparent;
   border: none;
   color:white;
-  width: 40%;
+  width: 35%;
 }
 
 .DestinationInfo p {
@@ -197,6 +197,12 @@ div.Destination-List > h1 {
   border-radius: 50%;
 }
 
+/* AddLodgingDates */
+.checkin input, .checkout input {
+  border:1px solid #C4C4C4;
+  background-color: white;
+}
+
 .destination-image-modal-check{
   background-color: rgba(0, 0, 0, 0.486);
   top: 0;
@@ -219,6 +225,7 @@ div.Destination-List > h1 {
 
 ::placeholder {
   text-align: center;
+
 }
 
 .flight-card {
