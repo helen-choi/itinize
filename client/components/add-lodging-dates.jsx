@@ -66,6 +66,7 @@ export default class AddLodgingDates extends React.Component {
             <label htmlFor="checkoutTime">Time</label>
             <input className="p-2" type="time" id="checkoutTime" name="checkoutTime" onChange={this.handleChange}/>
           </div>
+
         </div>
       </div>
     );

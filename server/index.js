@@ -14,6 +14,9 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.get('/api/destinations', (req, res, next) => {
+  // for demo purposes for Kevin, I put the Pexel API key
+  // in the .env file
+  // console.log('Pexel Key:', process.env.PEXELSAPIKEY);
   const destinationGetSql = `
   select "destinationName",
   "destinationImage",
@@ -49,7 +52,7 @@ app.get('/api/destinations/:destinationId', (req, res, next) => {
           res.status(200).json(result.rows[0]);
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => next(err));
   }
 });
 
@@ -105,17 +108,20 @@ app.post('/api/destinations', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/flights', (req, res, next) => {
+app.get('/api/flights/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
   const viewFlightsSql = `
   select *
   from "Flight"
+  where "destinationId" = $1;
   `;
-  db.query(viewFlightsSql)
+  const flightParam = [destinationId];
+  db.query(viewFlightsSql, flightParam)
     .then(result => {
       const flights = result.rows;
       res.json(flights);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.post('/api/flights', (req, res, next) => {
@@ -124,8 +130,7 @@ app.post('/api/flights', (req, res, next) => {
     flightDate,
     airportDeparture,
     flightName,
-    destinationId,
-    status
+    destinationId
   } = req.body;
 
   if (!flightNumber) {
@@ -158,24 +163,19 @@ app.post('/api/flights', (req, res, next) => {
       error: 'destinationId needs to be an integer'
     });
   }
-  if (!status) {
-    return res.status(400).json({
-      error: 'status is required'
-    });
-  }
 
   const sql = `
-  insert into "Flight" ("flightNumber", "flightDate","airportDeparture", "flightName", "destinationId", "status")
-  values ($1, $2, $3, $4, $5, $6)
+  insert into "Flight" ("flightNumber", "flightDate","airportDeparture", "flightName", "destinationId")
+  values ($1, $2, $3, $4, $5)
   returning *
   `;
-  const values = [flightNumber, flightDate, airportDeparture, flightName, destinationId, status];
+  const values = [flightNumber, flightDate, airportDeparture, flightName, destinationId];
 
   db.query(sql, values)
     .then(result => {
       res.status(201).json(result.rows[0]);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 });
 
 app.delete('/api/flights/:flightId', (req, res, next) => {
@@ -205,7 +205,86 @@ app.delete('/api/flights/:flightId', (req, res, next) => {
       }
       res.status(204).json(result.rows[0]);
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
+});
+
+app.post('/api/lodgings', (req, res, next) => {
+  const {
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  } = req.body;
+  const sql = `
+  insert into "Lodging"
+  (
+    "lodgingName",
+    "lodgingConfNum",
+    "checkInDateTime",
+    "checkOutDateTime",
+    "locationId",
+    "destinationId"
+  )
+  values($1,$2,$3,$4,$5,$6)
+  returning *;
+  `;
+  const values = [
+    lodgingName,
+    lodgingConfNum,
+    checkInDateTime,
+    checkOutDateTime,
+    locationId,
+    destinationId
+  ];
+
+  if (!lodgingName) {
+    return res.status(400).json({
+      error: 'lodgingName is required'
+    });
+  }
+  if (!lodgingConfNum) {
+    return res.status(400).json({
+      error: 'lodgingConfNum is required'
+    });
+  }
+  if (!checkInDateTime) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (!checkOutDateTime) {
+    return res.status(400).json({
+      error: 'checkOutDateTime is required'
+    });
+  }
+  if (!locationId) {
+    return res.status(400).json({
+      error: 'locationId is required'
+    });
+  }
+  if (!destinationId) {
+    return res.status(400).json({
+      error: 'checkInDateTime is required'
+    });
+  }
+  if (locationId < 0 || locationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'locationId needs to be a positive integer'
+    });
+  }
+  if (destinationId < 0 || destinationId % 1 !== 0) {
+    return res.status(400).json({
+      error: 'destinationId needs to be a positive integer'
+    });
+  }
+
+  db.query(sql, values)
+    .then(result => {
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
 });
 
 app.put('/api/destinations/:destinationId', (req, res, next) => {
@@ -350,6 +429,7 @@ app.post('/api/locations', (req, res, next) => {
   db.query(sql, parameterizedArray)
     .then(results => res.status(201).json(results.rows))
     .catch(err => console.error(err));
+
 });
 app.post('/api/lodgings', (req, res, next) => {
   const {
@@ -428,6 +508,72 @@ app.post('/api/lodgings', (req, res, next) => {
       res.status(201).json(result.rows[0]);
     })
     .catch(err => console.error(err));
+});
+
+
+
+
+app.post('/api/itineraries', (req, res, next) => {
+  const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
+  if (!itineraryName || !locationId || !destinationId) {
+    return res.status(404).json({ error: 'please put all fields in the body' });
+  }
+  if (!itineraryDay.includes('Day')) {
+    return res.status(400).json({ error: 'please put the right day tag inside' });
+  }
+  if (!parseInt(locationId, 10) || !parseInt(destinationId, 10) || locationId < 0 || destinationId < 0) {
+    return res.status(400).json({ error: 'destinationId and locationId should be a positive number' });
+  }
+
+  const sql = `
+  insert into "ItineraryList" ( "itineraryDay",
+                              "itineraryName",
+                              "itineraryNote",
+                              "locationId",
+                              "destinationId")
+    values ($1, $2, $3, $4, $5)
+  returning *
+  `;
+  const parameterizedArray = [itineraryDay, itineraryName, itineraryNote, locationId, destinationId];
+  db.query(sql, parameterizedArray)
+    .then(result => res.status(201).json(result.rows))
+    .catch(err => next(err));
+});
+
+app.get('/api/itineraries/:destinationId', (req, res, next) => {
+  const { destinationId } = req.params;
+  if (!parseInt(destinationId, 10) || destinationId < 0) {
+    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+  }
+  const parameterizedArray = [destinationId];
+  const mySQL = `
+    select *
+      from "ItineraryList"
+    where "destinationId" = $1;
+    `;
+  db.query(mySQL, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
+app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
+  const { destinationId, day } = req.params;
+  if (!parseInt(destinationId, 10) || destinationId < 0) {
+    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+  }
+  if (!day.includes('Day')) {
+    return res.status(400).json({ error: 'please put the correct parameter day: Day X' });
+  }
+  const parameterizedArray = [destinationId, day];
+  const mySQL = `
+    select *
+      from "ItineraryList"
+    where "destinationId" = $1
+    and "itineraryDay" = $2;
+    `;
+  db.query(mySQL, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {

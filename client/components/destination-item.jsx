@@ -7,18 +7,17 @@ export default function DestinationItem(props) {
   return (
 
     <div className="card destination-item h-50 mt-3" style={{ backgroundImage: `url(${destination.destinationImage})` }}>
-      <Link to={`/destinations/${destination.destinationId}`}>
-        <div className="overlay"></div>
-
-        <div className="card-body text-white d-flex justify-content-center align-items-center">
-          <h5>{destination.destinationName}</h5>
-        </div>
-      </Link>
-      <div className="row justify-content-around pl-5 pr-5">
-        <div className="card-control circle-blue p-2 mt-3 d-flex justify-content-center align-items-center">
+      <div className="card-body text-white d-flex justify-content-center align-items-center">
+        <Link to={`/destinations/${destination.destinationId}`}>
+          <div className="overlay"></div>
+          <h5 className="text-white">{destination.destinationName}</h5>
+        </Link>
+      </div>
+      <div className="row justify-content-center px-3">
+        <div className="mt-2 circle teal p-2 mr-1 d-flex justify-content-center w-25">
           <img className="icon" src="./images/pencil.png" alt="" />
         </div>
-        <div className="circle-red mt-3 p-2 d-flex justify-content-center align-items-center">
+        <div className=" mt-2 circle red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
           <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />
         </div>
       </div>
