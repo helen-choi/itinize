@@ -117,20 +117,22 @@ export default class DestinationInfo extends React.Component {
               </header>
 
               <div className="form-element row">
-                <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                {destinationInfo.destinationName.length < 9
+                  ? <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                }
                 <div className=" col-12 ml-4 d-flex">
                   <input readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
                   <input readOnly value={this.tripEnd}/>
                 </div>
-
+                <textarea
+                  readOnly className="col-10 ml-4 align-self-end"
+                  cols="40 shadow-p"
+                  rows="10"
+                  value={destinationInfo.description}>
+                </textarea>
               </div>
-              <textarea
-                readOnly className="col-10 ml-4 align-self-end"
-                cols="40 shadow-p"
-                rows="10"
-                value={destinationInfo.description}>
-              </textarea>
 
               <footer className="row flex-fill">
                 <div className="col-3">
