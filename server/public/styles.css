@@ -224,3 +224,7 @@ div.Destination-List > h1 {
 .flight-card {
   background-color: rgb(244, 244, 244);
 }
+.flight-create {
+  background-color: rgb(244, 244, 244);
+  height: 100px;
+}

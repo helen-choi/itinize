@@ -8,7 +8,8 @@ export default class TripInfo extends React.Component {
     this.state = {
       flights: []
     };
-
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+    // this.handleClickDelete(this.props.location.state.destinationId);
   }
 
   componentDidMount() {
@@ -27,15 +28,30 @@ export default class TripInfo extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleClickDelete(destinationId) {
+    const newFlights = [];
+    const fetchParams = { method: 'delete' };
+    fetch(`api/destinations${destinationId}`, fetchParams)
+      .then(res => {
+        this.state.flights.map(flight => {
+          if (this.props.location.state.destinationId !== destinationId) {
+            newFlights.push(flight);
+          }
+        });
+        this.setState({ flights: newFlights });
+      })
+      .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <div className="container">
         <header className="row justify-content-between pt-2 flex-fill mt-2">
-          <Link to="/" className="col-2">
+          <Link to={`/destinations/${this.props.location.state.destinationId}`} className="col-2">
             <i className="fas fa-arrow-left fa-2x text-black"></i>
           </Link>
           <div className="col-2">
-            <i className="fas fa-pen fa-2x text-black"></i>
+            <i className="fas fa-trash fa-2x text-black"></i>
           </div>
         </header>
         <div className="row justify-content-center mt-4">
@@ -44,27 +60,18 @@ export default class TripInfo extends React.Component {
         <div>
           {
             this.state.flights.map(flight => {
-              return <FlightTripInfoItem key={flight.flightId} flightData={flight} />;
+              return <FlightTripInfoItem handleClickDelete key={flight.flightId} flightData={flight} />;
             })
           }
         </div>
-
-        {/* <div className="mt-5 row">
+        <div className="flight-create">
           <Link to={{
             pathname: '/flights/create',
             state: { destinationId: this.props.location.state.destinationId }
           }} className="m-auto d-flex justify-content-center align-items-center">
-            <i className="fas fa-plus fa-lg"></i>
+            <i className="fas fa-plus fa-4x pt-3 text-muted"></i>
           </Link>
         </div>
-        <div className="col-3">
-          <Link to={{
-            pathname: '/flights/create',
-            state: { destinationId: this.props.location.state.destinationId }
-          }} className="circle yellow m-auto d-flex justify-content-center align-items-center">
-            <i className="fas fa-plane fa-lg"></i>
-          </Link>
-        </div> */}
       </div>
     );
   }
