@@ -21,7 +21,12 @@ export default class ItineraryList extends React.Component {
         </div>
         <div className="row">
           {/* pass days via props to see how many tags to render */}
-          <div className="col">tags</div>
+          <div className="col">
+            <button type="button" className='btn btn-sm btn-outline-primary'>All</button>
+            <button type="button" className='btn btn-sm btn-outline-secondary'>Day One</button>
+            <button type="button" className='btn btn-sm btn-outline-danger'>Day Two</button>
+            <button type="button" className='btn btn-sm btn-outline-success'>All</button>
+          </div>
         </div>
         {/* list items mockup below */}
         <div className="row">
