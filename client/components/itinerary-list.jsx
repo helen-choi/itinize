@@ -25,7 +25,7 @@ export default class ItineraryList extends React.Component {
 
   render() {
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
-      return (<ListItineraryItem key={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
+      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
       />);
