@@ -237,8 +237,7 @@ div.Destination-List > h1 {
 }
 
 .itinerary-display{
-  display:block;
-  transition: display 2s;
+  transition: height 2s 1s ease-in;
 }
 
 .off {

@@ -100,12 +100,18 @@ export default class DestinationInfo extends React.Component {
     fetch(`/api/destinations/${this.props.match.params.destinationId}`)
       .then(res => res.json())
       .then(data => {
+        const splitDateStart = data.tripStart.slice(0, 10).split('-');
+        const splitDateEnd = data.tripEnd.slice(0, 10).split('-');
+        const startMinutes = new Date(splitDateStart[0], splitDateStart[1], splitDateStart[2]).setMinutes(59);
+        const endMinutes = new Date(splitDateEnd[0], splitDateEnd[1], splitDateEnd[2]).setMinutes(59);
+        const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
         this.setState({
           destinationInfo: data,
           destinationName: data.destinationName,
           tripStart: data.tripStart,
           tripEnd: data.tripEnd,
-          description: data.description
+          description: data.description,
+          totalDays
         });
       })
       .catch(err => console.error(err));
