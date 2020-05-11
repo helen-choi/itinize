@@ -17,9 +17,12 @@ export default class DestinationInfo extends React.Component {
       tripEnd: '',
       description: '',
       editIconIsClicked: false,
-      pictureIconIsClicked: true
+      pictureIconIsClicked: false
     };
   }
+
+  // add a componentDidUpdate to check when the picture info is changed
+  // componentDidUpdate
 
   handleBodyClick() {
     this.setState({
@@ -51,10 +54,29 @@ export default class DestinationInfo extends React.Component {
     this.setState({ pictureIconIsClicked: false });
   }
 
-  handleEditImage(getMethod) {
-    // call another getMethod to update to the current src
-    // this.setState({ destinationInfo.destinationImage: changedSrc });
-    // console.log('yes');
+  handleEditImage(changedSrc) {
+    // const copiedObj = { ...this.state.destinationInfo };
+    const data = { destinationImage: changedSrc };
+    // console.log('copied obj', copiedObj);
+    // console.log('this.state.destinationImage === copiedObj', this.state.destinationImage === copiedObj); // outputs: false
+    // console.log('data', changedSrc);
+    const init = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+    fetch(`/api/destinations/image/${this.state.destinationInfo.destinationId}`, init)
+      .then(res => res.json())
+      .then(res => {
+        const copiedDestinationInfo = { ...this.state.destinationInfo };
+        // console.log(copiedDestinationInfo);
+        copiedDestinationInfo.destinationImage = changedSrc;
+        // console.log('after chabge', copiedDestinationInfo);
+        this.setState({ destinationInfo: copiedDestinationInfo });
+      })
+      .catch(err => console.error(err));
   }
 
   handleEditClick(e) {
