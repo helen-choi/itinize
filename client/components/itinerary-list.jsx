@@ -6,12 +6,12 @@ export default class ItineraryList extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-6">
-            x icon
+            <i className="far fa-times-circle fa-2x"></i>
           </div>
-          <div className="col-6">
-            pencil
-            +
-            gps
+          <div className="col-6 d-flex justify-content-end">
+            <i className="fas ml-2 fa-pen fa-2x text-black"></i>
+            <i className="fas ml-2 fa-plus fa-2x text-black"></i>
+            <i className="far ml-2 fa-compass fa-2x text-black"></i>
           </div>
         </div>
         <div className="row">
