@@ -30,6 +30,12 @@ export default class ItineraryList extends React.Component {
         itineraryNote={currentItem.itineraryNote}
       />);
     });
+    const dayButtons = [];
+    for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
+      dayButtons.push(
+        <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>Day {dayCounter + 1}</button>
+      );
+    }
 
     return (
       <div className="container">
@@ -64,6 +70,8 @@ export default class ItineraryList extends React.Component {
             <button type="button" className='mr-1 btn btn-sm btn-outline-secondary'>Day One</button>
             <button type="button" className='mr-1 btn btn-sm btn-outline-danger'>Day Two</button>
             <button type="button" className='mr-1 btn btn-sm btn-outline-success'>Day Three</button>
+            {/* buttons rendered */}
+            {dayButtons}
           </div>
         </div>
         {/* list items below */}
