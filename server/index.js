@@ -536,7 +536,7 @@ app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
       })
       .catch(err => console.error(err));
   }
-
+});
 
 app.post('/api/itineraries', (req, res, next) => {
   const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
@@ -641,6 +641,7 @@ app.delete('/api/itineraries/:itineraryId', (req, res, next) => {
     .then(result => res.status(200).json(result.row))
     .catch(err => next(err));
 });
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
