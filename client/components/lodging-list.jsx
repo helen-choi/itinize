@@ -30,6 +30,9 @@ export default class LodgingList extends React.Component {
     const { destinationName } = this.props.location.state;
     return (
       <div className="lodging-list-container p-3">
+        <div className="edit-control text-right">
+          <i className="fas fa-pen fa-2x"></i>
+        </div>
         <div className="lodging-edit-modal"></div>
         <h1 className="text-center mt-5 mb-4">{destinationName}</h1>
         <div className="toggle row">
