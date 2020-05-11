@@ -431,6 +431,11 @@ app.post('/api/locations', (req, res, next) => {
     .catch(err => console.error(err));
 
 });
+
+app.get('/api/lodgings', (req, res, next) => {
+  // eslint-disable-next-line no-console
+  console.log('hi');
+});
 app.post('/api/lodgings', (req, res, next) => {
   const {
     lodgingName,
@@ -536,7 +541,7 @@ app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
       })
       .catch(err => console.error(err));
   }
-
+});
 
 app.post('/api/itineraries', (req, res, next) => {
   const { itineraryDay, itineraryName, itineraryNote, locationId, destinationId } = req.body;
