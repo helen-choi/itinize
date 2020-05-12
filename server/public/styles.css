@@ -321,7 +321,7 @@ div.Destination-List > h1 {
   visibility: hidden
 }
 
-.Itinerary-Item > *{
+.Itinerary-Item {
   /* color: white; */
   position: relative;
   z-index: 2;

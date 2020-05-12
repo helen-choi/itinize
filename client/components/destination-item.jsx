@@ -15,7 +15,7 @@ export default function DestinationItem(props) {
       <div className="row justify-content-center px-3">
         <Link to={{
           pathname: `/destinations/${destination.destinationId}`,
-          state: 'This should make the DestinationInfo Component on edit mode'
+          state: { editMode: 'This should make the DestinationInfo Component on edit mode' }
         }}className="mt-2 circle circle-dest-list teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
           <img className="icon" src="./images/pencil.png" alt="" />
         </Link>

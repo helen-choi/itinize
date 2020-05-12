@@ -106,7 +106,7 @@ export default class DestinationInfo extends React.Component {
         });
       })
       .catch(err => console.error(err));
-    if (this.props.location.state) {
+    if (this.props.location.state && this.props.location.state.editMode) {
       this.setState({ editIconIsClicked: true });
     }
   }
