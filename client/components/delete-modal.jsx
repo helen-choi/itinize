@@ -14,6 +14,9 @@ export default function DeleteModal(props) {
       </div>
     );
   }
+  if (props.lodgingItem) {
+    correctTag = <i className="fas fa-times" onClick={handleShow}></i>;
+  }
 
   return (
     <>
@@ -30,7 +33,7 @@ export default function DeleteModal(props) {
           </Button>
           <Button variant="danger" onClick={() => {
             handleClose();
-            props.handleDelete(props.id);
+            props.deleteHandle(props.id);
           }}>
             Delete
           </Button>
