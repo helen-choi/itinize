@@ -11,6 +11,8 @@ export default class ItineraryList extends React.Component {
       itineraryItems: [],
       mapIconIsClick: false
     };
+    this.getSpecificDay = this.getSpecificDay.bind(this);
+    this.getItineraryItems = this.getItineraryItems.bind(this);
   }
 
   componentDidMount() {
@@ -20,23 +22,49 @@ export default class ItineraryList extends React.Component {
   getItineraryItems() {
     fetch(`/api/itineraries/${this.props.location.state.destinationId}`)
       .then(res => res.json())
-      .then(res => {
-        this.setState({ itineraryItems: res });
+      .then(data => {
+        this.setState({ itineraryItems: data });
       })
       .catch(err => console.error(err));
   }
 
+  getSpecificDay(destinationDay) {
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    };
+    fetch(`/api/itineraries/${this.props.location.state.destinationId}/${destinationDay}`, init)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ itineraryItems: data });
+      });
+  }
   handleCompassClick() {
     this.setState({ mapIconIsClick: true });
   }
-
+      
   render() {
+    const bootstrapButtonClassNames = [
+      'btn-outline-danger',
+      'btn-outline-warning',
+      'btn-outline-success',
+      'btn-outline-dark',
+      'btn-outline-primary',
+      'btn-outline-secondary'
+    ];
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
       return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
       />);
     });
+    const dayButtons = [];
+    for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
+
+      dayButtons.push(
+        <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
+      );
+    }
 
     return (
       (this.state.itineraryItems.length === 0 && <div>Loading</div>) ||
@@ -86,13 +114,12 @@ export default class ItineraryList extends React.Component {
             <h1>{this.props.location.state.destinationName}</h1>
           </div>
         </div>
-        <div className="row">
+        <div className="row justify-content-center">
           {/* todo: pass days via props to see how many tags to render */}
-          <div className="col">
-            <button type="button" className='mr-1 btn btn-sm btn-outline-primary'>All</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-secondary'>Day One</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-danger'>Day Two</button>
-            <button type="button" className='mr-1 btn btn-sm btn-outline-success'>Day Three</button>
+          <div className="scroll-menu col-9">
+            <button onClick={this.getItineraryItems} type="button" className='mr-1 btn btn-sm btn-outline-info'>All</button>
+            {/* buttons rendered */}
+            {dayButtons}
           </div>
         </div>
         {/* map or list items below */}
