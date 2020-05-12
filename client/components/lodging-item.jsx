@@ -3,6 +3,21 @@ import React from 'react';
 export default class LodgingItem extends React.Component {
   constructor(props) {
     super(props);
+    this.list = null;
+    this.wrapper = null;
+    this.background = null;
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
+
+    this.onDragStartMouse = this.onDragStartMouse.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    // this.onMouseMove = this.onMouseMove.bind(this);
+    // this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    // this.onDragEnd = this.onDragEnd.bind(this);
+    // this.onSwiped = this.onSwiped.bind(this);
+    // this.updatePosition = this.updatePosition.bind(this);
+
     this.handleDelete = this.handleDelete.bind(this);
   }
 
@@ -11,18 +26,32 @@ export default class LodgingItem extends React.Component {
     this.props.handleDelete(lodgingId);
   }
 
+  onDragStartMouse(event) {
+    this.onDragStart(event.clientX);
+    // window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStart(clientX) {
+    this.dragged = true;
+    this.dragStartX = clientX;
+    // window.requestAnimationFrame(this.updatePosition);
+  }
+
   render() {
     const modalStyle = this.props.editModeOn ? { display: 'block', color: 'white' } : { display: 'none' };
     const lodging = this.props.lodging;
     return (
-      <div className="lodging p-4 mt-3 position-relative" onMouseDown={this.props.onMouseDown}>
-        <div className="delete-control text-right position-absolute" style={modalStyle} >
-          <i className="fas fa-times" onClick={this.handleDelete}></i>
+      <div className="wrapper" ref={div => (this.wrapper = div)}>
+        <div className="lodging p-4 mt-3 position-relative" ref={div => (this.list = div)} onMouseDown={this.onDragStartMouse}>
+          <div className="delete-control text-right position-absolute" style={modalStyle} >
+            <i className="fas fa-times" onClick={this.handleDelete}></i>
+          </div>
+          <h5>{lodging.lodgingName}</h5>
+          <p><strong>Confirmation: </strong>{lodging.lodgingConfNum}</p>
+          <p><strong>Check-In:</strong> {lodging.checkInDateTime}</p>
+          <p><strong>Check-Out:</strong> {lodging.checkOutDateTime}</p>
         </div>
-        <h5>{lodging.lodgingName}</h5>
-        <p><strong>Confirmation: </strong>{lodging.lodgingConfNum}</p>
-        <p><strong>Check-In:</strong> {lodging.checkInDateTime}</p>
-        <p><strong>Check-Out:</strong> {lodging.checkOutDateTime}</p>
+        <div className="background" ref={div => (this.background = div)}></div>
       </div>
     );
   }
