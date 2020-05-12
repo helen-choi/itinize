@@ -16,7 +16,6 @@ export default class TripInfo extends React.Component {
 
   componentDidMount() {
     this.getFlightData(this.props.location.state.destinationId);
-    // this.getFlightStatus();
   }
 
   getFlightData(flightDestinationId) {
@@ -29,15 +28,6 @@ export default class TripInfo extends React.Component {
       })
       .catch(err => console.error(err));
   }
-
-  // getFlightStatus() {
-  //   fetch('http://api.aviationstack.com/v1/flights?access_key=a8f3f007b5b6084882a8e2c359e3e4d5&flight_iata=UA2765')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data.data[0].flight_status);
-  //     })
-  //     .catch(err => console.error(err));
-  // }
 
   deleteIconEdit() {
     this.setState({ deleteIconEdit: !this.state.deleteIconEdit });
