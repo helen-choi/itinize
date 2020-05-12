@@ -229,7 +229,7 @@ div.Destination-List > h1 {
 }
 
 /* LodgingList */
-.lodging {
+.lodging, .gray-box {
   background-color:#F4F4F4;
 }
 .lodging p {
@@ -267,9 +267,18 @@ div.Destination-List > h1 {
   bottom: 0;
 }
 .delete-control {
-  right: 20px;
+  right: 15px;
   top: 10px;
   z-index: 3;
+}
+.add-lodging-item {
+  width:70px;
+  height:70px;
+  border-radius: 50%;
+  background-color:white;
+}
+.add-lodging-item i {
+  color:#6CC4C8;
 }
 /* Flights */
 .flight-card {

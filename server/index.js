@@ -419,7 +419,6 @@ app.post('/api/locations', (req, res, next) => {
   if (!parseInt(latitude) || !parseInt(longitude)) {
     return res.status(400).json({ error: 'please make latitude or longitude a number' });
   }
-
   const sql = `
   insert into "Locations" ("coordinates","placeId")
     values (POINT($1,$2),$3)
@@ -429,9 +428,7 @@ app.post('/api/locations', (req, res, next) => {
   db.query(sql, parameterizedArray)
     .then(results => res.status(201).json(results.rows))
     .catch(err => console.error(err));
-
 });
-
 
 app.get('/api/lodgings/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
@@ -536,20 +533,13 @@ app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
   } else {
     const sql = `
       delete from "Lodging"
-      where "lodgingId" = $1
-      returning *
+      where "lodgingId" = $1;
       `;
     const value = [lodgingId];
 
     db.query(sql, value)
       .then(result => {
-        if (result.rows.length === 0) {
-          res.status(404).json({
-            error: `Cannot find lodgingId ${lodgingId}`
-          });
-        } else {
-          res.status(204).json(result.rows[0]);
-        }
+        res.status(204).json(result.rows[0]);
       })
       .catch(err => console.error(err));
   }
