@@ -61,6 +61,10 @@ div.Destination-List > h1 {
   height: 60px;
   width: 60px;
 }
+.circle-dest-list {
+  height: 30px;
+  width: 30px;
+}
 .teal {
   background-color: #6CC4C8;
 }

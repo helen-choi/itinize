@@ -16,10 +16,10 @@ export default function DestinationItem(props) {
         <Link to={{
           pathname: `/destinations/${destination.destinationId}`,
           state: 'This should make the DestinationInfo Component on edit mode'
-        }}className="mt-2 circle teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
+        }}className="mt-2 circle circle-dest-list teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
           <img className="icon" src="./images/pencil.png" alt="" />
         </Link>
-        <div className=" mt-2 circle red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
+        <div className=" mt-2 circle circle-dest-list red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
           <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />
         </div>
       </div>
