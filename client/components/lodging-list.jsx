@@ -103,7 +103,8 @@ export default class LodgingList extends React.Component {
             <Link to={{
               pathname: '/lodgings/create',
               state: {
-                destinationId: this.props.location.state.destinationId
+                destinationId: destinationId,
+                destinationName: destinationName
               }
             }}>
               <div className="add-lodging-item d-flex justify-content-center align-items-center">
