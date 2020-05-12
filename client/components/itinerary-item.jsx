@@ -16,7 +16,6 @@ export default class ListItineraryItem extends React.Component {
   }
 
   handleOnChange(e) {
-    console.log(e.currentTarget);
     const nameOfStateProp = e.currentTarget.getAttribute('handler');
     this.setState({ [nameOfStateProp]: e.currentTarget.value });
   }
@@ -30,7 +29,7 @@ export default class ListItineraryItem extends React.Component {
       this.props.editClick
         ? (
           <div className="Itinerary-Item mt-1 border border-secondary col-9 ">
-            <i className="far fa-times-circle text-light"></i>
+            <i onClick={() => this.props.handleDelete(this.props.id)}className="far fa-times-circle text-light"></i>
             <input onChange={this.handleOnChange} className="h3 w-75 edit-input" handler="itineraryName" value={this.props.itineraryName}/>
             <select onChange={this.handleOnChange} className="text-secondary p edit-input w-75" handler="itineraryDay" value={this.props.itineraryDay}>
               <option value="Day">Select A day</option>

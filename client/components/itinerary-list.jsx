@@ -8,10 +8,11 @@ export default class ItineraryList extends React.Component {
     super(props);
     this.handleCompassClick = this.handleCompassClick.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.state = {
       itineraryItems: [],
       mapIconIsClick: false,
-      editIsClick: true
+      editIsClick: false
     };
   }
 
@@ -32,6 +33,22 @@ export default class ItineraryList extends React.Component {
     this.setState({ mapIconIsClick: true });
   }
 
+  handleDelete(itineraryId) {
+    fetch(`/api/itineraries/${itineraryId}`, { method: 'delete' })
+      .then(res => {
+        if (res.status === 200) {
+          const newItineraries = [];
+          this.state.itineraryItems.forEach(item => {
+            if (item.itineraryId !== itineraryId) {
+              newItineraries.push(item);
+            }
+          });
+          this.setState({ itineraryItems: newItineraries });
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
   handleEditClick() {
     if (!this.state.editIsClick) {
       this.setState({ editIsClick: true });
@@ -45,6 +62,7 @@ export default class ItineraryList extends React.Component {
       return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} editClick={this.state.editIsClick} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
+        handleDelete={this.handleDelete}
       />);
     });
 
