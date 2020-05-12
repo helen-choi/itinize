@@ -13,7 +13,7 @@ export default class Confirmation extends React.Component {
       } else if (url.includes('/destinations')) {
         history.push('/');
       } else if (url.includes('/flights')) {
-        history.push('/flights');
+        history.go(-1);
       } else if (url.includes('/itineraries')) {
         history.go(-1);
       } else {
