@@ -175,7 +175,7 @@ export default class DestinationInfo extends React.Component {
                   <Link to={{
                     pathname: '/flights',
                     state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                  }} className="circle text-dark yellow m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-light yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
@@ -186,7 +186,7 @@ export default class DestinationInfo extends React.Component {
                       destinationId: this.props.match.params.destinationId,
                       destinationName: this.state.destinationName
                     }
-                  }} className="circle text-dark dark-blue m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-light dark-blue m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-home fa-lg"></i>
 
                   </Link>
@@ -201,12 +201,12 @@ export default class DestinationInfo extends React.Component {
                       tripStart: this.state.tripStart,
                       tripEnd: this.state.tripEnd
                     }
-                  }} className="circle text-dark teal m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-light teal m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>
                 <div className="col-3">
-                  <div className="circle red m-auto d-flex justify-content-center align-items-center">
+                  <div className="circle red m-auto d-flex justify-content-center align-items-center text-light">
                     <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
                   </div>
                 </div>
@@ -218,12 +218,12 @@ export default class DestinationInfo extends React.Component {
               <>
                 <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
                 <header className="row justify-content-between pt-2 flex-fill align-items-start">
-                  <div className="col-3 text-dark">
+                  <div className="col-3 text-light">
                     <i className="fas fa-arrow-left fa-2x"></i>
                   </div>
                   <div className="col-4 d-flex justify-content-end">
                     <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white pr-3"></i>
-                    <i className="fas fa-pen fa-2x text-dark"></i>
+                    <i className="fas fa-pen fa-2x text-light"></i>
                   </div>
                 </header>
 
@@ -250,8 +250,8 @@ export default class DestinationInfo extends React.Component {
                     <Link to={{
                       pathname: '/flights',
                       state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                    }} className="circle text-dark yellow m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-plane fa-lg"></i>
+                    }} className="circle text-light yellow m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-plane fa-lg  text-light"></i>
                     </Link>
                   </div>
                   <div className="col-3">
@@ -262,7 +262,7 @@ export default class DestinationInfo extends React.Component {
                         destinationName: this.state.destinationName
                       }
                     }} className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-home fa-lg"></i>
+                      <i className="fas fa-home fa-lg  text-light"></i>
 
                     </Link>
                   </div>
@@ -277,12 +277,12 @@ export default class DestinationInfo extends React.Component {
                         tripEnd: this.state.tripEnd
                       }
                     }} className="circle teal m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-map-marker-alt fa-lg"></i>
+                      <i className="fas fa-map-marker-alt fa-lg text-light"></i>
                     </Link>
                   </div>
                   <div className="col-3">
                     <div className="circle red m-auto d-flex justify-content-center align-items-center">
-                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg text-light"></i>
                     </div>
                   </div>
                 </footer>
