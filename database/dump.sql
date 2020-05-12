@@ -297,9 +297,8 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 10	101010	2020-05-26	MXC	2	Router
 11	39393	2020-05-31	Connected	2	the third one
 12	99999	2020-05-31	JFK	3	MEXICO
-15	JA-1010	2020-05-13	LAX	5	Japan
-16	JAL110	2020-05-30	SFO	5	Second Flight
-19	cccc	2020-05-27	cccc	4	cccc
+20	UA2765	2020-05-11	LAX	4	United 
+21	AC7220	2020-05-11	AKL	4	Canada
 \.
 
 
@@ -356,7 +355,7 @@ SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 15, true);
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 19, true);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 21, true);
 
 
 --
