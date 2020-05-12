@@ -1,7 +1,6 @@
 import React from 'react';
 import DestinationItem from './destination-item';
 import { Link } from 'react-router-dom';
-import DeleteModal from './delete-modal';
 
 export default class DestinationList extends React.Component {
   constructor(props) {
@@ -39,8 +38,6 @@ export default class DestinationList extends React.Component {
   render() {
     return (
       <div className="container Destination-List p-4">
-        <DeleteModal />
-
         <header className="row pl-4">
           <div className="list-controls col-12 d-flex justify-content-end">
             <Link to="destinations/create">
