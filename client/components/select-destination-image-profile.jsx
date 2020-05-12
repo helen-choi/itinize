@@ -30,7 +30,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       method: 'GET',
       headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
     };
-    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=15&page=1`, params)
+    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=5&page=1`, params)
       .then(res => res.json())
       .then(data => {
         const photoArray = [];
