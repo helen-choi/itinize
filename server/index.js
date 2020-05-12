@@ -590,7 +590,8 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
   const sql = `
     select *
       from "ItineraryList"
-    where "destinationId" = $1;
+    where "destinationId" = $1
+    order by "itineraryDay";
     `;
   db.query(sql, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
