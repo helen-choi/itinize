@@ -52,7 +52,7 @@ export default class FlightTripInfoItem extends React.Component {
     const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : 'pending';
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
     return (
-      <div key={flightData.flightId} className="flight-card pl-3">
+      <div key={flightData.flightId} className="flight-card pl-3 p-4 position-relative">
         <div>
           <h5 className="d-flex justify-content-between">{flightData.flightName}
             <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
