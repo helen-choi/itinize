@@ -4,7 +4,7 @@ export default class AddDestinationDates extends React.Component {
   render() {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear().toString();
-    let currentMonth = currentDate.getMonth().toString();
+    let currentMonth = (currentDate.getMonth() + 1).toString();
     if (currentMonth.length === 1) {
       currentMonth = '0' + currentMonth;
     }
