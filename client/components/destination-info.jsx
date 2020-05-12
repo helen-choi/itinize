@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SelectDestinationImageProfile from './select-destination-image-profile';
-import DeleteModal from './delete-modal';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -11,7 +10,6 @@ export default class DestinationInfo extends React.Component {
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
     this.handleExitEditImage = this.handleExitEditImage.bind(this);
     this.handleEditImage = this.handleEditImage.bind(this);
-    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -209,7 +207,9 @@ export default class DestinationInfo extends React.Component {
                   </Link>
                 </div>
                 <div className="col-3">
-                  <DeleteModal destinationId={destinationId} handleDelete={this.handleClickDelete}/>
+                  <div className="circle red m-auto d-flex justify-content-center align-items-center">
+                    <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+                  </div>
                 </div>
               </footer>
             </>
