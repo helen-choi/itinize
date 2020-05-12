@@ -179,8 +179,7 @@ ALTER SEQUENCE public."ItineraryList_itineraryId_seq" OWNED BY public."Itinerary
 
 CREATE TABLE public."Locations" (
     "locationId" integer NOT NULL,
-    latitude point NOT NULL,
-    longitude point NOT NULL,
+    coordinates point NOT NULL,
     "placeId" text NOT NULL
 );
 
@@ -215,7 +214,8 @@ CREATE TABLE public."Lodging" (
     "checkInDateTime" text NOT NULL,
     "checkOutDateTime" text NOT NULL,
     "destinationId" integer NOT NULL,
-    "locationId" integer NOT NULL
+    "locationId" integer NOT NULL,
+    "lodgingName" text NOT NULL
 );
 
 
@@ -279,9 +279,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-3	Mexico	https://format-com-cld-res.cloudinary.com/image/private/s--nD-qTZvF--/c_limit,g_center,h_65535,w_1600/fl_keep_iptc.progressive,q_95/v1/eeebce33a3e17f78f38c4504195b359e/Ajijic_Malecon_Portrait_-_Super_HiRes.jpg	2020-10-04	2020-10-10	going to Mexico	Mexico
-5	Japan	https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-24	2020-05-30	Fly away	ChIJLxl_1w9OZzQRRFJmfNR1QvU
-4	Switzerland	https://img.emg-services.net/HtmlPages/HtmlPage4239/switzerland-header-2.jpg	2021-11-11	2021-12-01	please work	Switzerland
+14	United States	https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-11	2020-05-12	as	ChIJPV4oX_65j4ARVW8IJ6IJUYs
 \.
 
 
@@ -309,6 +307,11 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 --
 
 COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
+17	Tiger Sugar	Day	At this location, I will	35	10
+18	Tiger Sugar	Day	At this location, I will	36	12
+19	Tiger Sugar	Day	At this location, I will	37	12
+20	Tiger Sugar	Day 1	At this location, I will	39	14
+21	Burger King	Day	At this location, I will	40	14
 \.
 
 
@@ -316,7 +319,15 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
+COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
+36	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+37	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+38	(36.7782610000000005,-119.417932399999998)	ChIJPV4oX_65j4ARVW8IJ6IJUYs
+39	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+40	(33.8394139999999979,-118.285613400000003)	ChIJl9jnb0U13YARGT7RnzC-nGo
+41	(36.7782610000000005,-119.417932399999998)	ChIJPV4oX_65j4ARVW8IJ6IJUYs
+42	(40,35)	12345
+43	(40,35)	12345
 \.
 
 
@@ -324,7 +335,13 @@ COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdi
 -- Data for Name: Lodging; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId") FROM stdin;
+COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId", "lodgingName") FROM stdin;
+10	asdf	2021-05-09	2021-05-15	10	1	Hilton
+11	asdf	2021-05-09	2021-05-15	10	1	Hilton
+12	asdf	2021-05-09	2021-05-15	10	1	Hilton
+57	asdf	2021-05-09	2021-05-15	1	1	Hilton
+58	asdf	2021-05-09	2021-05-15	1	1	Hilton
+61	ASDF1234	2020-05-11 01:00	2020-05-20 01:00	1	39	The Ritz-Carlton, Laguna Niguel
 \.
 
 
@@ -332,8 +349,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 5, true);
-
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 15, true);
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
@@ -346,22 +362,19 @@ SELECT pg_catalog.setval('public."Flight_flightId_seq"', 21, true);
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
-
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 21, true);
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
-
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 43, true);
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 1, false);
-
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 61, true);
 
 --
 -- Name: Destinations Destinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -

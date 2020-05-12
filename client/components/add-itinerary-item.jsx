@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Script from 'react-load-script';
 import Confirmation from './confirmation';
 import AddItineraryNote from './add-itinerary-notes';
@@ -130,10 +129,7 @@ export default class AddItineraryItem extends React.Component {
     if (this.state.componentStage === -1) {
       icons = (
         <>
-          <Link to="/">
-            <i className="fas fa-times fa-2x"></i>
-          </Link>
-
+          <i onClick={() => history.go(-1)}className="fas fa-times fa-2x"></i>
           <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>
         </>);
     } else if (this.state.componentStage < 2) {
