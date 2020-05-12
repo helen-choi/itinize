@@ -39,10 +39,11 @@ export default class ItineraryList extends React.Component {
         this.setState({ itineraryItems: data });
       });
   }
+
   handleCompassClick() {
     this.setState({ mapIconIsClick: true });
   }
-      
+
   render() {
     const bootstrapButtonClassNames = [
       'btn-outline-danger',
@@ -67,7 +68,6 @@ export default class ItineraryList extends React.Component {
     }
 
     return (
-      (this.state.itineraryItems.length === 0 && <div>Loading</div>) ||
       <div className="container">
         <div className="mt-2 row">
           {
@@ -98,7 +98,7 @@ export default class ItineraryList extends React.Component {
                   <Link to={{
                     pathname: '/itineraries/create',
                     state: {
-                      destinationId: this.props.location.state.destinationId,
+                      destinationId: this.props.location.state.destinationId
                     }
                   }}>
                     <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
