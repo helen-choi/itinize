@@ -8,6 +8,8 @@ export default class ItineraryList extends React.Component {
     this.state = {
       itineraryItems: []
     };
+    this.getSpecificDay = this.getSpecificDay.bind(this);
+    this.getItineraryItems = this.getItineraryItems.bind(this);
   }
 
   componentDidMount() {
@@ -17,14 +19,22 @@ export default class ItineraryList extends React.Component {
   getItineraryItems() {
     fetch(`/api/itineraries/${this.props.location.state.destinationId}`)
       .then(res => res.json())
-      .then(res => {
-        this.setState({ itineraryItems: res });
+      .then(data => {
+        this.setState({ itineraryItems: data });
       })
       .catch(err => console.error(err));
   }
 
-  getSpecificDay() {
-    fetch('/api/itineraries/:destinationId/:day');
+  getSpecificDay(destinationDay) {
+    const init = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    };
+    fetch(`/api/itineraries/${this.props.location.state.destinationId}/${destinationDay}`, init)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ itineraryItems: data });
+      });
   }
 
   render() {
@@ -46,7 +56,7 @@ export default class ItineraryList extends React.Component {
     for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
 
       dayButtons.push(
-        <button type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
+        <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
       );
     }
 
@@ -79,7 +89,7 @@ export default class ItineraryList extends React.Component {
         <div className="row justify-content-center">
           {/* todo: pass days via props to see how many tags to render */}
           <div className="scroll-menu col-9">
-            <button type="button" className='mr-1 btn btn-sm btn-outline-info'>All</button>
+            <button onClick={this.getItineraryItems} type="button" className='mr-1 btn btn-sm btn-outline-info'>All</button>
             {/* buttons rendered */}
             {dayButtons}
           </div>
