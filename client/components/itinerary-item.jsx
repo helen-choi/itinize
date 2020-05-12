@@ -4,10 +4,7 @@ export default class ListItineraryItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClicked: false,
-      itineraryName: null,
-      itineraryDay: null,
-      itineraryNote: null
+      isClicked: false
     };
   }
 
@@ -29,13 +26,13 @@ export default class ListItineraryItem extends React.Component {
       this.props.editClick
         ? (
           <div className="Itinerary-Item mt-1 border border-secondary col-9 ">
-            <i onClick={() => this.props.handleDelete(this.props.id)}className="far fa-times-circle text-light"></i>
+            <i onClick={() => this.props.handleDelete(this.props.id)} className="fas fa-times text-light"></i>
             <input onChange={this.handleOnChange} className="h3 w-75 edit-input" handler="itineraryName" value={this.props.itineraryName}/>
             <select onChange={this.handleOnChange} className="text-secondary p edit-input w-75" handler="itineraryDay" value={this.props.itineraryDay}>
               <option value="Day">Select A day</option>
               <option value="Day 1"> Day 1</option>
             </select>
-            <textarea onChange={this.handleOnChange} className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary edit-input w-75`} handler="itineraryNote">{itineraryNote}</textarea>
+            <textarea onChange={this.handleOnChange} className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary edit-input w-75`} handler="itineraryNote" value={itineraryNote}/>
           </div>
         )
         : (

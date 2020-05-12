@@ -114,7 +114,7 @@ export default class ItineraryList extends React.Component {
               <>
                 <div className="col-6">
                   <Link to={`/destinations/${this.props.location.state.destinationId}`}>
-                    <i className="far fa-times-circle fa-2x text-dark"></i>
+                    <i className="fas fa-times fa-2x fa-2x text-dark"></i>
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
