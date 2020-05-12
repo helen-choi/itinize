@@ -37,12 +37,7 @@ export default class ItineraryList extends React.Component {
     fetch(`/api/itineraries/${itineraryId}`, { method: 'delete' })
       .then(res => {
         if (res.status === 200) {
-          const newItineraries = [];
-          this.state.itineraryItems.forEach(item => {
-            if (item.itineraryId !== itineraryId) {
-              newItineraries.push(item);
-            }
-          });
+          const newItineraries = this.state.itineraryItems.filter(item => item.itineraryId !== itineraryId);
           this.setState({ itineraryItems: newItineraries });
         }
       })
