@@ -23,6 +23,10 @@ export default class ItineraryList extends React.Component {
       .catch(err => console.error(err));
   }
 
+  getSpecificDay() {
+    fetch('/api/itineraries/:destinationId/:day');
+  }
+
   render() {
     const bootstrapButtonClassNames = [
       'btn-outline-danger',
@@ -74,7 +78,7 @@ export default class ItineraryList extends React.Component {
         </div>
         <div className="row justify-content-center">
           {/* todo: pass days via props to see how many tags to render */}
-          <div className="scroll-menu col-9 border border-dark">
+          <div className="scroll-menu col-9">
             <button type="button" className='mr-1 btn btn-sm btn-outline-info'>All</button>
             {/* buttons rendered */}
             {dayButtons}

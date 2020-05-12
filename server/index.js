@@ -432,7 +432,6 @@ app.post('/api/locations', (req, res, next) => {
 
 });
 
-
 app.get('/api/lodgings/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
   const sql = `
@@ -601,7 +600,7 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
 app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
   const { destinationId, day } = req.params;
   if (!parseInt(destinationId, 10) || destinationId < 0) {
-    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+    return res.status(400).json({ error: 'please put a positive integer as an id parameter' });
   }
   if (!day.includes('Day')) {
     return res.status(400).json({ error: 'please put the correct parameter day: Day X' });
