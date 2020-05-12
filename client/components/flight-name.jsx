@@ -52,12 +52,13 @@ export default class AddFlightName extends React.Component {
   }
 
   postInformation() {
+    const { destinationId } = this.props.location.state;
     const newFlightData = {
       flightName: this.state.flightName,
       airportDeparture: this.state.airportDeparture,
       flightNumber: this.state.flightNumber,
       flightDate: this.state.flightDate,
-      destinationId: this.state.destinationId
+      destinationId: parseInt(destinationId)
     };
     const parameter = {
       method: 'POST',

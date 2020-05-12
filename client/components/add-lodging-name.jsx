@@ -61,6 +61,7 @@ export default class AddLodgingName extends React.Component {
       locationId: this.state.locationId,
       destinationId: parseInt(destinationId)
     };
+    // console.log(data);
     const params = {
       method: 'POST',
       headers: {
@@ -143,6 +144,8 @@ export default class AddLodgingName extends React.Component {
   render() {
     const { counter } = this.state;
     let stage = counter + 2;
+    const { destinationId } = this.props.location.state;
+    const { destinationName } = this.props.location.state;
     const pageArr = [
 
       <AddLodgingConfNumber key={this.state.counter} value={this.state.lodgingNumber} handleChange={this.handleChange} />,
@@ -164,7 +167,7 @@ export default class AddLodgingName extends React.Component {
 
     switch (counter) {
       case -1:
-        leftIcon = <Link to="/lodgings"><i className="fas fa-times fa-2x"></i></Link>;
+        leftIcon = <Link to={{ pathname: '/lodgings', state: { destinationId: destinationId, destinationName: destinationName } }}><i className="fas fa-times fa-2x"></i></Link>;
         rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
         break;
       case 0:
@@ -176,7 +179,6 @@ export default class AddLodgingName extends React.Component {
         rightIcon = <i className="fas fa-check fa-2x" onClick={this.handleSubmit}></i>;
         break;
     }
-
     return (
       (this.state.isSubmitted && <Confirmation newItem="lodge" history={this.props.history} match={this.props.match}/>) ||
         <div className="add-lodging-container">

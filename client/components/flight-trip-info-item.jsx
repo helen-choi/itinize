@@ -1,21 +1,61 @@
 import React from 'react';
 // import AddFlightDate from './flight-date';
 
-function FlightTripInfoItem(props) {
-  const flightData = props.flightData;
-  return (
-    <div key={flightData.flightId} className="flight-card pl-3">
-      <div>
-        <h5 className="d-flex justify-content-between">{flightData.flightName}
-          <i className={props.toggle()} onClick={() => props.handleClickDelete(flightData.flightId)}></i>
-        </h5>
-        <p>{flightData.airportDeparture}</p>
-        <p>Flight Number: {flightData.flightNumber}</p>
-        <p>Departing Date: {flightData.flightDate.slice(0, 10)}</p>
-        <p>Flight Status: pending</p>
-      </div>
-    </div>
-  );
-}
+export default class FlightTripInfoItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flightNumber: '',
+      flightStatus: '',
+      airportArrival: '',
+      departTime: '',
+      arrivalTime: '',
+      departingDate: false
+    };
+  }
 
-export default FlightTripInfoItem;
+  componentDidMount() {
+    this.setState({
+      flightNumber: this.props.flightData.flightNumber
+    }, () => this.getFlightStatus());
+  }
+
+  getFlightStatus() {
+    const key = 'a75149fdc4b4fb2bc75f00a6c9659e91';
+    const flightIata = this.state.flightNumber;
+    const departureIata = this.props.flightData.airportDeparture;
+    fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.data.length !== 0) {
+          this.setState({
+            flightStatus: data.data[0].flight_status,
+            airportArrival: data.data[0].arrival.iata,
+            departingDate: true
+          });
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  render() {
+    const flightData = this.props.flightData;
+
+    const flightStatus = (this.state.departingDate) ? this.state.flightStatus : 'pending';
+    const airportArrival = (this.state.departingDate) ? this.state.airportArrival : 'pending';
+
+    return (
+      <div key={flightData.flightId} className="flight-card pl-3">
+        <div>
+          <h5 className="d-flex justify-content-between">{flightData.flightName}
+            <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
+          </h5>
+          <p> {flightData.airportDeparture} - {airportArrival}</p>
+          <p>Flight Number: {flightData.flightNumber}</p>
+          <p>Departing Date: {flightData.flightDate.slice(0, 10)}</p>
+          <p>Flight Status: {flightStatus}</p>
+        </div>
+      </div>
+    );
+  }
+}

@@ -229,7 +229,7 @@ div.Destination-List > h1 {
 }
 
 /* LodgingList */
-.lodging {
+.lodging, .gray-box {
   background-color:#F4F4F4;
 }
 .lodging p {
@@ -249,6 +249,7 @@ div.Destination-List > h1 {
 }
 .toggle-lodgings {
   right:41%;
+  z-index: 1;
 }
 .toggle-hidden {
   position: absolute;
@@ -256,6 +257,31 @@ div.Destination-List > h1 {
   width:50px;
   height:50px;
 }
+
+.lodging-edit-modal {
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.delete-control {
+  right: 15px;
+  top: 10px;
+  z-index: 3;
+}
+.add-lodging-item {
+  width:70px;
+  height:70px;
+  border-radius: 50%;
+  background-color:white;
+}
+.add-lodging-item i {
+  color:#6CC4C8;
+}
+/* Flights */
 
 .flight-card {
   background-color: rgb(244, 244, 244);
@@ -267,6 +293,28 @@ div.Destination-List > h1 {
 
 .itinerary-display{
   transition: height 2s 1s ease-in;
+}
+/*
+.first-button{
+  height: 50%;
+  color: #6CC4C8;
+  border-color: #6CC4C8;
+  background-color: transparent;
+    border: 1px solid transparent;
+        text-align: center;
+    vertical-align: middle;
+        display: inline-block;
+    font-weight: 400;
+      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.first-button:active
+{
+  outline: 5px auto -webkit-focus-ring-color;
+} */
+
+.scroll-menu{
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .off {

@@ -435,7 +435,6 @@ app.post('/api/locations', (req, res, next) => {
   if (!parseInt(latitude) || !parseInt(longitude)) {
     return res.status(400).json({ error: 'please make latitude or longitude a number' });
   }
-
   const sql = `
   insert into "Locations" ("coordinates","placeId")
     values (POINT($1,$2),$3)
@@ -550,20 +549,13 @@ app.delete('/api/lodgings/:lodgingId', (req, res, next) => {
   } else {
     const sql = `
       delete from "Lodging"
-      where "lodgingId" = $1
-      returning *
+      where "lodgingId" = $1;
       `;
     const value = [lodgingId];
 
     db.query(sql, value)
       .then(result => {
-        if (result.rows.length === 0) {
-          res.status(404).json({
-            error: `Cannot find lodgingId ${lodgingId}`
-          });
-        } else {
-          res.status(204).json(result.rows[0]);
-        }
+        res.status(204).json(result.rows[0]);
       })
       .catch(err => console.error(err));
   }
@@ -610,7 +602,8 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
             "coordinates"
       from "ItineraryList"
       join "Locations" using ("locationId")
-    where "destinationId" = $1;
+    where "destinationId" = $1
+    order by "itineraryDay";
     `;
   db.query(sql, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
@@ -620,7 +613,7 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
 app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
   const { destinationId, day } = req.params;
   if (!parseInt(destinationId, 10) || destinationId < 0) {
-    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+    return res.status(400).json({ error: 'please put a positive integer as an id parameter' });
   }
   if (!day.includes('Day')) {
     return res.status(400).json({ error: 'please put the correct parameter day: Day X' });
