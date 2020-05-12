@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ListItineraryItem from './itinerary-item';
+import ItineraryMap from './view-itineraries-in map';
 
 export default class ItineraryList extends React.Component {
   constructor(props) {
     super(props);
+    this.handleCompassClick = this.handleCompassClick.bind(this);
     this.state = {
-      itineraryItems: []
+      itineraryItems: [],
+      mapIconIsClick: false
     };
     this.getSpecificDay = this.getSpecificDay.bind(this);
     this.getItineraryItems = this.getItineraryItems.bind(this);
@@ -36,7 +39,10 @@ export default class ItineraryList extends React.Component {
         this.setState({ itineraryItems: data });
       });
   }
-
+  handleCompassClick() {
+    this.setState({ mapIconIsClick: true });
+  }
+      
   render() {
     const bootstrapButtonClassNames = [
       'btn-outline-danger',
@@ -61,25 +67,47 @@ export default class ItineraryList extends React.Component {
     }
 
     return (
+      (this.state.itineraryItems.length === 0 && <div>Loading</div>) ||
       <div className="container">
         <div className="mt-2 row">
-          <div className="col-6">
-            <Link to={`/destinations/${this.props.location.state.destinationId}`}>
-              <i className="far fa-times-circle fa-2x text-dark"></i>
-            </Link>
-          </div>
-          <div className="col-6 d-flex justify-content-end">
-            <i className="fas ml-2 fa-pen fa-2x text-dark"></i>
-            <Link to={{
-              pathname: '/itineraries/create',
-              state: {
-                destinationId: this.props.location.state.destinationId
-              }
-            }}>
-              <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
-            </Link>
-            <i className="far ml-2 fa-compass fa-2x text-dark"></i>
-          </div>
+          {
+            (
+              this.state.mapIconIsClick &&
+              <>
+                <div className="col-6">
+                  <div>
+                    <i onClick={(() => this.setState({ mapIconIsClick: false }))} className="fas fa-arrow-left fa-2x"></i>
+                  </div>
+                </div>
+                <div className="col-6 d-flex justify-content-end">
+                  <Link to="/">
+                    <i className="fas fa-bars fa-2x text-dark"></i>
+                  </Link>
+                </div>
+              </>
+            ) ||
+            (
+              <>
+                <div className="col-6">
+                  <Link to={`/destinations/${this.props.location.state.destinationId}`}>
+                    <i className="far fa-times-circle fa-2x text-dark"></i>
+                  </Link>
+                </div>
+                <div className="col-6 d-flex justify-content-end">
+                  <i className="fas ml-2 fa-pen fa-2x text-dark"></i>
+                  <Link to={{
+                    pathname: '/itineraries/create',
+                    state: {
+                      destinationId: this.props.location.state.destinationId,
+                    }
+                  }}>
+                    <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
+                  </Link>
+                  <i onClick={this.handleCompassClick} className="far ml-2 fa-compass fa-2x text-dark"></i>
+                </div>
+              </>
+            )
+          }
         </div>
         <div className="mt-2 row">
           <div className="col">
@@ -94,15 +122,24 @@ export default class ItineraryList extends React.Component {
             {dayButtons}
           </div>
         </div>
-        {/* list items below */}
-        <div className="mt-2 row justify-content-center">
-          {(this.state.itineraryItems.length === 0)
-            ? <div className="mt-1 border border-secondary col-9">
-              <h3>No Itinerary Items Added</h3>
+        {/* map or list items below */}
+        {
+          (
+            this.state.mapIconIsClick &&
+            <div className="mt-5">
+              <ItineraryMap destinationId={this.props.location.state.destinationId} itineraries={this.state.itineraryItems}></ItineraryMap>
             </div>
-            : reactItineraryItems}
-
-        </div>
+          ) ||
+          (
+            <div className="mt-2 row justify-content-center">
+              {(this.state.itineraryItems.length === 0)
+                ? <div className="mt-1 border border-secondary col-9">
+                  <h3>No Itinerary Items Added</h3>
+                </div>
+                : reactItineraryItems}
+            </div>
+          )
+        }
       </div>
     );
   }
