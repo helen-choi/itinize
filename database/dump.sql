@@ -279,7 +279,7 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-1	Japan	https://images.pexels.com/photos/1510595/pexels-photo-1510595.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-13	2020-05-20	laala	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+14	United States	https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-11	2020-05-12	as	ChIJPV4oX_65j4ARVW8IJ6IJUYs
 \.
 
 
@@ -308,6 +308,11 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 --
 
 COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
+17	Tiger Sugar	Day	At this location, I will	35	10
+18	Tiger Sugar	Day	At this location, I will	36	12
+19	Tiger Sugar	Day	At this location, I will	37	12
+20	Tiger Sugar	Day 1	At this location, I will	39	14
+21	Burger King	Day	At this location, I will	40	14
 \.
 
 
@@ -316,10 +321,14 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 --
 
 COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
-36	(33.3333000000000013,44.4444000000000017)	1
-37	(33.8590423999999999,-117.924602699999994)	ChIJs5SSAwDW3IARGAPfCiasvfA
-38	(34.4344527000000014,-119.920620900000003)	ChIJR5dB3hRH6YARhngDWzUoGl4
-39	(33.4748353000000023,-117.720061200000004)	ChIJ16OptRTw3IAR17XzKe_9RMI
+36	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+37	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+38	(36.7782610000000005,-119.417932399999998)	ChIJPV4oX_65j4ARVW8IJ6IJUYs
+39	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+40	(33.8394139999999979,-118.285613400000003)	ChIJl9jnb0U13YARGT7RnzC-nGo
+41	(36.7782610000000005,-119.417932399999998)	ChIJPV4oX_65j4ARVW8IJ6IJUYs
+42	(40,35)	12345
+43	(40,35)	12345
 \.
 
 
@@ -341,8 +350,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 1, true);
-
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 15, true);
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
@@ -355,22 +363,19 @@ SELECT pg_catalog.setval('public."Flight_flightId_seq"', 19, true);
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 17, true);
-
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 21, true);
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 39, true);
-
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 43, true);
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 61, true);
-
 
 --
 -- Name: Destinations Destinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -

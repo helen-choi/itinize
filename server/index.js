@@ -411,6 +411,22 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   }
 });
 
+app.get('/api/locations/:destinationId', (req, res, next) => {
+  if (!parseInt(req.params.destinationId)) {
+    res.status(400).json({ error: 'please put put a positive whole number in the destinationId parameter' });
+  }
+  const parameterizedArray = [req.params.destinationId];
+  const sql = `
+  select "Locations"."coordinates"
+    from "Destinations"
+    join "Locations" using ("placeId")
+  where "destinationId" = $1;
+  `;
+  db.query(sql, parameterizedArray)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/locations', (req, res, next) => {
   const { latitude, longitude, placeId } = req.body;
   if (!latitude || !longitude || !placeId) {
@@ -579,9 +595,15 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
   }
   const parameterizedArray = [destinationId];
   const sql = `
-    select *
+    select "itineraryName",
+            "itineraryDay",
+            "itineraryNote",
+            "itineraryId",
+            "coordinates"
       from "ItineraryList"
-    where "destinationId" = $1;
+      join "Locations" using ("locationId")
+    where "destinationId" = $1
+    order by "itineraryDay";
     `;
   db.query(sql, parameterizedArray)
     .then(result => res.status(200).json(result.rows))
@@ -591,7 +613,7 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
 app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
   const { destinationId, day } = req.params;
   if (!parseInt(destinationId, 10) || destinationId < 0) {
-    return res.status(400).json({ error: 'please put a positive interger as an id parameter' });
+    return res.status(400).json({ error: 'please put a positive integer as an id parameter' });
   }
   if (!day.includes('Day')) {
     return res.status(400).json({ error: 'please put the correct parameter day: Day X' });

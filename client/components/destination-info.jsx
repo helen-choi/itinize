@@ -114,6 +114,11 @@ export default class DestinationInfo extends React.Component {
   render() {
     const destinationInfo = this.state.destinationInfo;
     const destinationId = this.props.match.params.destinationId;
+    const splitDateStart = this.state.tripStart.slice(0, 10).split('-');
+    const splitDateEnd = this.state.tripEnd.slice(0, 10).split('-');
+    const startMinutes = new Date(splitDateStart[0], splitDateStart[1], splitDateStart[2]).setMinutes(59);
+    const endMinutes = new Date(splitDateEnd[0], splitDateEnd[1], splitDateEnd[2]).setMinutes(59);
+    const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
 
     if (this.state.destinationInfo) {
       this.tripStart = new Date(destinationInfo.tripStart).toDateString();
@@ -192,7 +197,10 @@ export default class DestinationInfo extends React.Component {
                     pathname: '/itineraries',
                     state: {
                       destinationId: destinationId,
-                      destinationName: this.state.destinationInfo.destinationName
+                      destinationName: this.state.destinationInfo.destinationName,
+                      totalDays,
+                      tripStart: this.state.tripStart,
+                      tripEnd: this.state.tripEnd
                     }
                   }} className="circle teal m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
