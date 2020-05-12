@@ -13,8 +13,8 @@ export default function DeleteModal(props) {
         <i onClick={handleShow} handler="delete" className="fas fa-trash-alt fa-lg"></i>
       </div>
       {/* this.handleClickDelete(destinationInfo.destinationId) */}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
+      <Modal centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
