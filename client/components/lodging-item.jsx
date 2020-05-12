@@ -15,7 +15,7 @@ export default class LodgingItem extends React.Component {
     const modalStyle = this.props.editModeOn ? { display: 'block', color: 'white' } : { display: 'none' };
     const lodging = this.props.lodging;
     return (
-      <div className="lodging p-4 mt-3 position-relative">
+      <div className="lodging p-4 mt-3 position-relative" onMouseDown={this.props.onMouseDown}>
         <div className="delete-control text-right position-absolute" style={modalStyle} >
           <i className="fas fa-times" onClick={this.handleDelete}></i>
         </div>

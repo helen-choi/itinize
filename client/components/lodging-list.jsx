@@ -9,9 +9,21 @@ export default class LodgingList extends React.Component {
       lodgings: [],
       editModeOn: false
     };
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
+
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleExitClick = this.handleExitClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+
+    this.onDragStartMouse = this.onDragStartMouse.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    // this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    // this.onDragEnd = this.onDragEnd.bind(this);
+    // this.onSwiped = this.onSwiped.bind(this);
+    // this.updatePosition = this.updatePosition.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +64,24 @@ export default class LodgingList extends React.Component {
         this.getLodgingList();
       })
       .catch(err => console.error(err));
+  }
+
+  onDragStartMouse(event) {
+    this.onDragStart(event.clientX);
+    window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStart(clientX) {
+    this.dragged = true;
+    this.dragStartX = clientX;
+    // window.requestAnimationFrame(this.updatePosition);
+  }
+
+  onMouseMove(event) {
+    const left = event.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
   }
 
   render() {
@@ -95,7 +125,7 @@ export default class LodgingList extends React.Component {
         </div>
         <div className="lodgings pl-3 pr-3 mt-3">
           {this.state.lodgings.map(lodging => {
-            return <LodgingItem key={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete}/>;
+            return <LodgingItem key={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete} onMouseDown={this.onDragStartMouse}/>;
           })}
         </div>
         <div className="pl-3 pr-3 mt-3">
