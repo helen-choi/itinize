@@ -299,9 +299,8 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 10	101010	2020-05-26	MXC	2	Router
 11	39393	2020-05-31	Connected	2	the third one
 12	99999	2020-05-31	JFK	3	MEXICO
-15	JA-1010	2020-05-13	LAX	5	Japan
-16	JAL110	2020-05-30	SFO	5	Second Flight
-19	cccc	2020-05-27	cccc	4	cccc
+20	UA2765	2020-05-11	LAX	4	United 
+21	AC7220	2020-05-11	AKL	4	Canada
 \.
 
 
@@ -310,7 +309,6 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 --
 
 COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "itineraryNote", "locationId", "destinationId") FROM stdin;
-17	Tiger Sugar	Day	At this location, I will	35	10
 \.
 
 
@@ -318,8 +316,7 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
-35	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
 \.
 
 
@@ -327,11 +324,7 @@ COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
 -- Data for Name: Lodging; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId", "lodgingName") FROM stdin;
-6	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
-7	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
-8	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
-9	ASDF1234	2021-05-09	2021-05-15	1	1	Hello Kitty Cafe
+COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkOutDateTime", "destinationId", "locationId") FROM stdin;
 \.
 
 
@@ -339,36 +332,36 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 9, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 5, true);
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 11, true);
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 19, true);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 21, true);
 
 
 --
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 17, true);
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 1, false);
 
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 35, true);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 1, false);
+
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 1, false);
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 9, true);
 
 --
 -- Name: Destinations Destinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
