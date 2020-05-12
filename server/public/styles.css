@@ -125,11 +125,11 @@ div.Destination-List > h1 {
   background-position: center;
   background-size: cover;
 }
-.DestinationInfo input,.DestinationInfo textarea,.DestinationInfo p {
+.edit-input, .DestinationInfo p {
   background-color: transparent;
   border: none;
   color:white;
-  width: 35%;
+  width: 40%;
 }
 
 .DestinationInfo p {
@@ -255,6 +255,7 @@ div.Destination-List > h1 {
   left:37%;
   width:50px;
   height:50px;
+}
 
 .flight-card {
   background-color: rgb(244, 244, 244);
@@ -270,4 +271,16 @@ div.Destination-List > h1 {
 
 .off {
   visibility: hidden
+}
+
+.Itinerary-Item > *{
+  /* color: white; */
+  position: relative;
+  z-index: 2;
+}
+.Itinerary-Item > i{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 2;
 }

@@ -445,9 +445,7 @@ app.post('/api/locations', (req, res, next) => {
   db.query(sql, parameterizedArray)
     .then(results => res.status(201).json(results.rows))
     .catch(err => console.error(err));
-
 });
-
 
 app.get('/api/lodgings/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;

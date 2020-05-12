@@ -154,16 +154,16 @@ export default class DestinationInfo extends React.Component {
 
               <div className="form-element row">
                 {destinationInfo.destinationName.length < 9
-                  ? <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
-                  : <input className="display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  ? <input className="edit-input display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="edit-input display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
-                  <input readOnly value={this.tripStart}/>
+                  <input className="edit-input" readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
-                  <input readOnly value={this.tripEnd}/>
+                  <input className="edit-input" readOnly value={this.tripEnd}/>
                 </div>
                 <textarea
-                  readOnly className="col-10 ml-4 align-self-end"
+                  readOnly className="edit-input col-10 ml-4 align-self-end"
                   cols="40 shadow-p"
                   rows="10"
                   value={destinationInfo.description}>
@@ -232,16 +232,18 @@ export default class DestinationInfo extends React.Component {
                 <div className="form-element row">
                   <input onChange={this.handleUserInputOnChange}
                     handler="destinationName"
-                    className="display-3 ml-4 col-11"
+                    className="edit-input display-3 ml-4 col-11"
                     value={this.state.destinationName} />
                   <div className=" col-12 ml-4 d-flex align-items-center">
                     <input
+                      className="edit-input"
                       onChange={this.handleUserInputOnChange}
                       handler="tripStart"
                       type="date"
                       value={this.state.tripStart.slice(0, 10)} />
                     <p className="my-auto"> - </p>
                     <input
+                      className="edit-input"
                       onChange={this.handleUserInputOnChange}
                       handler="tripEnd"
                       type="date"
@@ -250,7 +252,7 @@ export default class DestinationInfo extends React.Component {
                   <textarea
                     onChange={this.handleUserInputOnChange}
                     handler="description"
-                    className="col-10 ml-4 align-self-end"
+                    className="edit-input col-10 ml-4 align-self-end"
                     cols="40 shadow-p"
                     rows="10"
                     value={this.state.description}></textarea>

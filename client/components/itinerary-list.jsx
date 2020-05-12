@@ -7,9 +7,11 @@ export default class ItineraryList extends React.Component {
   constructor(props) {
     super(props);
     this.handleCompassClick = this.handleCompassClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
     this.state = {
       itineraryItems: [],
-      mapIconIsClick: false
+      mapIconIsClick: false,
+      editIsClick: true
     };
   }
 
@@ -30,9 +32,17 @@ export default class ItineraryList extends React.Component {
     this.setState({ mapIconIsClick: true });
   }
 
+  handleEditClick() {
+    if (!this.state.editIsClick) {
+      this.setState({ editIsClick: true });
+    } else {
+      this.setState({ editIsClick: false });
+    }
+  }
+
   render() {
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
-      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
+      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} editClick={this.state.editIsClick} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
       />);
@@ -41,6 +51,7 @@ export default class ItineraryList extends React.Component {
     return (
       (this.state.itineraryItems.length === 0 && <div>Loading</div>) ||
       <div className="container">
+        {this.state.editIsClick ? <div onClick={this.handleEditClick} className="overlay-edit"></div> : null}
         <div className="mt-2 row">
           {
             (
@@ -66,11 +77,11 @@ export default class ItineraryList extends React.Component {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <i className="fas ml-2 fa-pen fa-2x text-dark"></i>
+                  <i onClick={this.handleEditClick} className="fas ml-2 fa-pen fa-2x text-dark"></i>
                   <Link to={{
                     pathname: '/itineraries/create',
                     state: {
-                      destinationId: this.props.location.state.destinationId,
+                      destinationId: this.props.location.state.destinationId
                     }
                   }}>
                     <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
