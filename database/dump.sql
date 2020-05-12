@@ -179,8 +179,7 @@ ALTER SEQUENCE public."ItineraryList_itineraryId_seq" OWNED BY public."Itinerary
 
 CREATE TABLE public."Locations" (
     "locationId" integer NOT NULL,
-    latitude point NOT NULL,
-    longitude point NOT NULL,
+    coordinates point NOT NULL,
     "placeId" text NOT NULL
 );
 
@@ -316,7 +315,11 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 -- Data for Name: Locations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."Locations" ("locationId", latitude, longitude, "placeId") FROM stdin;
+COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
+36	(33.3333000000000013,44.4444000000000017)	1
+37	(33.8590423999999999,-117.924602699999994)	ChIJs5SSAwDW3IARGAPfCiasvfA
+38	(34.4344527000000014,-119.920620900000003)	ChIJR5dB3hRH6YARhngDWzUoGl4
+39	(33.4748353000000023,-117.720061200000004)	ChIJ16OptRTw3IAR17XzKe_9RMI
 \.
 
 
@@ -330,6 +333,7 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 12	asdf	2021-05-09	2021-05-15	10	1	Hilton
 57	asdf	2021-05-09	2021-05-15	1	1	Hilton
 58	asdf	2021-05-09	2021-05-15	1	1	Hilton
+61	ASDF1234	2020-05-11 01:00	2020-05-20 01:00	1	39	The Ritz-Carlton, Laguna Niguel
 \.
 
 
@@ -358,14 +362,14 @@ SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 17, true);
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 35, true);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 39, true);
 
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 58, true);
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 61, true);
 
 
 --
