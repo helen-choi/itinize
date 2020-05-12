@@ -181,7 +181,6 @@ export default class DestinationInfo extends React.Component {
                 </div>
                 <div className="col-3">
                   <Link to={{
-
                     pathname: '/lodgings',
                     state: {
                       destinationId: this.props.match.params.destinationId,

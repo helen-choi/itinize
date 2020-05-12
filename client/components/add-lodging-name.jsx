@@ -61,6 +61,7 @@ export default class AddLodgingName extends React.Component {
       locationId: this.state.locationId,
       destinationId: parseInt(destinationId)
     };
+    // console.log(data);
     const params = {
       method: 'POST',
       headers: {
@@ -176,7 +177,6 @@ export default class AddLodgingName extends React.Component {
         rightIcon = <i className="fas fa-check fa-2x" onClick={this.handleSubmit}></i>;
         break;
     }
-
     return (
       (this.state.isSubmitted && <Confirmation newItem="lodge" history={this.props.history} match={this.props.match}/>) ||
         <div className="add-lodging-container">
