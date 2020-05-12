@@ -38,7 +38,7 @@ export default class TripInfo extends React.Component {
     if (mode === false) {
       return 'fas fa-times fa-lg pt-2 pr-3 off';
     } else {
-      return 'fas fa-times fa-lg pt-2 pr-3';
+      return 'fas fa-times fa-lg pt-2 pr-3 show';
     }
   }
 
@@ -72,7 +72,7 @@ export default class TripInfo extends React.Component {
             <i className="fas fa-pen fa-2x text-black"></i>
           </div>
         </header>
-        <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
+        <div className="flight-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
         <div className="row justify-content-center mt-4">
           <h1>{destinationName}</h1>
         </div>
