@@ -9,7 +9,7 @@ export default function DeleteModal(props) {
   let correctTag;
   if (props.destinationInfo) {
     correctTag = (
-      <div className="circle red m-auto d-flex justify-content-center align-items-center">
+      <div className="circle red m-auto d-flex justify-content-center align-items-center text-light">
         <i onClick={handleShow} handler="delete" className="fas fa-trash-alt fa-lg"></i>
       </div>
     );
