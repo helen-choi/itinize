@@ -99,14 +99,14 @@ export default class ItineraryList extends React.Component {
               this.state.mapIconIsClick &&
               <>
                 <div className="col-6">
-                  <div>
-                    <i onClick={(() => this.setState({ mapIconIsClick: false }))} className="fas fa-arrow-left fa-2x"></i>
-                  </div>
+                  <Link to={`/destinations/${this.props.location.state.destinationId}`}>
+                    <i className="fas fa-times fa-2x text-dark"></i>
+                  </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <Link to="/">
-                    <i className="fas fa-bars fa-2x text-dark"></i>
-                  </Link>
+                  <div>
+                    <i onClick={(() => this.setState({ mapIconIsClick: false }))} className="fas fa-list fa-2x text-dark"></i>
+                  </div>
                 </div>
               </>
             ) ||
@@ -114,7 +114,7 @@ export default class ItineraryList extends React.Component {
               <>
                 <div className="col-6">
                   <Link to={`/destinations/${this.props.location.state.destinationId}`}>
-                    <i className="far fa-times-circle fa-2x text-dark"></i>
+                    <i className="fas fa-times fa-2x fa-2x text-dark"></i>
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
