@@ -10,6 +10,7 @@ export default class FlightTripInfoItem extends React.Component {
       airportArrival: '',
       departTime: '',
       arrivalTime: '',
+      arrivalDay: '',
       departingDate: false
     };
   }
@@ -28,9 +29,13 @@ export default class FlightTripInfoItem extends React.Component {
       .then(res => res.json())
       .then(data => {
         if (data.data.length !== 0) {
+          const flightUpdate = data.data.length - 1;
           this.setState({
-            flightStatus: data.data[0].flight_status,
-            airportArrival: data.data[0].arrival.iata,
+            flightStatus: data.data[flightUpdate].flight_status,
+            airportArrival: data.data[flightUpdate].arrival.iata,
+            departTime: data.data[flightUpdate].departure.scheduled.slice(11, 16),
+            arrivalTime: data.data[flightUpdate].arrival.scheduled.slice(11, 16),
+            arrivalDay: data.data[flightUpdate].arrival.scheduled.slice(0, 10),
             departingDate: true
           });
         }
@@ -43,17 +48,20 @@ export default class FlightTripInfoItem extends React.Component {
 
     const flightStatus = (this.state.departingDate) ? this.state.flightStatus : 'pending';
     const airportArrival = (this.state.departingDate) ? this.state.airportArrival : 'pending';
-
+    const departTime = (this.state.departingDate) ? this.state.departTime : 'pending';
+    const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : 'pending';
+    const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
     return (
-      <div key={flightData.flightId} className="flight-card pl-3">
+      <div key={flightData.flightId} className="flight-card pl-3 p-4 position-relative">
         <div>
           <h5 className="d-flex justify-content-between">{flightData.flightName}
             <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
           </h5>
-          <p> {flightData.airportDeparture} - {airportArrival}</p>
-          <p>Flight Number: {flightData.flightNumber}</p>
-          <p>Departing Date: {flightData.flightDate.slice(0, 10)}</p>
-          <p>Flight Status: {flightStatus}</p>
+          <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
+          <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
+          <p><strong>Departing Date:</strong> {flightData.flightDate.slice(0, 10)} {departTime}</p>
+          <p><strong>Arrival Date</strong> {arrivalDay} {arrivalTime}</p>
+          <p><strong>Flight Status:</strong> {flightStatus}</p>
         </div>
       </div>
     );

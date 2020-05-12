@@ -251,11 +251,27 @@ div.Destination-List > h1 {
   right:41%;
   z-index: 1;
 }
+
+.show-flights {
+  left: 41%;
+  z-index: 1
+}
+.show-lodgings {
+  right: 41%;
+  z-index: -1
+}
+
 .toggle-hidden {
   position: absolute;
   left:37%;
   width:50px;
   height:50px;
+}
+.show-hidden {
+  position: absolute;
+  right: 37%;
+  width: 50px;
+  height: 50px;
 }
 
 .lodging-edit-modal {

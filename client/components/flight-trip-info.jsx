@@ -7,10 +7,10 @@ export default class TripInfo extends React.Component {
     super(props);
     this.state = {
       flights: [],
-      deleteIconEdit: false
+      handleEditClick: false
     };
     this.handleClickDelete = this.handleClickDelete.bind(this);
-    this.deleteIconEdit = this.deleteIconEdit.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
     this.toggleDeleteEdit = this.toggleDeleteEdit.bind(this);
   }
 
@@ -29,12 +29,12 @@ export default class TripInfo extends React.Component {
       .catch(err => console.error(err));
   }
 
-  deleteIconEdit() {
-    this.setState({ deleteIconEdit: !this.state.deleteIconEdit });
+  handleEditClick() {
+    this.setState({ handleEditClick: !this.state.handleEditClick });
   }
 
   toggleDeleteEdit() {
-    const mode = this.state.deleteIconEdit;
+    const mode = this.state.handleEditClick;
     if (mode === false) {
       return 'fas fa-times fa-lg pt-2 pr-3 off';
     } else {
@@ -58,33 +58,62 @@ export default class TripInfo extends React.Component {
   }
 
   render() {
+    const modalStyle = this.state.handleEditClick ? { display: 'block' } : { display: 'none' };
+    const iconsHidden = this.state.flights[0] ? { display: 'inline-block' } : { display: 'none' };
+    const { destinationName } = this.props.location.state;
+    const { destinationId } = this.props.location.state;
     return (
       <div className="container">
         <header className="row justify-content-between pt-2 flex-fill mt-2">
-          <Link to={`/destinations/${this.props.location.state.destinationId}`} className="col-2">
-            <i className="fas fa-arrow-left fa-2x text-black"></i>
+          <Link to={`/destinations/${destinationId}`} className="col-2">
+            <i className="fas fa-times fa-2x text-black"></i>
           </Link>
-          <div onClick={this.deleteIconEdit} className="col-2">
-            <i className="fas fa-trash fa-2x text-black"></i>
+          <div onClick={this.handleEditClick} className="col-2">
+            <i className="fas fa-pen fa-2x text-black"></i>
           </div>
         </header>
+        <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
         <div className="row justify-content-center mt-4">
-          <h2>{this.props.location.state.destinationName}</h2>
+          <h1>{destinationName}</h1>
         </div>
-        <div>
+
+        <div className="toggle row" style={iconsHidden}>
+          <Link to={{
+            pathname: '/lodgings',
+            state: {
+              destinationId: destinationId,
+              destinationName: destinationName
+            }
+          }}>
+            <div className="show-hidden" ></div>
+          </Link>
+          <div className="toggle-icon show-flights teal row justify-content-center align-items-center">
+            <i className="fas fa-plane text-white"></i>
+          </div>
+
+          <div className="toggle-icon show-lodgings red row justify-content-center align-items-center">
+            <i className="fas fa-home text-white"></i>
+          </div>
+        </div>
+
+        <div className="pl-3 pr-3 mt-3">
           {
             this.state.flights.map(flight => {
               return <FlightTripInfoItem toggle={this.toggleDeleteEdit} handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
             })
           }
         </div>
-        <div className="flight-create">
-          <Link to={{
-            pathname: '/flights/create',
-            state: { destinationId: this.props.location.state.destinationId }
-          }} className="m-auto d-flex justify-content-center align-items-center">
-            <i className="fas fa-plus fa-4x pt-3 text-muted"></i>
-          </Link>
+        <div className="pl-3 pr-3 mt-3">
+          <div className="gray-box p-4 d-flex justify-content-center">
+            <Link to={{
+              pathname: '/flights/create',
+              state: { destinationId: this.props.location.state.destinationId }
+            }} className="m-auto d-flex justify-content-center align-items-center">
+              <div className="add-lodging-item d-flex justify-content-center align-items-center">
+                <i className="fas fa-plus fa-2x"></i>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     );
