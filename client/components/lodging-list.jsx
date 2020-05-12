@@ -58,9 +58,19 @@ export default class LodgingList extends React.Component {
     const modalStyle = this.state.editModeOn ? { display: 'block' } : { display: 'none' };
     const iconsHidden = this.state.lodgings[0] ? { display: 'inline-block' } : { display: 'none' };
     const { destinationName } = this.props.location.state;
+    const { destinationId } = this.props.location.state;
     return (
       <div className="lodging-list-container p-3">
-        <div className="edit-control text-right">
+        <div className="edit-control d-flex justify-content-between">
+          <Link to={{
+            pathname: `/destinations/${destinationId}`,
+            state: {
+              destinationId: destinationId,
+              destinationName: destinationName
+            }
+          }}>
+            <i className="fas fa-times fa-2x"></i>
+          </Link>
           <i className="fas fa-pen fa-2x" onClick={this.handleEditClick}></i>
         </div>
         <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
@@ -69,7 +79,7 @@ export default class LodgingList extends React.Component {
           <Link to={{
             pathname: '/flights',
             state: {
-              destinationId: this.props.location.state.destinationId,
+              destinationId: destinationId,
               destinationName: destinationName
             }
           }}>
