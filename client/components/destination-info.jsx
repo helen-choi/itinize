@@ -208,7 +208,7 @@ export default class DestinationInfo extends React.Component {
                   </Link>
                 </div>
                 <div className="col-3">
-                  <DeleteModal destinationId={destinationId} handleDelete={this.handleClickDelete}/>
+                  <DeleteModal destinationInfo id={destinationId} handleDelete={this.handleClickDelete}/>
                 </div>
               </footer>
             </>
