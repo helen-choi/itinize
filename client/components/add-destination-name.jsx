@@ -33,6 +33,19 @@ export default class AddDestinationName extends React.Component {
 
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.componentStage !== prevState.componentStage) {
+      console.log('yes');
+      console.log(prevProps);
+      console.log(this.state.componentStage, prevState);
+      this.setState({
+        placeId: '',
+        isClicked: false
+      });
+    }
+  }
+
   handleRightArrowClick() {
     let newComponentStage = this.state.componentStage;
     newComponentStage = newComponentStage + 1;
