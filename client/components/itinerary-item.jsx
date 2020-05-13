@@ -42,7 +42,6 @@ export default class ListItineraryItem extends React.Component {
       };
       fetch(`/api/itineraries/${this.props.id}`, fetchParam)
         .then(res => res.json())
-        .then(data => this.setState({ itineraryDay: data.itineraryDay, itineraryName: data.itineraryName, itineraryNote: data.itineraryNote }))
         .catch(err => console.error(err));
     }
   }
@@ -51,6 +50,10 @@ export default class ListItineraryItem extends React.Component {
     let itineraryNote = this.props.itineraryNote;
     if (itineraryNote.length > 20) {
       itineraryNote = `${itineraryNote.slice(0, 20)}...`;
+    }
+    const optionTag = [];
+    for (let i = 1; i <= this.props.totalDays; i++) {
+      optionTag.push(<option key={i}>Days {i}</option>);
     }
     return (
       <>
@@ -64,7 +67,7 @@ export default class ListItineraryItem extends React.Component {
                 <div className="modal-body">
                   <select onChange={this.handleOnChange} className="text-secondary p edit-input w-75" handler="itineraryDay" value={this.state.itineraryDay}>
                     <option value="Day">Select A day</option>
-                    <option value="Day 1"> Day 1</option>
+                    {optionTag}
                   </select>
                   <textarea
 
@@ -84,7 +87,7 @@ export default class ListItineraryItem extends React.Component {
               <i onClick={() => this.props.handleDelete(this.props.id)} className="fas fa-times text-light"></i>
               <h3 className="text-light">{this.state.itineraryName}</h3>
               <p className="text-secondary text-light">{this.state.itineraryDay}</p>
-              <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-light`}>{itineraryNote}</p>
+              <p className={'text-light'}>{itineraryNote}</p>
               <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-light itinerary-display`}>{this.state.itineraryNote}</p>
             </div>
           )

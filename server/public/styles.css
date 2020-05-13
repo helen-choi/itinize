@@ -94,10 +94,6 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
-.main-text {
-  text-align: center;
-}
-
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 0;
@@ -251,11 +247,30 @@ div.Destination-List > h1 {
   right:41%;
   z-index: 1;
 }
+
+.show-flights {
+  left: 41%;
+  z-index: 1
+}
+.show-lodgings {
+  right: 41%;
+  z-index: -1
+}
+.show {
+  z-index: 2
+}
+
 .toggle-hidden {
   position: absolute;
   left:37%;
   width:50px;
   height:50px;
+}
+.show-hidden {
+  position: absolute;
+  right: 37%;
+  width: 50px;
+  height: 50px;
 }
 
 .lodging-edit-modal {
@@ -267,6 +282,17 @@ div.Destination-List > h1 {
   top: 0;
   bottom: 0;
 }
+
+.flight-edit-modal {
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
 .delete-control {
   right: 15px;
   top: 10px;
@@ -321,7 +347,7 @@ div.Destination-List > h1 {
   visibility: hidden
 }
 
-.Itinerary-Item {
+.Itinerary-Item > *{
   /* color: white; */
   position: relative;
   z-index: 2;
