@@ -94,10 +94,6 @@ div.Destination-List > h1 {
   width: 31px;
 }
 
-.main-text {
-  text-align: center;
-}
-
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 0;
