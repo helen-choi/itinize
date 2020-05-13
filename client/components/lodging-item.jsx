@@ -13,8 +13,8 @@ export default class LodgingItem extends React.Component {
     this.onDragStartMouse = this.onDragStartMouse.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
-    // this.onDragEndMouse = this.onDragEndMouse.bind(this);
-    // this.onDragEnd = this.onDragEnd.bind(this);
+    this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
     // this.onSwiped = this.onSwiped.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
 
@@ -56,6 +56,25 @@ export default class LodgingItem extends React.Component {
     const left = event.clientX - this.dragStartX;
     if (left < 0) {
       this.left = left;
+    }
+  }
+
+  onDragEndMouse(event) {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    this.onDragEnd();
+  }
+
+  onDragEnd() {
+    if (this.dragged) {
+      this.dragged = false;
+
+      const threshold = this.props.threshold || 0.3;
+      if (this.left < this.list.offsetWidth * threshold * -1) {
+        this.left = -this.list.offsetWidth * 2;
+
+      } else {
+        this.left = 0;
+      }
     }
   }
 
