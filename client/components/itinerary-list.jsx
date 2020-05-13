@@ -89,7 +89,6 @@ export default class ItineraryList extends React.Component {
         <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
       );
     }
-
     return (
       <div className="container">
         {this.state.editIsClick ? <div onClick={this.handleEditClick} className="overlay-edit"></div> : null}
@@ -151,7 +150,8 @@ export default class ItineraryList extends React.Component {
           (
             this.state.mapIconIsClick &&
             <div className="mt-5">
-              <ItineraryMap destinationId={this.props.location.state.destinationId} itineraries={this.state.itineraryItems}></ItineraryMap>
+              <ItineraryMap destinationId={this.props.location.state.destinationId}
+                itineraries={this.state.itineraryItems}></ItineraryMap>
             </div>
           ) ||
           (
