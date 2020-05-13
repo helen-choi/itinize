@@ -1,13 +1,15 @@
 import React from 'react';
 import DestinationItem from './destination-item';
 import { Link } from 'react-router-dom';
+import Welcome from './welcome';
 
 export default class DestinationList extends React.Component {
   constructor(props) {
     super(props);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
-      destinations: null
+      destinations: null,
+      firstTime: true
     };
   }
 
@@ -54,7 +56,7 @@ export default class DestinationList extends React.Component {
               </div>
             );
 
-          }) : (<div className="loading-data"> LOADING DESTINATIONS</div>)}
+          }) : (<div className="loading-data"><Welcome/></div>)}
         </div>
       </div>
     );
