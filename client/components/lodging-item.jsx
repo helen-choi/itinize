@@ -83,6 +83,14 @@ export default class LodgingItem extends React.Component {
     console.log('it is swiped!');
   }
 
+  componentDidMount() {
+    window.addEventListener('mouseup', this.onDragEndMouse);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.onDragEndMouse);
+  }
+
   render() {
     const modalStyle = this.props.editModeOn ? { display: 'block', color: 'white' } : { display: 'none' };
     const lodging = this.props.lodging;
