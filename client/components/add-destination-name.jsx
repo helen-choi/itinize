@@ -40,7 +40,7 @@ export default class AddDestinationName extends React.Component {
       console.log(prevProps);
       console.log(this.state.componentStage, prevState);
       this.setState({
-        placeId: '',
+
         isClicked: false
       });
     }
@@ -140,7 +140,7 @@ export default class AddDestinationName extends React.Component {
     let leftIcon;
     let rightIcon;
     const addDestinationValidation = (
-      <div className={`row justify-content-center ${(this.state.isClicked && !this.state.placeId) ? 'destination-validation-on' : 'destination-validation-off'}`}>
+      <div className={`row justify-content-center ${(this.state.isClicked && !this.state.placeId) ? 'destination-validation-on' : 'destination-validation-off d-none'}`}>
         <div className="col-6 text-center text-danger">Valid Country Needed</div>
       </div>
     );

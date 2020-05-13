@@ -8,9 +8,11 @@ export default class SelectDestinationImageProfile extends React.Component {
       imageList: [],
       imageChoice: '',
       isCheckVisible: false,
-      editMode: false
+      editMode: false,
+      loadedImages: null
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleImageLoaded = this.handleImageLoaded.bind(this);
   }
 
   componentDidMount() {
@@ -23,12 +25,26 @@ export default class SelectDestinationImageProfile extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.loadedImages !== prevState.loadedImages) {
+      console.log('image loading number changed', this.state.loadedImages);
+      console.log(this.state.imageList.length, 'length');
+    }
+  }
+
+  handleImageLoaded() {
+    let loadCounter = this.state.loadedImages;
+    loadCounter = loadCounter + 1;
+    this.setState({ loadedImages: loadCounter });
+  }
+
   getPexelPictures() {
     const params = {
       method: 'GET',
       headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
     };
-    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=10&page=1`, params)
+    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=15&page=1`, params)
       .then(res => res.json())
       .then(data => {
         const photoArray = [];
@@ -66,6 +82,9 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
+    const loadingDiv = <div className={`${(this.state.loadedImages === 15) ? 'd-none' : ''} col`}>
+      <img className='w-100' src="/images/imageload.gif" alt="" />
+    </div>;
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <div onClick={() => {
@@ -75,9 +94,9 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className="col-3 w-100 cursor-pointer">
+        className={`${this.state.loadedImages === 15 ? '' : 'd-none'} col-3 w-100 cursor-pointer`}>
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
-          <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
+          <img onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
           <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? '' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
             <i className="text-white confirm-icon fas fa-check fa-2x"></i>
           </div>
@@ -96,6 +115,7 @@ export default class SelectDestinationImageProfile extends React.Component {
           </div>
           <div className="row flex-wrap no-gutters justify-content-center">
             {reactElementArray}
+            {loadingDiv}
           </div>
         </div>
       </>
