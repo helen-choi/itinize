@@ -23,13 +23,13 @@ export default class ListItineraryItem extends React.Component {
     this.onDragStartMouse = this.onDragStartMouse.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
-    // this.onDragEndMouse = this.onDragEndMouse.bind(this);
-    // this.onDragEnd = this.onDragEnd.bind(this);
-    // this.onSwiped = this.onSwiped.bind(this);
+    this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.onSwiped = this.onSwiped.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
-    // this.onDragEndTouch = this.onDragEndTouch.bind(this);
+    this.onDragEndTouch = this.onDragEndTouch.bind(this);
   }
 
   handleClick() {
@@ -108,7 +108,37 @@ export default class ListItineraryItem extends React.Component {
     if (opacity >= 1) {
       this.background.style.opacity = '1';
     }
+  }
 
+  onDragEndMouse(event) {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    this.onDragEnd();
+  }
+
+  onDragEndTouch(evt) {
+    window.removeEventListener('touchmove', this.onTouchMove);
+    this.onDragEnd();
+  }
+
+  onDragEnd() {
+    if (this.dragged) {
+      this.dragged = false;
+
+      const threshold = 0.3;
+      if (this.left < this.list.offsetWidth * threshold * -1) {
+        this.left = -this.list.offsetWidth * 2;
+        this.onSwiped();
+      } else {
+        this.left = 0;
+      }
+    }
+  }
+
+  onSwiped() {
+    // const lodgingId = this.props.lodging.lodgingId;
+    // this.props.handleDelete(lodgingId);
+    // eslint-disable-next-line no-console
+    console.log('It is swiped!');
   }
 
   render() {
