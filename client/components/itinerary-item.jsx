@@ -26,7 +26,7 @@ export default class ListItineraryItem extends React.Component {
     // this.onDragEndMouse = this.onDragEndMouse.bind(this);
     // this.onDragEnd = this.onDragEnd.bind(this);
     // this.onSwiped = this.onSwiped.bind(this);
-    // this.updatePosition = this.updatePosition.bind(this);
+    this.updatePosition = this.updatePosition.bind(this);
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     // this.onDragEndTouch = this.onDragEndTouch.bind(this);
@@ -78,7 +78,7 @@ export default class ListItineraryItem extends React.Component {
   onDragStart(clientX) {
     this.dragged = true;
     this.dragStartX = clientX;
-    // window.requestAnimationFrame(this.updatePosition);
+    window.requestAnimationFrame(this.updatePosition);
   }
 
   onMouseMove(event) {
@@ -94,6 +94,21 @@ export default class ListItineraryItem extends React.Component {
     if (left < 0) {
       this.left = left;
     }
+  }
+
+  updatePosition() {
+    if (this.dragged) requestAnimationFrame(this.updatePosition);
+
+    this.list.style.transform = `translateX(${this.left}px)`;
+
+    const opacity = (Math.abs(this.left) / 100).toFixed(2);
+    if (opacity < 1 && opacity.toString() !== this.background.style.opacity) {
+      this.background.style.opacity = opacity.toString();
+    }
+    if (opacity >= 1) {
+      this.background.style.opacity = '1';
+    }
+
   }
 
   render() {
