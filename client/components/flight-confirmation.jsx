@@ -3,7 +3,6 @@ import React from 'react';
 export default class AddFlightConfirmation extends React.Component {
 
   render() {
-
     return (
       <div>
         <div className="row d-flex justify-content-center text-center mt-5">
