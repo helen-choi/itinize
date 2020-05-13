@@ -94,7 +94,7 @@ export default class LodgingList extends React.Component {
         </div>
         <div className="lodgings pl-3 pr-3 mt-3">
           {this.state.lodgings.map(lodging => {
-            return <LodgingItem key={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete}/>;
+            return <LodgingItem key={lodging.lodgingId} lodgingId={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete}/>;
           })}
         </div>
         <div className="pl-3 pr-3 mt-3">

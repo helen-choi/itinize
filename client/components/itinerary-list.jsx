@@ -7,9 +7,12 @@ export default class ItineraryList extends React.Component {
   constructor(props) {
     super(props);
     this.handleCompassClick = this.handleCompassClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.state = {
       itineraryItems: [],
-      mapIconIsClick: false
+      mapIconIsClick: false,
+      editIsClick: false
     };
     this.getSpecificDay = this.getSpecificDay.bind(this);
     this.getItineraryItems = this.getItineraryItems.bind(this);
@@ -44,6 +47,25 @@ export default class ItineraryList extends React.Component {
     this.setState({ mapIconIsClick: true });
   }
 
+  handleDelete(itineraryId) {
+    fetch(`/api/itineraries/${itineraryId}`, { method: 'delete' })
+      .then(res => {
+        if (res.status === 200) {
+          const newItineraries = this.state.itineraryItems.filter(item => item.itineraryId !== itineraryId);
+          this.setState({ itineraryItems: newItineraries });
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  handleEditClick() {
+    if (!this.state.editIsClick) {
+      this.setState({ editIsClick: true });
+    } else {
+      this.setState({ editIsClick: false });
+    }
+  }
+
   render() {
     const bootstrapButtonClassNames = [
       'btn-outline-danger',
@@ -54,9 +76,10 @@ export default class ItineraryList extends React.Component {
       'btn-outline-secondary'
     ];
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
-      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} itineraryName={currentItem.itineraryName}
+      return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} editClick={this.state.editIsClick} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
         itineraryNote={currentItem.itineraryNote}
+        handleDelete={this.handleDelete}
       />);
     });
     const dayButtons = [];
@@ -66,23 +89,23 @@ export default class ItineraryList extends React.Component {
         <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
       );
     }
-
     return (
       <div className="container">
+        {this.state.editIsClick ? <div onClick={this.handleEditClick} className="overlay-edit"></div> : null}
         <div className="mt-2 row">
           {
             (
               this.state.mapIconIsClick &&
               <>
                 <div className="col-6">
-                  <div>
-                    <i onClick={(() => this.setState({ mapIconIsClick: false }))} className="fas fa-arrow-left fa-2x"></i>
-                  </div>
+                  <Link to={`/destinations/${this.props.location.state.destinationId}`}>
+                    <i className="fas fa-times fa-2x text-dark"></i>
+                  </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <Link to="/">
-                    <i className="fas fa-bars fa-2x text-dark"></i>
-                  </Link>
+                  <div>
+                    <i onClick={(() => this.setState({ mapIconIsClick: false }))} className="fas fa-list fa-2x text-dark"></i>
+                  </div>
                 </div>
               </>
             ) ||
@@ -90,11 +113,11 @@ export default class ItineraryList extends React.Component {
               <>
                 <div className="col-6">
                   <Link to={`/destinations/${this.props.location.state.destinationId}`}>
-                    <i className="far fa-times-circle fa-2x text-dark"></i>
+                    <i className="fas fa-times fa-2x fa-2x text-dark"></i>
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <i className="fas ml-2 fa-pen fa-2x text-dark"></i>
+                  <i onClick={this.handleEditClick} className="fas ml-2 fa-pen fa-2x text-dark"></i>
                   <Link to={{
                     pathname: '/itineraries/create',
                     state: {
@@ -127,7 +150,8 @@ export default class ItineraryList extends React.Component {
           (
             this.state.mapIconIsClick &&
             <div className="mt-5">
-              <ItineraryMap destinationId={this.props.location.state.destinationId} itineraries={this.state.itineraryItems}></ItineraryMap>
+              <ItineraryMap destinationId={this.props.location.state.destinationId}
+                itineraries={this.state.itineraryItems}></ItineraryMap>
             </div>
           ) ||
           (

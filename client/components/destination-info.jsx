@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SelectDestinationImageProfile from './select-destination-image-profile';
+import DeleteModal from './delete-modal';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class DestinationInfo extends React.Component {
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
     this.handleExitEditImage = this.handleExitEditImage.bind(this);
     this.handleEditImage = this.handleEditImage.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -20,9 +22,6 @@ export default class DestinationInfo extends React.Component {
       pictureIconIsClicked: false
     };
   }
-
-  // add a componentDidUpdate to check when the picture info is changed
-  // componentDidUpdate
 
   handleBodyClick() {
     this.setState({
@@ -109,6 +108,9 @@ export default class DestinationInfo extends React.Component {
         });
       })
       .catch(err => console.error(err));
+    if (this.props.location.state) {
+      this.setState({ editIconIsClicked: true });
+    }
   }
 
   render() {
@@ -121,8 +123,12 @@ export default class DestinationInfo extends React.Component {
     const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
 
     if (this.state.destinationInfo) {
-      this.tripStart = new Date(destinationInfo.tripStart).toDateString();
-      this.tripEnd = new Date(destinationInfo.tripEnd).toDateString();
+      this.tripStart = new Date(this.state.tripStart).toDateString();
+      this.tripEnd = new Date(this.state.tripEnd).toDateString();
+      const today = new Date();
+      const todayMonth = today.getMonth() + 1;
+      const todayDay = today.getDate();
+      this.today = `${today.getFullYear()}-${todayMonth < 10 ? '0' + todayMonth : todayMonth}-${todayDay < 10 ? '0' + todayDay : todayDay}`;
     }
 
     return (
@@ -138,7 +144,7 @@ export default class DestinationInfo extends React.Component {
           {
             (!this.state.editIconIsClicked &&
             <>
-              <div className="overlay container"></div>
+              <div className="overlay overlay-destination-info container"></div>
               <header className="row justify-content-between pt-2 flex-fill">
                 <Link to="/" className="col-2 text-white">
                   <i className="fas fa-arrow-left fa-2x"></i>
@@ -154,16 +160,16 @@ export default class DestinationInfo extends React.Component {
 
               <div className="form-element row">
                 {destinationInfo.destinationName.length < 9
-                  ? <input className="display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
-                  : <input className="display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  ? <input className="edit-input display-3 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="edit-input display-4 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
-                  <input readOnly value={this.tripStart}/>
+                  <input className="edit-input" readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
-                  <input readOnly value={this.tripEnd}/>
+                  <input className="edit-input" readOnly value={this.tripEnd}/>
                 </div>
                 <textarea
-                  readOnly className="col-10 ml-4 align-self-end"
+                  readOnly className="edit-input col-10 ml-4 align-self-end"
                   cols="40 shadow-p"
                   rows="10"
                   value={destinationInfo.description}>
@@ -175,7 +181,7 @@ export default class DestinationInfo extends React.Component {
                   <Link to={{
                     pathname: '/flights',
                     state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
-                  }} className="circle text-dark yellow m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-light yellow m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
@@ -186,13 +192,12 @@ export default class DestinationInfo extends React.Component {
                       destinationId: this.props.match.params.destinationId,
                       destinationName: this.state.destinationName
                     }
-                  }} className="col-2 flight-button">
-                    <i className="fas fa-home fa-2x"></i>
+                  }} className="circle text-light dark-blue m-auto d-flex justify-content-center align-items-center">
+                    <i className="fas fa-home fa-lg"></i>
 
                   </Link>
                 </div>
                 <div className="col-3">
-                  {/* prepare to pass destinationName via the state property in the Link component! */}
                   <Link to={{
                     pathname: '/itineraries',
                     state: {
@@ -202,14 +207,12 @@ export default class DestinationInfo extends React.Component {
                       tripStart: this.state.tripStart,
                       tripEnd: this.state.tripEnd
                     }
-                  }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                  }} className="circle text-light teal m-auto d-flex justify-content-center align-items-center">
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>
                 <div className="col-3">
-                  <div className="circle red m-auto d-flex justify-content-center align-items-center">
-                    <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
-                  </div>
+                  <DeleteModal destinationInfo id={destinationId} deleteHandle={this.handleClickDelete}/>
                 </div>
               </footer>
             </>
@@ -219,66 +222,73 @@ export default class DestinationInfo extends React.Component {
               <>
                 <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
                 <header className="row justify-content-between pt-2 flex-fill align-items-start">
-                  <div className="col-3 text-dark">
+                  <div className="col-3 text-light">
                     <i className="fas fa-arrow-left fa-2x"></i>
                   </div>
                   <div className="col-4 d-flex justify-content-end">
                     <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white pr-3"></i>
-                    <i className="fas fa-pen fa-2x text-dark"></i>
+                    <i className="fas fa-pen fa-2x text-light"></i>
                   </div>
                 </header>
 
                 <div className="form-element row">
-                  <input onChange={this.handleUserInputOnChange}
-                    handler="destinationName"
-                    className="display-3 ml-4 col-11"
-                    value={this.state.destinationName} />
-                  <div className=" col-12 ml-4 d-flex align-items-center">
-                    <input
-                      onChange={this.handleUserInputOnChange}
-                      handler="tripStart"
-                      type="date"
-                      value={this.state.tripStart.slice(0, 10)} />
+                  {destinationInfo.destinationName.length < 9
+                    ? <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-3 ml-4 col-11" value={this.state.destinationName} />
+                    : <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-4 ml-4 col-11" value={this.state.destinationName} />
+                  }
+                  <div className=" col-12 ml-4 d-flex">
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripStart" min={this.today} max={this.state.tripEnd.slice(0, 10)} className="edit-input" value={this.state.tripStart.slice(0, 10)} />
                     <p className="my-auto"> - </p>
-                    <input
-                      onChange={this.handleUserInputOnChange}
-                      handler="tripEnd"
-                      type="date"
-                      value={this.state.tripEnd.slice(0, 10)} />
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripEnd" min={this.state.tripStart} className="edit-input" value={this.state.tripEnd.slice(0, 10)} />
                   </div>
                   <textarea
                     onChange={this.handleUserInputOnChange}
+                    className="edit-input col-10 ml-4 align-self-end"
                     handler="description"
-                    className="col-10 ml-4 align-self-end"
                     cols="40 shadow-p"
                     rows="10"
-                    value={this.state.description}></textarea>
+                    value={this.state.description}>
+                  </textarea>
                 </div>
 
                 <footer className="row flex-fill">
-                  <div className="col-3 ">
-                    <Link to="/flights/create" className="circle teal m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-plane fa-lg"></i>
+                  <div className="col-3">
+                    <Link to={{
+                      pathname: '/flights',
+                      state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
+                    }} className="circle text-light yellow m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-plane fa-lg  text-light"></i>
                     </Link>
                   </div>
                   <div className="col-3">
-                    <Link to="/lodgings/create" className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-hotel fa-lg"></i>
-                    </Link>
-                  </div>
-                  <div className="col-3">
-                    <Link to={
-                      {
-                        pathname: '/itineraries/create',
-                        state: { destinationId: destinationId }
+                    <Link to={{
+                      pathname: '/lodgings',
+                      state: {
+                        destinationId: this.props.match.params.destinationId,
+                        destinationName: this.state.destinationName
                       }
-                    } className="circle yellow m-auto d-flex justify-content-center align-items-center">
-                      <i className="fas fa-map-marker-alt fa-lg"></i>
+                    }} className="circle dark-blue m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-home fa-lg  text-light"></i>
+
+                    </Link>
+                  </div>
+                  <div className="col-3">
+                    <Link to={{
+                      pathname: '/itineraries',
+                      state: {
+                        destinationId: destinationId,
+                        destinationName: this.state.destinationInfo.destinationName,
+                        totalDays,
+                        tripStart: this.state.tripStart,
+                        tripEnd: this.state.tripEnd
+                      }
+                    }} className="circle teal m-auto d-flex justify-content-center align-items-center">
+                      <i className="fas fa-map-marker-alt fa-lg text-light"></i>
                     </Link>
                   </div>
                   <div className="col-3">
                     <div className="circle red m-auto d-flex justify-content-center align-items-center">
-                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+                      <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg text-light"></i>
                     </div>
                   </div>
                 </footer>

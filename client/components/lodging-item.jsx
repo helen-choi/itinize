@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteModal from './delete-modal';
 
 export default class LodgingItem extends React.Component {
   constructor(props) {

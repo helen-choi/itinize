@@ -20,9 +20,6 @@ export default class SelectDestinationImageProfile extends React.Component {
     if (this.props.handleCheck) {
       this.setState({ editMode: true });
     }
-    // if (this.props.currentImage === '') {
-    this.getPexelPictures();
-  //   }
   }
 
   getPexelPictures() {
@@ -89,14 +86,14 @@ export default class SelectDestinationImageProfile extends React.Component {
     return (
       <>
         { this.state.editMode ? this.editHeader() : null }
-        <div className="main-text-height row align-items-start">
-          <div className="row">
+        <div className="row align-items-start justify-content-center">
+          <div className="row justify-content-center">
             <div className="col">
               <h4 className="text-center font-weight-bold">Select an image</h4>
               <h6 className="text-center">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</h6>
             </div>
           </div>
-          <div className="row flex-wrap no-gutters">
+          <div className="row flex-wrap no-gutters justify-content-center">
             {reactElementArray}
           </div>
         </div>
@@ -196,5 +193,11 @@ const dummyImageArray = [
     photographer: 'Vincent M.A. Janssen',
     photoId: 1310788,
     photoURL: 'https://www.pexels.com/photo/gray-concrete-pathway-between-red-and-black-pillars-1310788/'
+  },
+  {
+    portraitSrc: 'https://images.pexels.com/photos/1829980/pexels-photo-1829980.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
+    photographer: 'DSD',
+    photoId: 1829940,
+    photoURL: 'https://www.pexels.com/photo/pagoda-temple-near-lake-under-cloudy-sky-1829980/'
   }
 ];

@@ -14,7 +14,6 @@ import TripInfo from './flight-trip-info';
 import LodgingList from './lodging-list';
 import ItineraryList from './itinerary-list';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);

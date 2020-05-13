@@ -52,12 +52,13 @@ export default class AddFlightName extends React.Component {
   }
 
   postInformation() {
+    const { destinationId } = this.props.location.state;
     const newFlightData = {
       flightName: this.state.flightName,
       airportDeparture: this.state.airportDeparture,
       flightNumber: this.state.flightNumber,
       flightDate: this.state.flightDate,
-      destinationId: this.state.destinationId
+      destinationId: parseInt(destinationId)
     };
     const parameter = {
       method: 'POST',
@@ -73,6 +74,7 @@ export default class AddFlightName extends React.Component {
 
   render() {
     const { componentStage } = this.state;
+    const { destinationId } = this.props.location.state;
     let stage = componentStage + 2;
     const pageArr = [
       <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />,
@@ -93,7 +95,7 @@ export default class AddFlightName extends React.Component {
 
     switch (componentStage) {
       case -1:
-        leftIcon = <Link to="/"><i className="fas fa-times fa-2x"></i></Link>;
+        leftIcon = <Link to={`/destinations/${destinationId}`}><i className="fas fa-times fa-2x"></i></Link>;
         rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
         break;
       case 0:
