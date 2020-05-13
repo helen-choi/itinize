@@ -130,7 +130,9 @@ export default class AddDestinationName extends React.Component {
         leftIcon = (<Link className="text-dark" to="/">
           <i className="far fa-times-circle fa-2x"></i>
         </Link>);
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          if (this.state.placeId) { this.handleRightArrowClick(); }
+        }} className="fas fa-arrow-right fa-2x"></i>;
         break;
       case 0:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
@@ -189,6 +191,7 @@ export default class AddDestinationName extends React.Component {
             <div className="col-8 justify-content-center mt-5">
               <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
               <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+
             </div>
           </div>
         </div>
