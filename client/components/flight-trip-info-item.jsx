@@ -148,10 +148,8 @@ export default class FlightTripInfoItem extends React.Component {
   }
 
   onSwiped() {
-    // const lodgingId = this.props.lodging.lodgingId;
-    // this.props.handleDelete(lodgingId);
-    // eslint-disable-next-line no-console
-    console.log('It is swiped!');
+    const { flightId } = this.props.flightData;
+    this.props.handleClickDelete(flightId);
   }
 
   componentWillUnmount() {
