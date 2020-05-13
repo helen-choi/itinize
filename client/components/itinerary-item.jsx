@@ -12,6 +12,24 @@ export default class ListItineraryItem extends React.Component {
       itineraryName: this.props.itineraryName,
       itineraryNote: this.props.itineraryNote
     };
+
+    this.list = null;
+    this.wrapper = null;
+    this.background = null;
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
+
+    this.onDragStartMouse = this.onDragStartMouse.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.onSwiped = this.onSwiped.bind(this);
+    this.updatePosition = this.updatePosition.bind(this);
+    this.onDragStartTouch = this.onDragStartTouch.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onDragEndTouch = this.onDragEndTouch.bind(this);
   }
 
   handleClick() {
@@ -44,6 +62,91 @@ export default class ListItineraryItem extends React.Component {
         .then(res => res.json())
         .catch(err => console.error(err));
     }
+  }
+
+  onDragStartMouse(event) {
+    this.onDragStart(event.clientX);
+    window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStartTouch(evt) {
+    const touch = evt.targetTouches[0];
+    this.onDragStart(touch.clientX);
+    window.addEventListener('touchmove', this.onTouchMove);
+  }
+
+  onDragStart(clientX) {
+    this.dragged = true;
+    this.dragStartX = clientX;
+    window.requestAnimationFrame(this.updatePosition);
+  }
+
+  onMouseMove(event) {
+    const left = event.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  onTouchMove(evt) {
+    const touch = evt.targetTouches[0];
+    const left = touch.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  updatePosition() {
+    if (this.dragged) requestAnimationFrame(this.updatePosition);
+
+    this.list.style.transform = `translateX(${this.left}px)`;
+
+    const opacity = (Math.abs(this.left) / 100).toFixed(2);
+    if (opacity < 1 && opacity.toString() !== this.background.style.opacity) {
+      this.background.style.opacity = opacity.toString();
+    }
+    if (opacity >= 1) {
+      this.background.style.opacity = '1';
+    }
+  }
+
+  onDragEndMouse(event) {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    this.onDragEnd();
+  }
+
+  onDragEndTouch(evt) {
+    window.removeEventListener('touchmove', this.onTouchMove);
+    this.onDragEnd();
+  }
+
+  onDragEnd() {
+    if (this.dragged) {
+      this.dragged = false;
+
+      const threshold = 0.3;
+      if (this.left < this.list.offsetWidth * threshold * -1) {
+        this.left = -this.list.offsetWidth * 2;
+        this.onSwiped();
+      } else {
+        this.left = 0;
+      }
+    }
+  }
+
+  onSwiped() {
+    const itineraryId = this.props.id;
+    this.props.handleDelete(itineraryId);
+  }
+
+  componentDidMount() {
+    window.addEventListener('mouseup', this.onDragEndMouse);
+    window.addEventListener('touchend', this.onDragEndTouch);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.onDragEndMouse);
+    window.removeEventListener('touchend', this.onDragEndTouch);
   }
 
   render() {
@@ -92,11 +195,23 @@ export default class ListItineraryItem extends React.Component {
             </div>
           )
           : (
-            <div onClick={this.handleClick.bind(this)} data-toggle='collapse' data-target={`#${this.props.id}`} className="Itinerary-Item mt-1 border border-secondary col-9 ">
-              <h3>{this.props.itineraryName}</h3>
-              <p className="text-secondary">{this.props.itineraryDay}</p>
-              <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
-              <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
+            <div className="wrapper w-100" ref={div => (this.wrapper = div)}>
+              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 ml-auto mr-auto w-75 mt-1" ref={div => (this.background = div)}>
+                <p className="text-white"><strong>DELETE</strong></p>
+              </div>
+              <div
+                ref={div => (this.list = div)}
+                onMouseDown={this.onDragStartMouse}
+                onTouchStart={this.onDragStartTouch}
+                onClick={this.handleClick.bind(this)}
+                data-toggle='collapse'
+                data-target={`#${this.props.id}`}
+                className="Itinerary-Item mt-1 border border-secondary col-9 ml-auto mr-auto">
+                <h3>{this.props.itineraryName}</h3>
+                <p className="text-secondary">{this.props.itineraryDay}</p>
+                <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
+                <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
+              </div>
             </div>
           )}
       </>

@@ -14,6 +14,23 @@ export default class FlightTripInfoItem extends React.Component {
       airportDeparture: '',
       departingDate: false
     };
+    this.list = null;
+    this.wrapper = null;
+    this.background = null;
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
+
+    this.onDragStartMouse = this.onDragStartMouse.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.onSwiped = this.onSwiped.bind(this);
+    this.updatePosition = this.updatePosition.bind(this);
+    this.onDragStartTouch = this.onDragStartTouch.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onDragEndTouch = this.onDragEndTouch.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +39,9 @@ export default class FlightTripInfoItem extends React.Component {
       airportDeparture: this.props.flightData.airportDeparture
     });
     this.checkDate(this.props.flightData.flightDate.slice(0, 10), this.props.flightData.flightNumber, this.props.flightData.airportDeparture);
+    window.addEventListener('mouseup', this.onDragEndMouse);
+    window.addEventListener('touchend', this.onDragEndTouch);
+
   }
 
   checkDate(date, iata, departure) {
@@ -58,6 +78,88 @@ export default class FlightTripInfoItem extends React.Component {
       .catch(err => console.error(err));
   }
 
+  onDragStartMouse(event) {
+    this.onDragStart(event.clientX);
+    window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStartTouch(evt) {
+    const touch = evt.targetTouches[0];
+    this.onDragStart(touch.clientX);
+    window.addEventListener('touchmove', this.onTouchMove);
+
+  }
+
+  onMouseMove(event) {
+    const left = event.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  onTouchMove(evt) {
+    const touch = evt.targetTouches[0];
+    const left = touch.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  onDragStart(clientX) {
+    this.dragged = true;
+    this.dragStartX = clientX;
+    window.requestAnimationFrame(this.updatePosition);
+  }
+
+  updatePosition() {
+    if (this.dragged) requestAnimationFrame(this.updatePosition);
+
+    this.list.style.transform = `translateX(${this.left}px)`;
+
+    const opacity = (Math.abs(this.left) / 100).toFixed(2);
+    if (opacity < 1 && opacity.toString() !== this.background.style.opacity) {
+      this.background.style.opacity = opacity.toString();
+    }
+    if (opacity >= 1) {
+      this.background.style.opacity = '1';
+    }
+
+  }
+
+  onDragEndMouse(event) {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    this.onDragEnd();
+  }
+
+  onDragEndTouch(evt) {
+    window.removeEventListener('touchmove', this.onTouchMove);
+    this.onDragEnd();
+  }
+
+  onDragEnd() {
+    if (this.dragged) {
+      this.dragged = false;
+
+      const threshold = 0.3;
+      if (this.left < this.list.offsetWidth * threshold * -1) {
+        this.left = -this.list.offsetWidth * 2;
+        this.onSwiped();
+      } else {
+        this.left = 0;
+      }
+    }
+  }
+
+  onSwiped() {
+    const { flightId } = this.props.flightData;
+    this.props.handleClickDelete(flightId);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.onDragEndMouse);
+    window.removeEventListener('touchend', this.onDragEndTouch);
+  }
+
   render() {
     const flightData = this.props.flightData;
 
@@ -67,16 +169,22 @@ export default class FlightTripInfoItem extends React.Component {
     const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : null;
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
     return (
-      <div key={flightData.flightId} className="flight-card pl-3 p-4 mt-3 position-relative">
-        <div>
-          <h5 className="d-flex justify-content-between">{flightData.flightName}
-            <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
-          </h5>
-          <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
-          <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
-          <p><strong>Departing Date:</strong> {flightData.flightDate.slice(0, 10)} {departTime}</p>
-          <p><strong>Arrival Date</strong> {arrivalDay} {arrivalTime}</p>
-          <p><strong>Flight Status:</strong> {flightStatus}</p>
+      <div className="wrapper">
+        <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
+          <h4 className="text-white"><strong>DELETE</strong></h4>
+        </div>
+        <div className="flight-card pl-3 p-4 mt-3 position-relative"
+          ref={div => (this.list = div)}
+          onMouseDown={this.onDragStartMouse}
+          onTouchStart={this.onDragStartTouch}>
+          <div>
+            <h5 className="d-flex justify-content-between">{flightData.flightName}</h5>
+            <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
+            <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
+            <p><strong>Departing Date:</strong> {flightData.flightDate.slice(0, 10)} {departTime}</p>
+            <p><strong>Arrival Date</strong> {arrivalDay} {arrivalTime}</p>
+            <p><strong>Flight Status:</strong> {flightStatus}</p>
+          </div>
         </div>
       </div>
     );
