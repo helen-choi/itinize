@@ -4,7 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-// import DestinationList from './destination-list';
+import DestinationList from './destination-list';
 import AddDestinationName from './add-destination-name';
 import DestinationInfo from './destination-info';
 import AddLodgingName from './add-lodging-name';
@@ -20,17 +20,27 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       message: null,
-      isLoading: true
+      isLoading: true,
+      firstTime: true
     };
+    this.handleWelcome = this.handleWelcome.bind(this);
+  }
+
+  handleWelcome() {
+    this.setState({
+      firstTime: false
+    });
   }
 
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Welcome/>
-          </Route>
+          <Route exact path="/" render={() =>
+            (
+              this.state.firstTime ? (<Welcome handleWelcome={this.handleWelcome}/>) : (<DestinationList/>)
+            )
+          }/>
           <Route path="/destinations/create" component={AddDestinationName}>
             {/* <AddDestinationName /> */}
             {/* if you want props and render method both, use a render method */}

@@ -4,16 +4,15 @@ export default class Welcome extends React.Component {
   componentDidMount() {
 
     setTimeout(() => {
-      // eslint-disable-next-line no-console
-      console.log('New Page');
+      this.props.handleWelcome();
 
     }, 2000);
   }
 
   render() {
     return (
-      <div className="welcome-container">
-        <h2>Welcome to Itinize!</h2>
+      <div className="welcome-container d-flex justify-content-center align-items-center" style={{ transition: 'all 2s ease-out' }}>
+        <img src="./images/itinize-welcome.png" alt=""/>
       </div>
     );
   }

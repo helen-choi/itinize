@@ -374,3 +374,11 @@ div.Destination-List > h1 {
 i, .cursor-pointer{
   cursor: pointer;
 }
+/* Welcome Splash */
+.welcome-container  {
+  width:100%;
+  height:100vh;
+  background-color: #6CC4C8;
+  position:fixed;
+  overflow:hidden;
+}

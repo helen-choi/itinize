@@ -8,8 +8,7 @@ export default class DestinationList extends React.Component {
     super(props);
     this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
-      destinations: null,
-      firstTime: true
+      destinations: null
     };
   }
 
