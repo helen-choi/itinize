@@ -74,7 +74,7 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className="col-3 w-100">
+        className="col-3 w-100 cursor-pointer">
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
           <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
           <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? '' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
