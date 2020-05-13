@@ -359,6 +359,6 @@ div.Destination-List > h1 {
   z-index: 2;
 }
 
-.cursor-icon{
+i, .cursor-pointer{
   cursor: pointer;
 }

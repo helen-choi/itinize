@@ -20,7 +20,7 @@ export default function DestinationItem(props) {
         }}className="cursor-icon mt-2 circle circle-dest-list teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
           <img className="icon" src="./images/pencil.png" alt="" />
         </Link>
-        <div className="cursor-icon mt-2 circle circle-dest-list red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
+        <div className="cursor-pointer mt-2 circle circle-dest-list red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
           <DeleteModal deleteHandle={props.handleClickDelete} id={props.destination.destinationId} destinationItem />
         </div>
       </div>
