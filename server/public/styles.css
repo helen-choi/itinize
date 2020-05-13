@@ -18,7 +18,8 @@ input, textarea {
     -ms-transition: all 0.10s ease-in-out;
     -o-transition: all 0.10s ease-in-out;
   outline: none;
-  border:2px solid white;
+  border:2px solid #f4f4f4;
+  background-color:white;
 
 }
 input:focus, textarea:focus {
@@ -126,6 +127,7 @@ div.Destination-List > h1 {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  position: fixed;
 }
 .edit-input, .DestinationInfo p {
   background-color: transparent;
@@ -174,6 +176,7 @@ div.Destination-List > h1 {
 }
 .add-lodging-container {
   height: 100vh;
+  width: 100%;
 }
 /* Confirmation */
 .confirmation-container {
@@ -195,10 +198,6 @@ div.Destination-List > h1 {
 }
 
 /* AddLodgingDates */
-.checkin input, .checkout input {
-  border:1px solid #C4C4C4;
-  background-color: white;
-}
 
 .destination-image-modal-check{
   background-color: rgba(0, 0, 0, 0.486);

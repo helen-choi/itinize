@@ -20,6 +20,7 @@ export default class AddFlightName extends React.Component {
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUppercase = this.handleUppercase.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,12 @@ export default class AddFlightName extends React.Component {
     this.postInformation();
   }
 
+  handleUppercase(event) {
+    this.setState({
+      [event.target.name]: event.target.value.toUpperCase()
+    });
+  }
+
   postInformation() {
     const { destinationId } = this.props.location.state;
     const newFlightData = {
@@ -77,7 +84,7 @@ export default class AddFlightName extends React.Component {
     const { destinationId } = this.props.location.state;
     let stage = componentStage + 2;
     const pageArr = [
-      <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleChange={this.handleChange} />,
+      <AddFlightConfirmation key={this.state.componentStage} flightNumber={this.state.flightNumber} airportDeparture={this.state.airportDeparture} handleUppercase={this.handleUppercase} />,
       <AddFlightDate key={this.state.componentStage} flightDate={this.state.flightDate} handleChange={this.handleChange}/>
     ];
     const statusArr = [];
@@ -126,11 +133,11 @@ export default class AddFlightName extends React.Component {
             <div className="row d-flex justify-content-center mt-5">
               <h2>Name your flight</h2>
             </div>
-            <div className="row d-flex justify-content-center mt-3">
+            <div className="row d-flex justify-content-center mt-3 text-muted">
               <h6>Ex Returningflight, Going back home!</h6>
             </div>
             <div className="row d-flex justify-content-center mt-5">
-              <input type="text" name="flightName" onChange={this.handleChange} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
+              <input type="text" name="flightName" onChange={this.handleChange} className="text-center flight-name p-2" placeholder="Flight Name" value={this.state.flightName} />
             </div>
           </div>
         ) || pageArr[componentStage]}
