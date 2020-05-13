@@ -62,7 +62,7 @@ export default class ItineraryList extends React.Component {
     if (!this.state.editIsClick) {
       this.setState({ editIsClick: true });
     } else {
-      this.setState({ editIsClick: false });
+      this.setState({ editIsClick: false }, this.getItineraryItems());
     }
   }
 
@@ -78,13 +78,14 @@ export default class ItineraryList extends React.Component {
     const reactItineraryItems = this.state.itineraryItems.map(currentItem => {
       return (<ListItineraryItem key={currentItem.itineraryId} id={currentItem.itineraryId} editClick={this.state.editIsClick} itineraryName={currentItem.itineraryName}
         itineraryDay={currentItem.itineraryDay}
+        totalDays={this.props.location.state.totalDays}
         itineraryNote={currentItem.itineraryNote}
+        locationId={currentItem.locationId}
         handleDelete={this.handleDelete}
       />);
     });
     const dayButtons = [];
     for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
-
       dayButtons.push(
         <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
       );

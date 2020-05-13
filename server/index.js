@@ -599,7 +599,8 @@ app.get('/api/itineraries/:destinationId', (req, res, next) => {
             "itineraryDay",
             "itineraryNote",
             "itineraryId",
-            "coordinates"
+            "coordinates",
+            "locationId"
       from "ItineraryList"
       join "Locations" using ("locationId")
     where "destinationId" = $1
