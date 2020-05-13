@@ -123,8 +123,8 @@ export default class DestinationInfo extends React.Component {
     const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
 
     if (this.state.destinationInfo) {
-      this.tripStart = new Date(this.state.tripStart).toDateString();
-      this.tripEnd = new Date(this.state.tripEnd).toDateString();
+      this.tripStart = new Date(this.state.tripStart.replace(/-/g, '/').slice(0, 10)).toDateString();
+      this.tripEnd = new Date(this.state.tripEnd.replace(/-/g, '/').slice(0, 10)).toDateString();
       const today = new Date();
       const todayMonth = today.getMonth() + 1;
       const todayDay = today.getDate();
