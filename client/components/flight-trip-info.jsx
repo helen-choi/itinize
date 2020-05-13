@@ -58,6 +58,7 @@ export default class TripInfo extends React.Component {
   }
 
   render() {
+
     const modalStyle = this.state.handleEditClick ? { display: 'block' } : { display: 'none' };
     const iconsHidden = this.state.flights[0] ? { display: 'inline-block' } : { display: 'none' };
     const { destinationName } = this.props.location.state;
