@@ -7,6 +7,7 @@ export default class ItineraryMap extends React.Component {
     this.googleMaps = this.googleMaps.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.state = {
+      itineraries: props.itineraries,
       lat: null,
       lng: null
     };
@@ -17,7 +18,7 @@ export default class ItineraryMap extends React.Component {
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places';
     script.defer = true;
     script.async = true;
-    window.document.body.appendChild(script);
+    document.querySelector('body').appendChild(script);
     script.addEventListener('load', this.handleLoad);
   }
 
@@ -28,7 +29,7 @@ export default class ItineraryMap extends React.Component {
       zoom: 5
     });
 
-    const itineraries = this.props.itineraries;
+    const itineraries = this.state.itineraries;
     for (let i = 0; i < itineraries.length; i++) {
       const label = !itineraries[i].itineraryDay[4] ? 'D' : itineraries[i].itineraryDay[4];
       // eslint-disable-next-line no-undef
@@ -63,6 +64,14 @@ export default class ItineraryMap extends React.Component {
       .then(res => res.json())
       .then(data => this.setState({ lat: data[0].coordinates.x, lng: data[0].coordinates.y }, this.googleMaps))
       .catch(err => console.error(err));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.itineraries === this.props.itineraries) {
+      return null;
+    } else {
+      this.setState({ itineraries: this.props.itineraries }, this.handleLoad);
+    }
   }
 
   render() {
