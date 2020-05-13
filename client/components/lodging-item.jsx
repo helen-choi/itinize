@@ -15,7 +15,7 @@ export default class LodgingItem extends React.Component {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onDragEndMouse = this.onDragEndMouse.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    // this.onSwiped = this.onSwiped.bind(this);
+    this.onSwiped = this.onSwiped.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -71,11 +71,16 @@ export default class LodgingItem extends React.Component {
       const threshold = this.props.threshold || 0.3;
       if (this.left < this.list.offsetWidth * threshold * -1) {
         this.left = -this.list.offsetWidth * 2;
-
+        this.onSwiped();
       } else {
         this.left = 0;
       }
     }
+  }
+
+  onSwiped() {
+    // eslint-disable-next-line no-console
+    console.log('it is swiped!');
   }
 
   render() {
