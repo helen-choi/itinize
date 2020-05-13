@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SelectDestinationImageProfile from './select-destination-image-profile';
+import DeleteModal from './delete-modal';
 
 export default class DestinationInfo extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class DestinationInfo extends React.Component {
     this.handleUserInputOnChange = this.handleUserInputOnChange.bind(this);
     this.handleExitEditImage = this.handleExitEditImage.bind(this);
     this.handleEditImage = this.handleEditImage.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
     this.state = {
       destinationInfo: null,
       destinationName: '',
@@ -121,8 +123,12 @@ export default class DestinationInfo extends React.Component {
     const totalDays = (endMinutes - startMinutes) / (1000 * 24 * 3600);
 
     if (this.state.destinationInfo) {
-      this.tripStart = new Date(destinationInfo.tripStart).toDateString();
-      this.tripEnd = new Date(destinationInfo.tripEnd).toDateString();
+      this.tripStart = new Date(this.state.tripStart).toDateString();
+      this.tripEnd = new Date(this.state.tripEnd).toDateString();
+      const today = new Date();
+      const todayMonth = today.getMonth() + 1;
+      const todayDay = today.getDate();
+      this.today = `${today.getFullYear()}-${todayMonth < 10 ? '0' + todayMonth : todayMonth}-${todayDay < 10 ? '0' + todayDay : todayDay}`;
     }
 
     return (
@@ -154,8 +160,8 @@ export default class DestinationInfo extends React.Component {
 
               <div className="form-element row">
                 {destinationInfo.destinationName.length < 9
-                  ? <input className="edit-input display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
-                  : <input className="edit-input display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName}/>
+                  ? <input className="edit-input display-3 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="edit-input display-4 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
                   <input className="edit-input" readOnly value={this.tripStart}/>
@@ -206,9 +212,7 @@ export default class DestinationInfo extends React.Component {
                   </Link>
                 </div>
                 <div className="col-3">
-                  <div className="circle red m-auto d-flex justify-content-center align-items-center text-light">
-                    <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg"></i>
-                  </div>
+                  <DeleteModal destinationInfo id={destinationId} deleteHandle={this.handleClickDelete}/>
                 </div>
               </footer>
             </>
@@ -229,19 +233,21 @@ export default class DestinationInfo extends React.Component {
 
                 <div className="form-element row">
                   {destinationInfo.destinationName.length < 9
-                    ? <input className="edit-input display-3 ml-4 col-12" readOnly value={destinationInfo.destinationName} />
-                    : <input className="edit-input display-4 ml-4 col-12" readOnly value={destinationInfo.destinationName} />
+                    ? <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-3 ml-4 col-11" value={this.state.destinationName} />
+                    : <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-4 ml-4 col-11" value={this.state.destinationName} />
                   }
                   <div className=" col-12 ml-4 d-flex">
-                    <input className="edit-input" readOnly value={this.tripStart} />
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripStart" min={this.today} max={this.state.tripEnd.slice(0, 10)} className="edit-input" value={this.state.tripStart.slice(0, 10)} />
                     <p className="my-auto"> - </p>
-                    <input className="edit-input" readOnly value={this.tripEnd} />
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripEnd" min={this.state.tripStart} className="edit-input" value={this.state.tripEnd.slice(0, 10)} />
                   </div>
                   <textarea
-                    readOnly className="edit-input col-10 ml-4 align-self-end"
+                    onChange={this.handleUserInputOnChange}
+                    className="edit-input col-10 ml-4 align-self-end"
+                    handler="description"
                     cols="40 shadow-p"
                     rows="10"
-                    value={destinationInfo.description}>
+                    value={this.state.description}>
                   </textarea>
                 </div>
 

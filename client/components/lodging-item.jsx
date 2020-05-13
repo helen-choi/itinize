@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteModal from './delete-modal';
 
 export default class LodgingItem extends React.Component {
   constructor(props) {
@@ -6,9 +7,8 @@ export default class LodgingItem extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleDelete() {
-    const lodgingId = this.props.lodging.lodgingId;
-    this.props.handleDelete(lodgingId);
+  handleDelete(deleteId) {
+    this.props.handleDelete(deleteId);
   }
 
   render() {
@@ -17,7 +17,7 @@ export default class LodgingItem extends React.Component {
     return (
       <div className="lodging p-4 mt-3 position-relative">
         <div className="delete-control text-right position-absolute" style={modalStyle} >
-          <i className="fas fa-times" onClick={this.handleDelete}></i>
+          <i className="fas fa-times" onClick={() => { this.handleDelete(this.props.lodgingId); }}></i>
         </div>
         <h5>{lodging.lodgingName}</h5>
         <p><strong>Confirmation: </strong>{lodging.lodgingConfNum}</p>

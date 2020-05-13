@@ -151,7 +151,8 @@ export default class ItineraryList extends React.Component {
           (
             this.state.mapIconIsClick &&
             <div className="mt-5">
-              <ItineraryMap destinationId={this.props.location.state.destinationId} itineraries={this.state.itineraryItems}></ItineraryMap>
+              <ItineraryMap destinationId={this.props.location.state.destinationId}
+                itineraries={this.state.itineraryItems}></ItineraryMap>
             </div>
           ) ||
           (

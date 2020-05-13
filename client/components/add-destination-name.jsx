@@ -162,7 +162,7 @@ export default class AddDestinationName extends React.Component {
     }
 
     return (
-      <div className="container h-100">
+      <div className="container">
         {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>

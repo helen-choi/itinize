@@ -623,6 +623,7 @@ app.post('/api/itineraries/:destinationId/:day', (req, res, next) => {
   const sql = `
     select *
       from "ItineraryList"
+    join "Locations" using ("locationId")
     where "destinationId" = $1
     and "itineraryDay" = $2;
     `;

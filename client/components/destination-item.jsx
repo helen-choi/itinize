@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DeleteModal from './delete-modal';
 
 export default function DestinationItem(props) {
   const destination = props.destination;
@@ -16,11 +17,11 @@ export default function DestinationItem(props) {
         <Link to={{
           pathname: `/destinations/${destination.destinationId}`,
           state: { editMode: 'This should make the DestinationInfo Component on edit mode' }
-        }}className="mt-2 circle circle-dest-list teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
+        }}className="cursor-pointer mt-2 circle circle-dest-list teal p-2 mr-1 d-flex justify-content-center w-25 text-dark">
           <img className="icon" src="./images/pencil.png" alt="" />
         </Link>
-        <div className=" mt-2 circle circle-dest-list red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
-          <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />
+        <div className="cursor-pointer mt-2 circle circle-dest-list red p-2 ml-1 d-flex justify-content-center align-items-center w-25">
+          <DeleteModal deleteHandle={props.handleClickDelete} id={props.destination.destinationId} destinationItem />
         </div>
       </div>
     </div>
