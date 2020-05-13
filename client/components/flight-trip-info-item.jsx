@@ -43,10 +43,9 @@ export default class FlightTripInfoItem extends React.Component {
     const userYear = date.slice(0, 4);
     const userMonth = date.slice(5, 7);
     const userDay = date.slice(8, 10);
-    const userDateBefore = new Date(userYear, userMonth - 1, userDay - 1);
-    const userDateToday = new Date(userYear, userMonth - 1, userDay);
+    const userDate = new Date(userYear, userMonth - 1, userDay);
     const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    if (currentDate.toString() === userDateBefore.toString() || currentDate.toString() === userDateToday.toString()) {
+    if (currentDate.toString() === userDate.toString()) {
       this.getFlightStatus(iata, departureIata);
     } else {
       this.setState({
