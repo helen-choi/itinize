@@ -14,8 +14,9 @@ export default function DeleteModal(props) {
       </div>
     );
   }
-  if (props.lodgingItem) {
-    correctTag = <i className="fas fa-times" onClick={handleShow}></i>;
+  if (props.destinationItem) {
+    correctTag = <img onClick={handleShow} className="icon" src="./images/trash.png" alt="" />;
+    // correctTag = <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />;
   }
 
   return (
