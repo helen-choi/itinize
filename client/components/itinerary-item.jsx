@@ -12,6 +12,24 @@ export default class ListItineraryItem extends React.Component {
       itineraryName: this.props.itineraryName,
       itineraryNote: this.props.itineraryNote
     };
+
+    this.list = null;
+    this.wrapper = null;
+    this.background = null;
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
+
+    this.onDragStartMouse = this.onDragStartMouse.bind(this);
+    this.onDragStart = this.onDragStart.bind(this);
+    // this.onMouseMove = this.onMouseMove.bind(this);
+    // this.onDragEndMouse = this.onDragEndMouse.bind(this);
+    // this.onDragEnd = this.onDragEnd.bind(this);
+    // this.onSwiped = this.onSwiped.bind(this);
+    // this.updatePosition = this.updatePosition.bind(this);
+    this.onDragStartTouch = this.onDragStartTouch.bind(this);
+    // this.onTouchMove = this.onTouchMove.bind(this);
+    // this.onDragEndTouch = this.onDragEndTouch.bind(this);
   }
 
   handleClick() {
@@ -44,6 +62,23 @@ export default class ListItineraryItem extends React.Component {
         .then(res => res.json())
         .catch(err => console.error(err));
     }
+  }
+
+  onDragStartMouse(event) {
+    this.onDragStart(event.clientX);
+    // window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStartTouch(evt) {
+    const touch = evt.targetTouches[0];
+    this.onDragStart(touch.clientX);
+    // window.addEventListener('touchmove', this.onTouchMove);
+  }
+
+  onDragStart(clientX) {
+    this.dragged = true;
+    this.dragStartX = clientX;
+    // window.requestAnimationFrame(this.updatePosition);
   }
 
   render() {
@@ -92,11 +127,23 @@ export default class ListItineraryItem extends React.Component {
             </div>
           )
           : (
-            <div onClick={this.handleClick.bind(this)} data-toggle='collapse' data-target={`#${this.props.id}`} className="Itinerary-Item mt-1 border border-secondary col-9 ">
-              <h3>{this.props.itineraryName}</h3>
-              <p className="text-secondary">{this.props.itineraryDay}</p>
-              <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
-              <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
+            <div className="wrapper w-100" ref={div => (this.wrapper = div)}>
+              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 ml-auto mr-auto w-75 mt-1" ref={div => (this.background = div)}>
+                <p className="text-white"><strong>DELETE</strong></p>
+              </div>
+              <div
+                ref={div => (this.list = div)}
+                onMouseDown={this.onDragStartMouse}
+                onTouchStart={this.onDragStartTouch}
+                onClick={this.handleClick.bind(this)}
+                data-toggle='collapse'
+                data-target={`#${this.props.id}`}
+                className="Itinerary-Item mt-1 border border-secondary col-9 ml-auto mr-auto">
+                <h3>{this.props.itineraryName}</h3>
+                <p className="text-secondary">{this.props.itineraryDay}</p>
+                <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
+                <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
+              </div>
             </div>
           )}
       </>
