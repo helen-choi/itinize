@@ -1,5 +1,4 @@
 import React from 'react';
-// import AddFlightDate from './flight-date';
 
 export default class FlightTripInfoItem extends React.Component {
   constructor(props) {
@@ -11,6 +10,7 @@ export default class FlightTripInfoItem extends React.Component {
       departTime: '',
       arrivalTime: '',
       arrivalDay: '',
+      departureDate: '',
       departingDate: false
     };
   }
@@ -18,7 +18,20 @@ export default class FlightTripInfoItem extends React.Component {
   componentDidMount() {
     this.setState({
       flightNumber: this.props.flightData.flightNumber
-    }, () => this.getFlightStatus());
+    });
+    this.checkDate(this.props.flightData.flightDate.slice(0, 10));
+  }
+
+  checkDate(date) {
+    const userYear = date.slice(0, 4);
+    const userMonth = date.slice(5, 7);
+    const userDay = date.slice(8, 10);
+    const userDate = new Date(userYear, userMonth - 1, userDay - 1);
+    const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+
+    if (currentDate.toString() === userDate.toString()) {
+      this.getFlightStatus();
+    }
   }
 
   getFlightStatus() {
@@ -48,11 +61,11 @@ export default class FlightTripInfoItem extends React.Component {
 
     const flightStatus = (this.state.departingDate) ? this.state.flightStatus : 'pending';
     const airportArrival = (this.state.departingDate) ? this.state.airportArrival : 'pending';
-    const departTime = (this.state.departingDate) ? this.state.departTime : 'pending';
-    const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : 'pending';
+    const departTime = (this.state.departingDate) ? this.state.departTime : 'TBA';
+    const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : null;
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
     return (
-      <div key={flightData.flightId} className="flight-card pl-3 p-4 position-relative">
+      <div key={flightData.flightId} className="flight-card pl-3 p-4 mt-3 position-relative">
         <div>
           <h5 className="d-flex justify-content-between">{flightData.flightName}
             <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
