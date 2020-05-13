@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import DeleteModal from './delete-modal';
 
 export default class LodgingItem extends React.Component {
@@ -68,7 +69,6 @@ export default class LodgingItem extends React.Component {
     if (left < 0) {
       this.left = left;
     }
-    // console.log(this.left);
   }
 
   onDragEndMouse(event) {
