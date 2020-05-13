@@ -135,10 +135,18 @@ export default class ListItineraryItem extends React.Component {
   }
 
   onSwiped() {
-    // const lodgingId = this.props.lodging.lodgingId;
-    // this.props.handleDelete(lodgingId);
-    // eslint-disable-next-line no-console
-    console.log('It is swiped!');
+    const itineraryId = this.props.id;
+    this.props.handleDelete(itineraryId);
+  }
+
+  componentDidMount() {
+    window.addEventListener('mouseup', this.onDragEndMouse);
+    window.addEventListener('touchend', this.onDragEndTouch);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.onDragEndMouse);
+    window.removeEventListener('touchend', this.onDragEndTouch);
   }
 
   render() {
