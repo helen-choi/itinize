@@ -69,9 +69,8 @@ export default class LodgingList extends React.Component {
               destinationName: destinationName
             }
           }}>
-            <i className="fas fa-times fa-2x"></i>
+            <i className="fas fa-times fa-2x text-dark"></i>
           </Link>
-          <i className="fas fa-pen fa-2x" onClick={this.handleEditClick}></i>
         </div>
         <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
         <h1 className="text-center mt-5 mb-4">{destinationName}</h1>
