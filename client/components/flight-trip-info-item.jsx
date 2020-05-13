@@ -13,6 +13,12 @@ export default class FlightTripInfoItem extends React.Component {
       departureDate: '',
       departingDate: false
     };
+    this.list = null;
+    this.wrapper = null;
+    this.background = null;
+    this.dragStartX = 0;
+    this.left = 0;
+    this.dragged = false;
   }
 
   componentDidMount() {
@@ -56,6 +62,19 @@ export default class FlightTripInfoItem extends React.Component {
       .catch(err => console.error(err));
   }
 
+  onDragStartMouse(event) {
+    // this.onDragStart(event.clientX);
+    // window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStartTouch(evt) {
+    const touch = evt.targetTouches[0];
+    // this.onDragStart(touch.clientX);
+    // window.addEventListener('touchmove', this.onTouchMove);
+    // eslint-disable-next-line no-console
+    console.log(touch.clientX);
+  }
+
   render() {
     const flightData = this.props.flightData;
 
@@ -65,10 +84,16 @@ export default class FlightTripInfoItem extends React.Component {
     const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : null;
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
     return (
-      <div key={flightData.flightId} className="flight-card pl-3 p-4 mt-3 position-relative">
-        <div>
+      <div className="flight-card wrapper pl-3 p-4 mt-3 position-relative" ref={div => (this.wrapper = div)}>
+        <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
+          <h4 className="text-white"><strong>DELETE</strong></h4>
+        </div>
+        <div
+          ref={div => (this.list = div)}
+          onMouseDown={this.onDragStartMouse}
+          onTouchStart={this.onDragStartTouch}>
           <h5 className="d-flex justify-content-between">{flightData.flightName}
-            <i className={this.props.toggle()} onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
+            <i className="fas fa-times fa-lg pt-2 pr-3 show" onClick={() => this.props.handleClickDelete(flightData.flightId)}></i>
           </h5>
           <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
           <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>

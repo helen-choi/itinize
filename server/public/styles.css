@@ -312,6 +312,7 @@ div.Destination-List > h1 {
 
 .flight-card {
   background-color: rgb(244, 244, 244);
+  border: 1px solid #F4F4F4;
 }
 .flight-create {
   background-color: rgb(244, 244, 244);
@@ -361,8 +362,7 @@ div.Destination-List > h1 {
 .wrapper {
   position: relative;
   padding: 0;
-
-
+}
 .Itinerary-Item > *{
   /* color: white; */
   position: relative;

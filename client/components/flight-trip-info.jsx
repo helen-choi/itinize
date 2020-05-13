@@ -6,12 +6,9 @@ export default class TripInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flights: [],
-      handleEditClick: false
+      flights: []
     };
     this.handleClickDelete = this.handleClickDelete.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
-    this.toggleDeleteEdit = this.toggleDeleteEdit.bind(this);
   }
 
   componentDidMount() {
@@ -27,19 +24,6 @@ export default class TripInfo extends React.Component {
         });
       })
       .catch(err => console.error(err));
-  }
-
-  handleEditClick() {
-    this.setState({ handleEditClick: !this.state.handleEditClick });
-  }
-
-  toggleDeleteEdit() {
-    const mode = this.state.handleEditClick;
-    if (mode === false) {
-      return 'fas fa-times fa-lg pt-2 pr-3 off';
-    } else {
-      return 'fas fa-times fa-lg pt-2 pr-3 show';
-    }
   }
 
   handleClickDelete(flightId) {
@@ -69,9 +53,7 @@ export default class TripInfo extends React.Component {
           <Link to={`/destinations/${destinationId}`} className="col-2">
             <i className="fas fa-times fa-2x text-black"></i>
           </Link>
-          <div onClick={this.handleEditClick} className="col-2">
-            <i className="fas fa-pen fa-2x text-black"></i>
-          </div>
+
         </header>
         <div className="flight-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
         <div className="row justify-content-center mt-4">
@@ -100,7 +82,7 @@ export default class TripInfo extends React.Component {
         <div className="pl-3 pr-3 mt-3">
           {
             this.state.flights.map(flight => {
-              return <FlightTripInfoItem toggle={this.toggleDeleteEdit} handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
+              return <FlightTripInfoItem handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
             })
           }
         </div>
