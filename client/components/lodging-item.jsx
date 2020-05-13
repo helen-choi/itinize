@@ -18,6 +18,7 @@ export default class LodgingItem extends React.Component {
     this.onSwiped = this.onSwiped.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
 
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -61,6 +62,14 @@ export default class LodgingItem extends React.Component {
 
   onMouseMove(event) {
     const left = event.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  onTouchMove(evt) {
+    const touch = evt.targetTouches[0];
+    const left = touch.clientX - this.dragStartX;
     if (left < 0) {
       this.left = left;
     }
