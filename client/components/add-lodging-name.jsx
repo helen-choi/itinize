@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Script from 'react-load-script';
 import AddLodgingConfNumber from './add-lodging-conf-number';
 import AddLodgingDates from './add-lodging-dates';
 import Confirmation from './confirmation';
@@ -27,6 +26,20 @@ export default class AddLodgingName extends React.Component {
     this.handleCombine = this.handleCombine.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
+  }
+
+  googleMaps() {
+    if (!document.getElementById('googleMaps')) {
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places';
+      script.defer = true;
+      script.async = true;
+      script.id = 'googleMaps';
+      document.querySelector('body').appendChild(script);
+      script.addEventListener('load', this.handleScriptLoad);
+    } else {
+      this.handleScriptLoad();
+    }
   }
 
   handleChange() {
@@ -141,6 +154,10 @@ export default class AddLodgingName extends React.Component {
       .catch(err => console.error(err));
   }
 
+  componentDidMount() {
+    this.googleMaps();
+  }
+
   render() {
     const { counter } = this.state;
     let stage = counter + 2;
@@ -194,9 +211,6 @@ export default class AddLodgingName extends React.Component {
           </div>
           {(this.state.counter === -1 &&
           <div className="add-lodging-name-container">
-            <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=1"
-              onLoad={this.handleScriptLoad}
-            />
             <h3 className="text-center pt-5">Add Lodging Name</h3>
             <p className="text-muted text-center">Enter name of your lodge</p>
             <div className="input-container row justify-content-center mt-5">

@@ -1,5 +1,4 @@
 import React from 'react';
-import Script from 'react-load-script';
 import Confirmation from './confirmation';
 import AddItineraryNote from './add-itinerary-notes';
 import AddItineraryDates from './add-itinerary-day-tags';
@@ -8,6 +7,7 @@ export default class AddItineraryItem extends React.Component {
   constructor(props) {
     super(props);
     this.getInputs = this.getInputs.bind(this);
+    this.googleMaps = this.googleMaps.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
     this.handlePrevClick = this.handlePrevClick.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -23,6 +23,20 @@ export default class AddItineraryItem extends React.Component {
       itineraryDay: 'Day',
       itineraryNote: 'At this location, I will'
     };
+  }
+
+  googleMaps() {
+    if (!document.getElementById('googleMaps')) {
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places';
+      script.defer = true;
+      script.async = true;
+      script.id = 'googleMaps';
+      document.querySelector('body').appendChild(script);
+      script.addEventListener('load', this.handleScriptLoad);
+    } else {
+      this.handleScriptLoad();
+    }
   }
 
   handleScriptLoad() {
@@ -106,6 +120,10 @@ export default class AddItineraryItem extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.googleMaps();
+  }
+
   render() {
     let icons = null;
     const componentArray = [
@@ -166,9 +184,6 @@ export default class AddItineraryItem extends React.Component {
               <h3 className="text-center pt-5">Add your itinerary</h3>
               <p className="text-muted text-center"> Enter Address or name of place</p>
               <div className="input-container row justify-content-center mt-5">
-                <Script url={'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places'}
-                  onLoad={this.handleScriptLoad} />
-
                 <input value={this.state.itineraryName} id="search" className="text-center p-2"
                   placeholder="Itinerary Name" onChange={this.handleOnChange} onClick={this.handlePlaceSelect}/>
               </div>
