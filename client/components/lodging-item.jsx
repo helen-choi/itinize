@@ -20,13 +20,6 @@ export default class LodgingItem extends React.Component {
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onDragEndTouch = this.onDragEndTouch.bind(this);
-
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-
-  handleDelete() {
-    const lodgingId = this.props.lodging.lodgingId;
-    this.props.handleDelete(lodgingId);
   }
 
   onDragStartMouse(event) {
@@ -74,6 +67,7 @@ export default class LodgingItem extends React.Component {
     if (left < 0) {
       this.left = left;
     }
+    // console.log(this.left);
   }
 
   onDragEndMouse(event) {
@@ -90,7 +84,7 @@ export default class LodgingItem extends React.Component {
     if (this.dragged) {
       this.dragged = false;
 
-      const threshold = this.props.threshold || 0.3;
+      const threshold = 0.3;
       if (this.left < this.list.offsetWidth * threshold * -1) {
         this.left = -this.list.offsetWidth * 2;
         this.onSwiped();
@@ -107,14 +101,15 @@ export default class LodgingItem extends React.Component {
 
   componentDidMount() {
     window.addEventListener('mouseup', this.onDragEndMouse);
+    window.addEventListener('touchend', this.onDragEndTouch);
   }
 
   componentWillUnmount() {
     window.removeEventListener('mouseup', this.onDragEndMouse);
+    window.removeEventListener('touchend', this.onDragEndTouch);
   }
 
   render() {
-    const modalStyle = this.props.editModeOn ? { display: 'block', color: 'white' } : { display: 'none' };
     const lodging = this.props.lodging;
     return (
       <div className="wrapper" ref={div => (this.wrapper = div)}>
@@ -125,9 +120,6 @@ export default class LodgingItem extends React.Component {
           ref={div => (this.list = div)}
           onMouseDown={this.onDragStartMouse}
           onTouchStart={this.onDragStartTouch}>
-          <div className="delete-control text-right position-absolute" style={modalStyle} >
-            <i className="fas fa-times" onClick={this.handleDelete}></i>
-          </div>
           <h5>{lodging.lodgingName}</h5>
           <p><strong>Confirmation: </strong>{lodging.lodgingConfNum}</p>
           <p><strong>Check-In:</strong> {lodging.checkInDateTime}</p>
