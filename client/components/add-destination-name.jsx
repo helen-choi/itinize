@@ -17,7 +17,8 @@ export default class AddDestinationName extends React.Component {
       tripEnd: '',
       description: '',
       placeId: '',
-      coordinates: null
+      coordinates: null,
+      isClicked: false
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -125,12 +126,20 @@ export default class AddDestinationName extends React.Component {
       <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />];
     let leftIcon;
     let rightIcon;
+    const addDestinationValidation = (
+      <div className={`row justify-content-center ${(this.state.isClicked && !this.state.placeId) ? 'destination-validation-on' : 'destination-validation-off'}`}>
+        <div className="col-6 text-center text-danger">Valid Country Needed</div>
+      </div>
+    );
     switch (this.state.componentStage) {
       case -1:
         leftIcon = (<Link className="text-dark" to="/">
           <i className="far fa-times-circle fa-2x"></i>
         </Link>);
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          this.setState({ isClicked: true });
+          if (this.state.placeId) { this.handleRightArrowClick(); }
+        }} className="fas fa-arrow-right fa-2x"></i>;
         break;
       case 0:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
@@ -173,7 +182,6 @@ export default class AddDestinationName extends React.Component {
           <div className="col d-flex justify-content-between">
             {leftIcon}
             {rightIcon}
-            {/* history prop will be used at the end of the multi-page form */}
           </div>
         </header>
         {(this.state.componentStage === -1 &&
@@ -191,6 +199,7 @@ export default class AddDestinationName extends React.Component {
               <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
             </div>
           </div>
+          {addDestinationValidation}
         </div>
       </div>) || componentsArray[this.state.componentStage]}
       </div>
