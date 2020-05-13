@@ -63,7 +63,6 @@ export default class FlightTripInfoItem extends React.Component {
     fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.data.length !== 0) {
           const flightUpdate = data.data.length - 1;
           this.setState({
