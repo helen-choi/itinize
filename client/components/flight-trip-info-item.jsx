@@ -57,7 +57,7 @@ export default class FlightTripInfoItem extends React.Component {
   }
 
   getFlightStatus(iata, departure) {
-    const key = 'a75149fdc4b4fb2bc75f00a6c9659e91';
+    const key = 'a640f0d77412849fd5f654a3b2cd8326';
     const flightIata = iata;
     const departureIata = departure;
     fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)

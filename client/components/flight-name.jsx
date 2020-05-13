@@ -127,7 +127,7 @@ export default class AddFlightName extends React.Component {
               <h2>Name your flight</h2>
             </div>
             <div className="row d-flex justify-content-center mt-3">
-              <h6>Ex Returningflight, Going back home!</h6>
+              <p><strong>EX: </strong>Returningflight, Going back home!</p>
             </div>
             <div className="row d-flex justify-content-center mt-5">
               <input type="text" name="flightName" onChange={this.handleChange} className="text-center flight-name" placeholder={'flight name'} value={this.state.flightName} />
