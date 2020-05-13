@@ -15,7 +15,7 @@ export default function DeleteModal(props) {
     );
   }
   if (props.destinationItem) {
-    correctTag = <img onClick={handleShow} className="icon" src="./images/trash.png" alt="" />;
+    correctTag = <i className="fas fa-trash-alt icon" onClick={handleShow}></i>;
     // correctTag = <img onClick={() => props.handleClickDelete(destination.destinationId)} className="icon" src="./images/trash.png" alt="" />;
   }
 

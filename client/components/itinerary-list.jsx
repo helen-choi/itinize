@@ -158,8 +158,9 @@ export default class ItineraryList extends React.Component {
           (
             <div className="mt-2 row justify-content-center">
               {(this.state.itineraryItems.length === 0)
-                ? <div className="mt-1 border border-secondary col-9">
-                  <h3>No Itinerary Items Added</h3>
+                ? <div className="mt-1 col-12">
+                  <img className="mt-4 mb-4 w-100" src="./images/no-itinerary.png" alt=""/>
+                  <h4 className="text-center">No Itinerary Items Added</h4>
                 </div>
                 : reactItineraryItems}
             </div>
