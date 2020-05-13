@@ -34,6 +34,7 @@ header > img {
 }
 
 .destination-item {
+  border: #6CC4C8 1px solid;
   min-height: 100px;
   padding-top: 100%;
   background-position: center;
@@ -322,23 +323,6 @@ div.Destination-List > h1 {
 .itinerary-display{
   transition: height 2s 1s ease-in;
 }
-/*
-.first-button{
-  height: 50%;
-  color: #6CC4C8;
-  border-color: #6CC4C8;
-  background-color: transparent;
-    border: 1px solid transparent;
-        text-align: center;
-    vertical-align: middle;
-        display: inline-block;
-    font-weight: 400;
-      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-.first-button:active
-{
-  outline: 5px auto -webkit-focus-ring-color;
-} */
 
 .scroll-menu{
   overflow-x: scroll;
