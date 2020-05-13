@@ -9,8 +9,8 @@ export default function DeleteModal(props) {
   let correctTag;
   if (props.destinationInfo) {
     correctTag = (
-      <div className="circle red m-auto d-flex justify-content-center align-items-center text-light">
-        <i onClick={handleShow} handler="delete" className="fas fa-trash-alt fa-lg"></i>
+      <div onClick={handleShow} className="cursor-icon circle red m-auto d-flex justify-content-center align-items-center text-light">
+        <i handler="delete" className="fas fa-trash-alt fa-lg"></i>
       </div>
     );
   }
@@ -23,7 +23,7 @@ export default function DeleteModal(props) {
     <>
       {correctTag}
       {/* this.handleClickDelete(destinationInfo.destinationId) */}
-      <Modal centered show={show} onHide={handleClose}>
+      <Modal className='modal' centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
         </Modal.Header>
