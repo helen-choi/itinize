@@ -11,33 +11,35 @@ export default class FlightTripInfoItem extends React.Component {
       arrivalTime: '',
       arrivalDay: '',
       departureDate: '',
+      airportDeparture: '',
       departingDate: false
     };
   }
 
   componentDidMount() {
     this.setState({
-      flightNumber: this.props.flightData.flightNumber
+      flightNumber: this.props.flightData.flightNumber,
+      airportDeparture: this.props.flightData.airportDeparture
     });
-    this.checkDate(this.props.flightData.flightDate.slice(0, 10));
+    this.checkDate(this.props.flightData.flightDate.slice(0, 10), this.props.flightData.flightNumber, this.props.flightData.airportDeparture);
   }
 
-  checkDate(date) {
+  checkDate(date, iata, departure) {
     const userYear = date.slice(0, 4);
     const userMonth = date.slice(5, 7);
     const userDay = date.slice(8, 10);
-    const userDate = new Date(userYear, userMonth - 1, userDay - 1);
+    const userDate = new Date(userYear, userMonth - 1, userDay);
     const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
     if (currentDate.toString() === userDate.toString()) {
-      this.getFlightStatus();
+      this.getFlightStatus(iata, departure);
     }
   }
 
-  getFlightStatus() {
+  getFlightStatus(iata, departure) {
     const key = 'a75149fdc4b4fb2bc75f00a6c9659e91';
-    const flightIata = this.state.flightNumber;
-    const departureIata = this.props.flightData.airportDeparture;
+    const flightIata = iata;
+    const departureIata = departure;
     fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
       .then(res => res.json())
       .then(data => {
