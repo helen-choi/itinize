@@ -19,6 +19,7 @@ export default class LodgingItem extends React.Component {
     this.updatePosition = this.updatePosition.bind(this);
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
+    this.onDragEndTouch = this.onDragEndTouch.bind(this);
 
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -77,6 +78,11 @@ export default class LodgingItem extends React.Component {
 
   onDragEndMouse(event) {
     window.removeEventListener('mousemove', this.onMouseMove);
+    this.onDragEnd();
+  }
+
+  onDragEndTouch(evt) {
+    window.removeEventListener('touchmove', this.onTouchMove);
     this.onDragEnd();
   }
 
