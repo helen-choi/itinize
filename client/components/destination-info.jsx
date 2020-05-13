@@ -161,7 +161,7 @@ export default class DestinationInfo extends React.Component {
               <div className="form-element row">
                 {destinationInfo.destinationName.length < 9
                   ? <input className="edit-input display-3 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
-                  : <input className="edit-input display-4 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
+                  : <input className="edit-input h1 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
                   <input className="edit-input" readOnly value={this.tripStart}/>
