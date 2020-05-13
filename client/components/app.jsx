@@ -38,7 +38,7 @@ export default class App extends React.Component {
         <Switch>
           <Route exact path="/" render={() =>
             (
-              this.state.firstTime ? (<Welcome handleWelcome={this.handleWelcome}/>) : (<DestinationList/>)
+              (this.state.firstTime && <Welcome handleWelcome={this.handleWelcome}/>) || (<DestinationList/>)
             )
           }/>
           <Route path="/destinations/create" component={AddDestinationName}>

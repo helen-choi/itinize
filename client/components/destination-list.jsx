@@ -1,7 +1,6 @@
 import React from 'react';
 import DestinationItem from './destination-item';
 import { Link } from 'react-router-dom';
-import Welcome from './welcome';
 
 export default class DestinationList extends React.Component {
   constructor(props) {
@@ -55,7 +54,7 @@ export default class DestinationList extends React.Component {
               </div>
             );
 
-          }) : (<div className="loading-data"><Welcome/></div>)}
+          }) : (<div className="loading-data">LOADING</div>)}
         </div>
       </div>
     );
