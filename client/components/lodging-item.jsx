@@ -17,6 +17,7 @@ export default class LodgingItem extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.onSwiped = this.onSwiped.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
+    this.onDragStartTouch = this.onDragStartTouch.bind(this);
 
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -29,6 +30,12 @@ export default class LodgingItem extends React.Component {
   onDragStartMouse(event) {
     this.onDragStart(event.clientX);
     window.addEventListener('mousemove', this.onMouseMove);
+  }
+
+  onDragStartTouch(evt) {
+    const touch = evt.targetTouches[0];
+    this.onDragStart(touch.clientX);
+    window.addEventListener('touchmove', this.onTouchMove);
   }
 
   onDragStart(clientX) {
@@ -79,8 +86,8 @@ export default class LodgingItem extends React.Component {
   }
 
   onSwiped() {
-    // eslint-disable-next-line no-console
-    console.log('it is swiped!');
+    const lodgingId = this.props.lodging.lodgingId;
+    this.props.handleDelete(lodgingId);
   }
 
   componentDidMount() {
@@ -96,10 +103,13 @@ export default class LodgingItem extends React.Component {
     const lodging = this.props.lodging;
     return (
       <div className="wrapper" ref={div => (this.wrapper = div)}>
-        <div className="background" ref={div => (this.background = div)}></div>
+        <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
+          <h4 className="text-white"><strong>DELETE</strong></h4>
+        </div>
         <div className="lodging p-4 mt-3 position-relative"
           ref={div => (this.list = div)}
-          onMouseDown={this.onDragStartMouse}>
+          onMouseDown={this.onDragStartMouse}
+          onTouchStart={this.onDragStartTouch}>
           <div className="delete-control text-right position-absolute" style={modalStyle} >
             <i className="fas fa-times" onClick={this.handleDelete}></i>
           </div>
