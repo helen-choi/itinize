@@ -25,22 +25,24 @@ export default class FlightTripInfoItem extends React.Component {
 
   checkDate(date) {
     console.log(date);
-    const userYear = date.toString().slice(0, 4);
-    const userMonth = date.toString().slice(5, 7);
-    const userDay = date.toString().slice(8, 10);
+    const userYear = date.slice(0, 4);
+    const userMonth = date.slice(5, 7);
+    const userDay = date.slice(8, 10);
+    const userDate = new Date(userYear, userMonth - 1, userDay);
     const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
     console.log(userYear);
     console.log(userMonth);
     console.log(userDay);
+    console.log(userDate);
     console.log(currentDate);
 
-    // if (userDate === currentDate) {
-    //   console.log('hello its me');
-    // } else {
-    //   console.log('this is not me');
-
-    // }
+    if (userDate.toString() === currentDate.toString()) {
+      console.log('hello its me');
+    } else {
+      console.log('this is not me');
+      // pending
+    }
   }
 
   // if the date is correct should call the getFlightStatus method
