@@ -41,7 +41,7 @@ export default class DestinationList extends React.Component {
         <header className="row pl-4">
           <div className="list-controls col-12 d-flex justify-content-end">
             <Link to="destinations/create">
-              <img className="icon-add" src="./images/plus.png" alt="plus sign" />
+              <i className="fas fa-plus icon-add fa-2x text-dark"></i>
             </Link>
           </div>
           <h1 className="row flex-column">My<br />Travels</h1>
