@@ -37,6 +37,8 @@ export default class FlightTripInfoItem extends React.Component {
       flightNumber: this.props.flightData.flightNumber
     });
     this.checkDate(this.props.flightData.flightDate.slice(0, 10));
+    window.addEventListener('mouseup', this.onDragEndMouse);
+    window.addEventListener('touchend', this.onDragEndTouch);
   }
 
   checkDate(date) {
@@ -138,7 +140,7 @@ export default class FlightTripInfoItem extends React.Component {
       const threshold = 0.3;
       if (this.left < this.list.offsetWidth * threshold * -1) {
         this.left = -this.list.offsetWidth * 2;
-        // this.onSwiped();
+        this.onSwiped();
       } else {
         this.left = 0;
       }
@@ -150,6 +152,11 @@ export default class FlightTripInfoItem extends React.Component {
     // this.props.handleDelete(lodgingId);
     // eslint-disable-next-line no-console
     console.log('It is swiped!');
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.onDragEndMouse);
+    window.removeEventListener('touchend', this.onDragEndTouch);
   }
 
   render() {
