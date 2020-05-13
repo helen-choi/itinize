@@ -43,10 +43,10 @@ export default class FlightTripInfoItem extends React.Component {
     const userYear = date.slice(0, 4);
     const userMonth = date.slice(5, 7);
     const userDay = date.slice(8, 10);
-    const userDate = new Date(userYear, userMonth - 1, userDay - 1);
+    const userDateBefore = new Date(userYear, userMonth - 1, userDay - 1);
     const userDateToday = new Date(userYear, userMonth - 1, userDay);
     const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    if (currentDate.toString() === userDate.toString() || currentDate.toString() === userDateToday.toString()) {
+    if (currentDate.toString() === userDateBefore.toString() || currentDate.toString() === userDateToday.toString()) {
       this.getFlightStatus(iata, departureIata);
     } else {
       this.setState({
@@ -62,7 +62,6 @@ export default class FlightTripInfoItem extends React.Component {
     fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if (data.data.length !== 0) {
           const flightUpdate = 0;
           this.setState({

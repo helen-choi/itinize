@@ -51,7 +51,7 @@ export default class TripInfo extends React.Component {
       <div className="container">
         <header className="row justify-content-between pt-2 flex-fill mt-2">
           <Link to={`/destinations/${destinationId}`} className="col-2">
-            <i className="fas fa-times fa-2x black"></i>
+            <i className="fas fa-times fa-2x text-dark"></i>
           </Link>
 
         </header>
