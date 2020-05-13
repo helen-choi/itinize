@@ -13,7 +13,7 @@ export default class AddFlightConfirmation extends React.Component {
           <h6>Ex LAX</h6>
         </div>
         <div className="row d-flex justify-content-center text-center mt-3">
-          <h6>Ex SW-1110</h6>
+          <h6>Ex SW1110</h6>
         </div>
         <div className="row d-flex justify-content-center mt-4">
           <input type="text" name="airportDeparture" onChange={this.props.handleChange} className="text-center flight-number" placeholder={'Departure Airport Name'} value={this.props.airportDeparture} />
