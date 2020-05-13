@@ -22,13 +22,13 @@ export default class ListItineraryItem extends React.Component {
 
     this.onDragStartMouse = this.onDragStartMouse.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
-    // this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
     // this.onDragEndMouse = this.onDragEndMouse.bind(this);
     // this.onDragEnd = this.onDragEnd.bind(this);
     // this.onSwiped = this.onSwiped.bind(this);
     // this.updatePosition = this.updatePosition.bind(this);
     this.onDragStartTouch = this.onDragStartTouch.bind(this);
-    // this.onTouchMove = this.onTouchMove.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
     // this.onDragEndTouch = this.onDragEndTouch.bind(this);
   }
 
@@ -66,19 +66,34 @@ export default class ListItineraryItem extends React.Component {
 
   onDragStartMouse(event) {
     this.onDragStart(event.clientX);
-    // window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('mousemove', this.onMouseMove);
   }
 
   onDragStartTouch(evt) {
     const touch = evt.targetTouches[0];
     this.onDragStart(touch.clientX);
-    // window.addEventListener('touchmove', this.onTouchMove);
+    window.addEventListener('touchmove', this.onTouchMove);
   }
 
   onDragStart(clientX) {
     this.dragged = true;
     this.dragStartX = clientX;
     // window.requestAnimationFrame(this.updatePosition);
+  }
+
+  onMouseMove(event) {
+    const left = event.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
+  }
+
+  onTouchMove(evt) {
+    const touch = evt.targetTouches[0];
+    const left = touch.clientX - this.dragStartX;
+    if (left < 0) {
+      this.left = left;
+    }
   }
 
   render() {
