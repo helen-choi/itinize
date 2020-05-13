@@ -374,3 +374,13 @@ div.Destination-List > h1 {
 i, .cursor-pointer{
   cursor: pointer;
 }
+
+.destination-validation-off {
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+.destination-validation-on {
+  transition: opacity 0.5s;
+  opacity: 1;
+}
