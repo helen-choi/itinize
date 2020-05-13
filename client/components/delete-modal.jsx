@@ -14,8 +14,8 @@ export default function DeleteModal(props) {
       </div>
     );
   }
-  if (props.lodgingItem) {
-    correctTag = <i className="fas fa-times" onClick={handleShow}></i>;
+  if (props.destinationList) {
+    // correctTag =
   }
 
   return (
