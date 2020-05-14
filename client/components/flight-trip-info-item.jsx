@@ -57,22 +57,21 @@ export default class FlightTripInfoItem extends React.Component {
   }
 
   getFlightStatus(iata, departure) {
-    const key = 'a640f0d77412849fd5f654a3b2cd8326';
     const flightIata = iata;
     const departureIata = departure;
-    fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
+
+    fetch(`/api/aviationStack/${flightIata}/${departureIata}`)
       .then(res => res.json())
-      .then(data => {
-        if (data.data.length !== 0) {
-          const flightUpdate = 0;
+      .then(flightDatas => {
+        if (typeof flightDatas === 'object') {
           this.setState({
-            flightStatus: data.data[flightUpdate].flight_status,
-            airportArrival: data.data[flightUpdate].arrival.iata,
-            departTime: data.data[flightUpdate].departure.scheduled.slice(11, 16),
-            arrivalTime: data.data[flightUpdate].arrival.scheduled.slice(11, 16),
-            arrivalDay: data.data[flightUpdate].arrival.scheduled.slice(0, 10),
-            departureTerminal: data.data[flightUpdate].departure.terminal,
-            arrivingTerminal: data.data[flightUpdate].arrival.terminal,
+            flightStatus: flightDatas.flightStatus,
+            airportArrival: flightDatas.airportArrival,
+            departTime: flightDatas.departTime,
+            arrivalTime: flightDatas.arrivalTime,
+            arrivalDay: flightDatas.arrivalDay,
+            departureTerminal: flightDatas.departureTerminal,
+            arrivingTerminal: flightDatas.arrivingTerminal,
             departingDate: true
           });
         }
