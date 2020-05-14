@@ -34,7 +34,7 @@ export default class AddDestinationName extends React.Component {
   googleMaps() {
     if (!document.getElementById('googleMaps')) {
       const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP}&libraries=places`;
       script.defer = true;
       script.async = true;
       script.id = 'googleMaps';
