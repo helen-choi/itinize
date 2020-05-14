@@ -14,10 +14,6 @@ app.use(sessionMiddleware);
 app.use(express.json());
 
 app.get('/api/destinations', (req, res, next) => {
-  // for demo purposes for Kevin, I put the Pexel API key
-  // in the .env file
-  // console.log('Pexel Key:', process.env.PEXELSAPIKEY);
-
   const destinationGetSql = `
   select "destinationName",
   "destinationImage",

@@ -149,6 +149,9 @@ div.Destination-List > h1 {
   font-size: 20vw;
   text-align: center;
 }
+.DestinationInfo i.fa-image {
+  z-index: 1
+}
 
 .form-element > *{
   position: relative;
