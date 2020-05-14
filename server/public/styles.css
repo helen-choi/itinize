@@ -384,6 +384,10 @@ font-family: 'Roboto Slab', sans-serif;
   background-color: white;
 }
 
+div.scroll-menu > button:first-child {
+  width: 52.672px;
+}
+
 .Itinerary-Item-edit {
     background-color:rgba(0, 0, 0, 0.486);
   z-index: 1;
