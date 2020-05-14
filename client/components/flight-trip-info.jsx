@@ -56,7 +56,7 @@ export default class TripInfo extends React.Component {
 
         </header>
         <div className="flight-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
-        <div className="row justify-content-center mt-4">
+        <div className="row justify-content-center mt-4 mb-4">
           <h1>{destinationName}</h1>
         </div>
 

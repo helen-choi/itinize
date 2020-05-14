@@ -128,7 +128,7 @@ export default class AddDestinationName extends React.Component {
     switch (this.state.componentStage) {
       case -1:
         leftIcon = (<Link className="text-dark" to="/">
-          <i className="far fa-times-circle fa-2x"></i>
+          <i className="fas fa-times fa-2x"></i>
         </Link>);
         rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
         break;
@@ -162,14 +162,14 @@ export default class AddDestinationName extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="w-100">
         {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
         </div>) : null }
-        <header className="row">
+        <header className="row p-3">
           <div className="col d-flex justify-content-between">
             {leftIcon}
             {rightIcon}
@@ -186,9 +186,9 @@ export default class AddDestinationName extends React.Component {
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-8 justify-content-center mt-5">
+            <div className="justify-content-center mt-5">
               <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
-              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="p-2" placeholder="e.g. Japan" name="" />
             </div>
           </div>
         </div>

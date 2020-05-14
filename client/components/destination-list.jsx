@@ -54,7 +54,7 @@ export default class DestinationList extends React.Component {
               </div>
             );
 
-          }) : (<div className="loading-data">LOADING</div>)}
+          }) : (<div className="loading-data text-white">LOADING</div>)}
         </div>
       </div>
     );

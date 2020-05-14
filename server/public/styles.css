@@ -55,6 +55,9 @@ div.card-body   h5 {
   position: relative;
   z-index: 1;
 }
+.Destination-List {
+  transition: all 0.5s ease;
+}
 div.Destination-List > h1 {
   padding-left: 15px
 }
@@ -62,6 +65,12 @@ div.Destination-List > h1 {
   border-radius: 50%;
   height: 60px;
   width: 60px;
+}
+.destination-item-control i {
+  font-size:14px;
+}
+a.pexels {
+  text-decoration: underline;
 }
 .circle-dest-list {
   height: 30px;
@@ -380,4 +389,12 @@ i, .cursor-pointer{
   background-color: #6CC4C8;
   position:fixed;
   overflow:hidden;
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  opacity: 1;
+}
+.fadeout {
+  opacity:0;
 }
