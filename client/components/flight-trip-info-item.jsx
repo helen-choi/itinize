@@ -178,6 +178,7 @@ export default class FlightTripInfoItem extends React.Component {
           onMouseDown={this.onDragStartMouse}
           onTouchStart={this.onDragStartTouch}>
           <div>
+            <div className="delete-arrow"><i className="fas fa-chevron-left fa-2x"></i></div>
             <h5 className="d-flex justify-content-between">{flightData.flightName}</h5>
             <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
             <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>

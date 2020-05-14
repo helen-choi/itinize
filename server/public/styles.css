@@ -361,7 +361,7 @@ a.pexels {
 .background-itinerary {
   background-color: #EA6A61;
   position: absolute;
-  height: 97%;
+  height: 88%;
   z-index: -1;
   top: 0;
   left: 47px;
@@ -371,10 +371,18 @@ a.pexels {
   position: relative;
   padding: 0;
 }
+.delete-arrow {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+}
+.delete-arrow i {
+  color:#dddddd;
+}
 .Itinerary-Item {
   background-color: white;
 }
-.Itinerary-Item > *{
+.Itinerary-Item h3,.Itinerary-Item p {
   /* color: white; */
   position: relative;
   z-index: 2;
