@@ -17,10 +17,10 @@ export default function DestinationItem(props) {
         <Link to={{
           pathname: `/destinations/${destination.destinationId}`,
           state: { editMode: 'This should make the DestinationInfo Component on edit mode' }
-        }} className="cursor-pointer mt-2 circle circle-dest-list teal p-2 mr-1 d-flex text-center text-white destination-item-control">
+        }}className="cursor-pointer mt-2 align-items-center circle circle-dest-list teal p-2 mr-1 d-flex text-center w-25 text-dark">
           <i className="fas fa-pen icon"></i>
         </Link>
-        <div className="cursor-pointer mt-2 circle circle-dest-list red p-2 ml-1 d-flex text-center text-white destination-item-control">
+        <div className="cursor-pointer mt-2 circle align-items-center circle-dest-list red p-2 ml-1 d-flex text-center w-25">
           <DeleteModal deleteHandle={props.handleClickDelete} id={props.destination.destinationId} destinationItem />
         </div>
       </div>
