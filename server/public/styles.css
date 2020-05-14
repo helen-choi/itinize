@@ -212,6 +212,14 @@ a.pexels {
   background-color: rgba(0, 0, 0, 0.486);
   top: 0;
 }
+.btn-modal-delete {
+  background-color: #EA6A61;
+  border:none;
+}
+.btn-modal-close {
+  background-color:#6CC4C8;
+  border:none;
+}
 
 .input-destination-date{
   font-size: 15px;
