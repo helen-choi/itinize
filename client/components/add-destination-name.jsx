@@ -9,7 +9,7 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: -1,
+      componentStage: 0,
       destinationName: '',
       destinationImage: '',
       tripStart: '',
@@ -43,6 +43,15 @@ export default class AddDestinationName extends React.Component {
       script.addEventListener('load', this.handleScriptLoad);
     } else {
       this.handleScriptLoad();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.componentStage !== prevState.componentStage) {
+      this.setState({
+        isClicked: false
+      });
     }
   }
 
@@ -219,8 +228,5 @@ export default class AddDestinationName extends React.Component {
       </div>) || componentsArray[this.state.componentStage]}
       </div>
     );
-
-    // either do a switch method or continue with this if-else statement
-
   }
 }
