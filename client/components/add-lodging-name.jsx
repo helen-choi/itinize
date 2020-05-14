@@ -184,16 +184,16 @@ export default class AddLodgingName extends React.Component {
 
     switch (counter) {
       case -1:
-        leftIcon = <Link to={{ pathname: '/lodgings', state: { destinationId: destinationId, destinationName: destinationName } }}><i className="fas fa-times fa-2x"></i></Link>;
-        rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
+        leftIcon = <Link to={{ pathname: '/lodgings', state: { destinationId: destinationId, destinationName: destinationName } }}><i className="fas fa-times fa-2x text-dark"></i></Link>;
+        rightIcon = <i className="fas fa-arrow-right fa-2x text-dark" onClick={this.handleNextClick}></i>;
         break;
       case 0:
-        leftIcon = <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>;
-        rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
+        leftIcon = <i className="fas fa-arrow-left fa-2x text-dark" onClick={this.handlePrevClick}></i>;
+        rightIcon = <i className="fas fa-arrow-right fa-2x text-dark" onClick={this.handleNextClick}></i>;
         break;
       case 1:
-        leftIcon = <i className="fas fa-arrow-left fa-2x" onClick={this.handlePrevClick}></i>;
-        rightIcon = <i className="fas fa-check fa-2x" onClick={this.handleSubmit}></i>;
+        leftIcon = <i className="fas fa-arrow-left fa-2x text-dark" onClick={this.handlePrevClick}></i>;
+        rightIcon = <i className="fas fa-check fa-2x text-dark" onClick={this.handleSubmit}></i>;
         break;
     }
     return (

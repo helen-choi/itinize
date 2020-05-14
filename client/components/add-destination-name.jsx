@@ -16,8 +16,10 @@ export default class AddDestinationName extends React.Component {
       tripEnd: '',
       description: '',
       placeId: '',
+      isSubmitted: false,
       coordinates: null,
       isClicked: false
+
     };
     this.googleMaps = this.googleMaps.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
@@ -135,6 +137,10 @@ export default class AddDestinationName extends React.Component {
           .then(res => res.json());
       })
       .catch(err => console.error(err));
+
+    this.setState({
+      isSubmitted: true
+    });
   }
 
   componentDidMount() {
@@ -147,8 +153,7 @@ export default class AddDestinationName extends React.Component {
         handleSelectTripEnd={this.handleSelectTripEnd}
         key={this.state.componentStage}/>,
       <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
-        key={this.state.componentStage} />,
-      <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />];
+        key={this.state.componentStage} />];
     let leftIcon;
     let rightIcon;
     const addDestinationValidation = (
@@ -159,7 +164,7 @@ export default class AddDestinationName extends React.Component {
     switch (this.state.componentStage) {
       case -1:
         leftIcon = (<Link className="text-dark" to="/">
-          <i className="far fa-times-circle fa-2x"></i>
+          <i className="fas fa-times fa-2x"></i>
         </Link>);
         rightIcon = <i onClick={() => {
           this.setState({ isClicked: true });
@@ -196,14 +201,15 @@ export default class AddDestinationName extends React.Component {
     }
 
     return (
-      <div className="container">
+      (this.state.isSubmitted && <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />) ||
+      <div className="w-100">
         {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 0) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
         </div>) : null }
-        <header className="row">
+        <header className="row p-3">
           <div className="col d-flex justify-content-between">
             {leftIcon}
             {rightIcon}
@@ -219,8 +225,11 @@ export default class AddDestinationName extends React.Component {
             </div>
           </div>
           <div className="row justify-content-center">
-            <div className="col-8 justify-content-center mt-5">
-              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
+
+            <div className="justify-content-center mt-5">
+             
+              <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="p-2" placeholder="e.g. Japan" name="" />
+
             </div>
           </div>
           {addDestinationValidation}

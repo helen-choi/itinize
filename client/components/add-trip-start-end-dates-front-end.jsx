@@ -23,12 +23,12 @@ export default class AddDestinationDates extends React.Component {
               <p className="text-muted text-center">Enter dates for start and end of your trip.</p>
             </div>
           </div>
-          <div className="row">
-            <div className="col-5 justify-content-center mt-5 mr-2">
+          <div className="row justify-content-center">
+            <div className="justify-content-center mt-5 mr-2">
               <label className="d-block text-center" htmlFor="tripStart">Trip Start</label>
               <input className="input-destination-date text-center p-2" type="date" name="tripStart" min={formattedDate} onChange={() => this.props.handleSelectTripStart(event.target.value)} />
             </div>
-            <div className="col-5 justify-content-center mt-5 ml-2">
+            <div className="justify-content-center mt-5 ml-2">
               <label className="d-block text-center" htmlFor="tripEnd">Trip End</label>
               <input className="input-destination-date text-center p-2" type="date" name="tripEnd" min={this.props.tripStart} onChange={() => this.props.handleSelectTripEnd(event.target.value)} />
             </div>

@@ -48,21 +48,21 @@ export default class AddLodgingDates extends React.Component {
         <h3 className="text-center pt-5">Add Check-In/Out</h3>
         <p className="text-muted text-center">Save check-in and check-out<br />times to be notified</p>
         <div className="checkin row justify-content-center mt-5">
-          <div className="row flex-column col-6 mr-2">
+          <div className="d-flex flex-column mr-2">
             <label className="" htmlFor="checkinDate">Check-In Date</label>
-            <input className="p-2 mr" type="date" id="checkinDate" name="checkinDate" min={todayFormatted} onChange={this.handleChange}/>
+            <input className="p-2" type="date" id="checkinDate" name="checkinDate" min={todayFormatted} onChange={this.handleChange}/>
           </div>
-          <div className="row flex-column col-4">
+          <div className="d-flex flex-column">
             <label className="mr-2" htmlFor="checkinTime">Time</label>
             <input className="p-2" type="time" id="checkinTime" name="checkinTime" onChange={this.handleChange}/>
           </div>
         </div>
         <div className="checkout row justify-content-center mt-5">
-          <div className="row flex-column col-6 mr-2">
+          <div className="d-flex flex-column mr-2">
             <label className="mr-2" htmlFor="checkoutDate">Check-Out Date</label>
             <input className="p-2" type="date" id="checkoutDate" name="checkoutDate" min={checkOutMin} onChange={this.handleChange}/>
           </div>
-          <div className="row flex-column col-4">
+          <div className="d-flex flex-column">
             <label htmlFor="checkoutTime">Time</label>
             <input className="p-2" type="time" id="checkoutTime" name="checkoutTime" onChange={this.handleChange}/>
           </div>

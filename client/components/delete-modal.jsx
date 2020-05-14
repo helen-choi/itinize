@@ -24,15 +24,12 @@ export default function DeleteModal(props) {
       {correctTag}
       {/* this.handleClickDelete(destinationInfo.destinationId) */}
       <Modal className='modal' centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Warning</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+        <Modal.Body className="text-center">Are you sure you want to delete this item?</Modal.Body>
+        <Modal.Footer className="d-flex justify-content-center border-top-0">
+          <Button className="btn-modal-close" variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="danger" onClick={() => {
+          <Button className="btn-modal-delete" variant="danger" onClick={() => {
             handleClose();
             props.deleteHandle(props.id);
           }}>
