@@ -13,23 +13,34 @@ import AddItineraryItem from './add-itinerary-item';
 import TripInfo from './flight-trip-info';
 import LodgingList from './lodging-list';
 import ItineraryList from './itinerary-list';
+import Welcome from './welcome';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: null,
-      isLoading: true
+      isLoading: true,
+      firstTime: true
     };
+    this.handleWelcome = this.handleWelcome.bind(this);
+  }
+
+  handleWelcome() {
+    this.setState({
+      firstTime: false
+    });
   }
 
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/">
-            <DestinationList/>
-          </Route>
+          <Route exact path="/" render={() =>
+            (
+              (this.state.firstTime && <Welcome handleWelcome={this.handleWelcome}/>) || (<DestinationList/>)
+            )
+          }/>
           <Route path="/destinations/create" component={AddDestinationName}>
             {/* <AddDestinationName /> */}
             {/* if you want props and render method both, use a render method */}

@@ -73,7 +73,7 @@ export default class LodgingList extends React.Component {
           </Link>
         </div>
         <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
-        <h1 className="text-center mt-5 mb-4">{destinationName}</h1>
+        <h1 className="text-center mt-4 mb-4">{destinationName}</h1>
         <div className="toggle row" style={iconsHidden}>
           <Link to={{
             pathname: '/flights',

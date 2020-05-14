@@ -26,7 +26,7 @@ export default class Confirmation extends React.Component {
   render() {
     const newItem = this.props.newItem;
     return (
-      <div className="confirmation-container p-3 row align-items-center">
+      <div className="confirmation-container p-3 row align-items-center position-fixed">
         <div className="confirmation-content row justify-content-center">
           <h2 className="text-center font-weight-normal col-12">A new {newItem}<br/>was added!</h2>
           <div className="confirm-icon-container row justify-content-center align-items-center mt-4">
