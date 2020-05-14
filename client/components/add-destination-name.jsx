@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
 import AddDestinationDates from './add-trip-start-end-dates-front-end';
 import AddDestinationDescription from './add-description-to-destination';
@@ -20,6 +19,7 @@ export default class AddDestinationName extends React.Component {
       coordinates: null,
       isClicked: false
     };
+    this.googleMaps = this.googleMaps.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +30,20 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
     this.handleSelectDescription = this.handleSelectDescription.bind(this);
     this.handleSubmitDestinationInfo = this.handleSubmitDestinationInfo.bind(this);
+  }
 
+  googleMaps() {
+    if (!document.getElementById('googleMaps')) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP}&libraries=places`;
+      script.defer = true;
+      script.async = true;
+      script.id = 'googleMaps';
+      document.querySelector('body').appendChild(script);
+      script.addEventListener('load', this.handleScriptLoad);
+    } else {
+      this.handleScriptLoad();
+    }
   }
 
   handleRightArrowClick() {
@@ -115,8 +128,11 @@ export default class AddDestinationName extends React.Component {
       .catch(err => console.error(err));
   }
 
+  componentDidMount() {
+    this.googleMaps();
+  }
+
   render() {
-    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
         handleSelectTripEnd={this.handleSelectTripEnd}
@@ -195,7 +211,6 @@ export default class AddDestinationName extends React.Component {
           </div>
           <div className="row justify-content-center">
             <div className="col-8 justify-content-center mt-5">
-              <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
               <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="form-control" placeholder="e.g. Japan" name="" />
             </div>
           </div>
