@@ -186,11 +186,10 @@ export default class ListItineraryItem extends React.Component {
 
         {this.props.editClick
           ? (
-            <div onClick={this.handleClickShowModal} className="Itinerary-Item mt-1 border border-secondary col-9 ">
+            <div onClick={this.handleClickShowModal} className="Itinerary-Item Itinerary-Item-edit mt-1 border border-secondary col-9 ">
               <h3 className="text-light">{this.state.itineraryName}</h3>
               <p className="text-secondary text-light">{this.state.itineraryDay}</p>
               <p className={'text-light'}>{itineraryNote}</p>
-              <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-light itinerary-display`}>{this.state.itineraryNote}</p>
             </div>
           )
           : (
