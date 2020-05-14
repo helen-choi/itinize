@@ -23,7 +23,7 @@
   }
 }
 @media only screen and (min-width: 990px) {
-  .Destination-List div.col-6 {
+  .destinations-container > div {
     max-width: 30%;
   }
   .destinations-container {
