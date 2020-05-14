@@ -133,7 +133,7 @@ export default class DestinationInfo extends React.Component {
 
     return (
       (
-        !this.state.destinationInfo && <div className="loading-data">LOADING DATA</div>
+        !this.state.destinationInfo && <div className="loading-data d-flex justify-content-center flex-wrap"><img src="https://media.giphy.com/media/UOdoMz3baCENO/giphy.gif" alt="Loading..." /><p className="text-muted">Loading...</p></div>
       ) ||
       (
         this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>

@@ -54,7 +54,7 @@ export default class DestinationList extends React.Component {
               </div>
             );
 
-          }) : (<div className="loading-data text-white">LOADING</div>)}
+          }) : (<div className="loading-data d-flex justify-content-center align-items-start flex-wrap"><img src="https://media.giphy.com/media/UOdoMz3baCENO/giphy.gif" alt="Loading..." /><p className="text-muted">Loading...</p></div>)}
         </div>
       </div>
     );
