@@ -4,8 +4,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      imageList: dummyImageArray,
-      // imageList: [],
+      // imageList: dummyImageArray,
+      imageList: [],
       imageChoice: '',
       isCheckVisible: false,
       editMode: false,
@@ -72,7 +72,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
-    const loadGoal = 5;
+    const loadGoal = this.state.imageList.length;
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <div onClick={() => {
@@ -114,6 +114,7 @@ export default class SelectDestinationImageProfile extends React.Component {
 }
 
 // delete this after development and presentation
+// eslint-disable-next-line
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',

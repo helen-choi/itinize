@@ -37,7 +37,7 @@ app.get('/api/image/:countryParam', (req, res, next) => {
     method: 'GET',
     headers: { Authorization: process.env.PEXELSAPIKEY }
   };
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=5&page=1`, params)
+  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=16&page=1`, params)
     .then(res => res.json())
     .then(data => {
       const photoArray = [];
@@ -50,7 +50,8 @@ app.get('/api/image/:countryParam', (req, res, next) => {
         });
       }
       res.json({ imageList: photoArray });
-    });
+    })
+    .catch(err => console.error(err));
 });
 
 app.get('/api/destinations/:destinationId', (req, res, next) => {
