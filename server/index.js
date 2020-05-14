@@ -17,6 +17,8 @@ app.get('/api/destinations', (req, res, next) => {
   // for demo purposes for Kevin, I put the Pexel API key
   // in the .env file
   // console.log('Pexel Key:', process.env.PEXELSAPIKEY);
+  process.stdout.write('hi');
+
   const destinationGetSql = `
   select "destinationName",
   "destinationImage",
@@ -29,6 +31,27 @@ app.get('/api/destinations', (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+});
+
+app.get('/api/image/:countryParam', (req, res, next) => {
+  const params = {
+    method: 'GET',
+    headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
+  };
+  fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=5&page=1`, params)
+    .then(res => res.json())
+    .then(data => {
+      const photoArray = [];
+      for (let i = 0; i < data.photos.length; i++) {
+        photoArray.push({
+          portraitSrc: data.photos[i].src.portrait,
+          photographer: data.photos[i].photographer,
+          photoId: data.photos[i].id,
+          photoURL: data.photos[i].url
+        });
+      }
+      this.setState({ imageList: photoArray });
+    });
 });
 
 app.get('/api/destinations/:destinationId', (req, res, next) => {
