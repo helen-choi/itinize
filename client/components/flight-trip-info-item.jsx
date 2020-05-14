@@ -9,6 +9,8 @@ export default class FlightTripInfoItem extends React.Component {
       departTime: '',
       arrivalTime: '',
       arrivalDay: '',
+      departureTerminal: '',
+      arrivingTerminal: '',
       departingDate: null
     };
     this.list = null;
@@ -69,6 +71,8 @@ export default class FlightTripInfoItem extends React.Component {
             departTime: data.data[flightUpdate].departure.scheduled.slice(11, 16),
             arrivalTime: data.data[flightUpdate].arrival.scheduled.slice(11, 16),
             arrivalDay: data.data[flightUpdate].arrival.scheduled.slice(0, 10),
+            departureTerminal: data.data[flightUpdate].departure.terminal,
+            arrivingTerminal: data.data[flightUpdate].arrival.terminal,
             departingDate: true
           });
         }
@@ -166,6 +170,8 @@ export default class FlightTripInfoItem extends React.Component {
     const departTime = (this.state.departingDate) ? this.state.departTime : 'TBA';
     const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : null;
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
+    const departureTerminal = (this.state.departingDate) ? this.state.departureTerminal : 'pending';
+    const arrivingTerminal = (this.state.departingDate) ? this.state.arrivingTerminal : 'pending';
     return (
       <div className="wrapper">
         <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
@@ -180,7 +186,9 @@ export default class FlightTripInfoItem extends React.Component {
             <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
             <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
             <p><strong>Departing Date:</strong> {flightData.flightDate.slice(0, 10)} {departTime}</p>
-            <p><strong>Arrival Date</strong> {arrivalDay} {arrivalTime}</p>
+            <p><strong>Departure Terminal:</strong> {departureTerminal} </p>
+            <p><strong>Arrival Date:</strong> {arrivalDay} {arrivalTime}</p>
+            <p><strong>Arriving Terminal:</strong> {arrivingTerminal} </p>
             <p><strong>Flight Status:</strong> {flightStatus}</p>
           </div>
         </div>
