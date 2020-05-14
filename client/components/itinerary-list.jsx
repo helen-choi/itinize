@@ -85,10 +85,13 @@ export default class ItineraryList extends React.Component {
       />);
     });
     const dayButtons = [];
+    let colorChangerIndex = 0;
     for (let dayCounter = 0; dayCounter < this.props.location.state.totalDays; dayCounter++) {
+      if (colorChangerIndex === bootstrapButtonClassNames.length - 1) colorChangerIndex = 0;
       dayButtons.push(
-        <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[dayCounter]}`}>Day {dayCounter + 1}</button>
+        <button onClick={() => this.getSpecificDay(`Day ${dayCounter + 1}`)} key={dayCounter + 1} type="button" className={`mr-1 btn btn-sm ${bootstrapButtonClassNames[colorChangerIndex]}`}>Day {dayCounter + 1}</button>
       );
+      colorChangerIndex++;
     }
     return (
       <div className="container">
