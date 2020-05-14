@@ -33,7 +33,7 @@ app.get('/api/image/:countryParam', (req, res, next) => {
     method: 'GET',
     headers: { Authorization: process.env.PEXELSAPIKEY }
   };
-  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=16&page=1`, params)
+  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=9&page=1`, params)
     .then(res => res.json())
     .then(data => {
       const photoArray = [];

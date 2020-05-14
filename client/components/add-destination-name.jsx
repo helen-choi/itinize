@@ -227,7 +227,7 @@ export default class AddDestinationName extends React.Component {
           <div className="row justify-content-center">
 
             <div className="justify-content-center mt-5">
-             
+
               <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="p-2" placeholder="e.g. Japan" name="" />
 
             </div>
