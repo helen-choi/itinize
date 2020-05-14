@@ -54,6 +54,30 @@ app.get('/api/image/:countryParam', (req, res, next) => {
     .catch(err => console.error(err));
 });
 
+app.get('/api/aviationStack/:flightIata/:departureIata', (req, res, next) => {
+  const key = process.env.AVIATION_KEY;
+  fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${req.params.flightIata}&dep_iata=${req.params.departureIata}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.data.length !== 0) {
+        const flightUpdate = 0;
+        const flightDatas = {
+          flightStatus: data.data[flightUpdate].flight_status,
+          airportArrival: data.data[flightUpdate].arrival.iata,
+          departTime: data.data[flightUpdate].departure.scheduled.slice(11, 16),
+          arrivalTime: data.data[flightUpdate].arrival.scheduled.slice(11, 16),
+          arrivalDay: data.data[flightUpdate].arrival.scheduled.slice(0, 10),
+          departureTerminal: data.data[flightUpdate].departure.terminal,
+          arrivingTerminal: data.data[flightUpdate].arrival.terminal
+        };
+        res.json(flightDatas);
+      } else {
+        res.json('no flights found');
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/destinations/:destinationId', (req, res, next) => {
   const destinationId = req.params.destinationId;
   const sql = `
