@@ -46,13 +46,13 @@ export default class SelectDestinationImageProfile extends React.Component {
 
   editHeader() {
     return (<header className="row">
-      <div className="col d-flex justify-content-between">
-        <i onClick={() => this.props.handleExit()} className="far fa-times-circle fa-2x"></i>
+      <div className="col d-flex justify-content-between p-3">
+        <i onClick={() => this.props.handleExit()} className="fas fa-times fa-2x pl-3"></i>
         <i onClick={() => {
           if (this.state.isCheckVisible) {
             this.props.handleCheck(this.state.imageChoice);
           }
-        }} className="fas fa-check fa-2x"></i>
+        }} className="fas fa-check fa-2x pr-3"></i>
       </div>
     </header>
     );
