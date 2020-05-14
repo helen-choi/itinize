@@ -4,12 +4,13 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      // imageList: dummyImageArray,
-      imageList: [],
+      imageList: dummyImageArray,
+      // imageList: [],
       imageChoice: '',
       isCheckVisible: false,
       editMode: false,
-      loadedImages: null
+      loadedImages: null,
+      imageLoadError: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleImageLoaded = this.handleImageLoaded.bind(this);
@@ -19,7 +20,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   // Enable this method after an hour and check to make sure you don't make
   // too many GET requests. We're limited to 200 per hour
   // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
-    this.getPexelPictures();
+    // this.getPexelPictures();
     if (this.props.handleCheck) {
       this.setState({ editMode: true });
     }
@@ -34,6 +35,10 @@ export default class SelectDestinationImageProfile extends React.Component {
     let loadCounter = this.state.loadedImages;
     loadCounter = loadCounter + 1;
     this.setState({ loadedImages: loadCounter });
+  }
+
+  handleImageError() {
+    this.setState({ imageLoadError: true });
   }
 
   getPexelPictures() {
@@ -79,10 +84,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
-    const loadGoal = 5;
-    const loadingDiv = <div className={`${(this.state.loadedImages === loadGoal) ? 'd-none' : ''} col-6`}>
-      <img className='col' src="/images/imageload.gif" alt="Loading Gif" />
-    </div>;
+    const loadGoal = 16;
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <div onClick={() => {
@@ -92,10 +94,10 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className={`${this.state.loadedImages === loadGoal ? '' : 'd-none'} col-3 w-100 cursor-pointer`}>
+        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col-3 w-100 cursor-pointer`}>
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
-          <img onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
-          <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? '' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
+          <img onError={this.handleImageError} onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
+          <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? 'd-flex justify-content-center align-items-center ' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
             <i className="text-white confirm-icon fas fa-check fa-2x"></i>
           </div>
         </div>
@@ -112,8 +114,10 @@ export default class SelectDestinationImageProfile extends React.Component {
             </div>
           </div>
           <div className="row flex-wrap no-gutters justify-content-center">
-            {reactElementArray}
-            {loadingDiv}
+            {(!this.state.imageLoadError && reactElementArray) ||
+            <div className="text-center text-danger col-6">Error: image search limit exceeded. Please try again in an hour</div>
+            }
+
           </div>
         </div>
       </>
@@ -121,7 +125,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 }
 
-// delete this after development
+// delete this after development and presentation
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
