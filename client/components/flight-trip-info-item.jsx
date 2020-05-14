@@ -9,7 +9,7 @@ export default class FlightTripInfoItem extends React.Component {
       departTime: '',
       arrivalTime: '',
       arrivalDay: '',
-      departTerminal: '',
+      departureTerminal: '',
       arrivingTerminal: '',
       departingDate: null
     };
