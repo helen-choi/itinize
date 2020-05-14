@@ -384,6 +384,12 @@ a.pexels {
 .Itinerary-Item {
   background-color: white;
 }
+
+.Itinerary-Item-edit {
+    background-color:rgba(0, 0, 0, 0.486);
+  z-index: 1;
+}
+
 .Itinerary-Item h3,.Itinerary-Item p {
   /* color: white; */
   position: relative;
