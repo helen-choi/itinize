@@ -1,6 +1,6 @@
 require('dotenv/config');
 const express = require('express');
-
+var fetch = require('node-fetch');
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -36,9 +36,9 @@ app.get('/api/destinations', (req, res, next) => {
 app.get('/api/image/:countryParam', (req, res, next) => {
   const params = {
     method: 'GET',
-    headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
+    headers: { Authorization: process.env.PEXELSAPIKEY }
   };
-  fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=5&page=1`, params)
+  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=5&page=1`, params)
     .then(res => res.json())
     .then(data => {
       const photoArray = [];
@@ -50,7 +50,7 @@ app.get('/api/image/:countryParam', (req, res, next) => {
           photoURL: data.photos[i].url
         });
       }
-      this.setState({ imageList: photoArray });
+      res.json({ imageList: photoArray });
     });
 });
 
