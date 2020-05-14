@@ -121,6 +121,7 @@ export default class LodgingItem extends React.Component {
           ref={div => (this.list = div)}
           onMouseDown={this.onDragStartMouse}
           onTouchStart={this.onDragStartTouch}>
+          <div className="delete-arrow"><i className="fas fa-chevron-left fa-2x"></i></div>
           <h5>{lodging.lodgingName}</h5>
           <p><strong>Confirmation: </strong>{lodging.lodgingConfNum}</p>
           <p><strong>Check-In:</strong> {lodging.checkInDateTime}</p>

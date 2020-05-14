@@ -52,13 +52,13 @@ export default class SelectDestinationImageProfile extends React.Component {
 
   editHeader() {
     return (<header className="row">
-      <div className="col d-flex justify-content-between">
-        <i onClick={() => this.props.handleExit()} className="far fa-times-circle fa-2x"></i>
+      <div className="col d-flex justify-content-between p-3">
+        <i onClick={() => this.props.handleExit()} className="fas fa-times fa-2x pl-3"></i>
         <i onClick={() => {
           if (this.state.isCheckVisible) {
             this.props.handleCheck(this.state.imageChoice);
           }
-        }} className="fas fa-check fa-2x"></i>
+        }} className="fas fa-check fa-2x pr-3"></i>
       </div>
     </header>
     );
@@ -96,9 +96,9 @@ export default class SelectDestinationImageProfile extends React.Component {
         { this.state.editMode ? this.editHeader() : null }
         <div className="row align-items-start justify-content-center">
           <div className="row justify-content-center">
-            <div className="col">
-              <h4 className="text-center font-weight-bold">Select an image</h4>
-              <h6 className="text-center">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</h6>
+            <div className="col mt-3 pr-5 pl-5">
+              <h3 className="text-center font-weight-bold">Select an image</h3>
+              <p className="text-center text-muted">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a className="text-muted pexels" target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</p>
             </div>
           </div>
           <div className="row flex-wrap no-gutters justify-content-center">
@@ -113,8 +113,11 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 }
 
-// delete this after development and presentation
-// eslint-disable-next-line
+
+// delete this after development
+
+// eslint-disable-next-line no-unused-vars
+
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',

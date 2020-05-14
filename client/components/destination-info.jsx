@@ -164,9 +164,9 @@ export default class DestinationInfo extends React.Component {
                   : <input className="edit-input h1 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
-                  <input className="edit-input" readOnly value={this.tripStart}/>
+                  <input className="edit-input p-2" readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
-                  <input className="edit-input" readOnly value={this.tripEnd}/>
+                  <input className="edit-input p-2" readOnly value={this.tripEnd}/>
                 </div>
                 <textarea
                   readOnly className="edit-input col-10 ml-4 align-self-end"
@@ -222,12 +222,12 @@ export default class DestinationInfo extends React.Component {
               <>
                 <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
                 <header className="row justify-content-between pt-2 flex-fill align-items-start">
-                  <div className="col-3 text-light">
-                    <i className="fas fa-arrow-left fa-2x"></i>
+                  <div className="col-3">
+                    <i className="fas fa-arrow-left fa-2x text-dark"></i>
                   </div>
                   <div className="col-4 d-flex justify-content-end">
                     <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white pr-3"></i>
-                    <i className="fas fa-pen fa-2x text-light"></i>
+                    <i className="fas fa-pen fa-2x text-dark"></i>
                   </div>
                 </header>
 

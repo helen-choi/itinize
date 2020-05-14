@@ -125,15 +125,15 @@ export default class ItineraryList extends React.Component {
                       destinationId: this.props.location.state.destinationId
                     }
                   }}>
-                    <i className="fas ml-2 fa-plus fa-2x text-dark"></i>
+                    <i className="fas fa-plus fa-2x text-dark mr-2 ml-1"></i>
                   </Link>
-                  <i onClick={this.handleCompassClick} className="far ml-2 fa-compass fa-2x text-dark"></i>
+                  <i onClick={this.handleCompassClick} className="far fa-map fa-2x text-dark"></i>
                 </div>
               </>
             )
           }
         </div>
-        <div className="mt-2 row">
+        <div className="mt-2 row text-center mt-3 mb-3">
           <div className="col">
             <h1>{this.props.location.state.destinationName}</h1>
           </div>
