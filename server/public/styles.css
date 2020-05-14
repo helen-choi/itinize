@@ -359,6 +359,7 @@ font-family: 'Roboto Slab', sans-serif;
   left: 0;
 }
 .background-itinerary {
+  opacity: 0;
   background-color: #EA6A61;
   position: absolute;
   height: 88%;
