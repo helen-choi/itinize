@@ -4,8 +4,8 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
-      imageList: dummyImageArray,
-      // imageList: [],
+      // imageList: dummyImageArray,
+      imageList: [],
       imageChoice: '',
       isCheckVisible: false,
       editMode: false,
@@ -20,7 +20,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   // Enable this method after an hour and check to make sure you don't make
   // too many GET requests. We're limited to 200 per hour
   // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
-    // this.getPexelPictures();
+    this.getPexelPictures();
     if (this.props.handleCheck) {
       this.setState({ editMode: true });
     }
@@ -42,24 +42,12 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   getPexelPictures() {
-    const params = {
-      method: 'GET',
-      headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
-    };
-    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=5&page=1`, params)
+    fetch(`/api/image/${this.props.imageParam}`)
       .then(res => res.json())
       .then(data => {
-        const photoArray = [];
-        for (let i = 0; i < data.photos.length; i++) {
-          photoArray.push({
-            portraitSrc: data.photos[i].src.portrait,
-            photographer: data.photos[i].photographer,
-            photoId: data.photos[i].id,
-            photoURL: data.photos[i].url
-          });
-        }
-        this.setState({ imageList: photoArray });
-      });
+        this.setState({ imageList: data.imageList });
+      }
+      );
   }
 
   editHeader() {
@@ -84,7 +72,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
-    const loadGoal = 16;
+    const loadGoal = this.state.imageList.length;
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <div onClick={() => {
@@ -126,6 +114,7 @@ export default class SelectDestinationImageProfile extends React.Component {
 }
 
 // delete this after development and presentation
+// eslint-disable-next-line
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
