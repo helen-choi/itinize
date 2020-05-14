@@ -279,9 +279,9 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-21	Japan	https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-19	2020-05-23	Visit Japan with Helen, David, and Frank	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+21	Japan	https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-17	2020-05-23	Visit Japan with Helen, David, and Frank after graduating bootcamp!	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+23	New Zealand	https://images.pexels.com/photos/2259917/pexels-photo-2259917.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-26	2020-05-31	Visit the Lord of the Rings set with Frank, Helen, and David!	ChIJh5Z3Fw4gLG0RM0dqdeIY1rE
 17	China	https://images.pexels.com/photos/683419/pexels-photo-683419.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-14	2020-05-24	Visit the great wall of China	ChIJwULG5WSOUDERbzafNHyqHZU
-23	New Zealand	https://images.pexels.com/photos/2259917/pexels-photo-2259917.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-26	2020-05-31	Visit LOTR set	ChIJh5Z3Fw4gLG0RM0dqdeIY1rE
 24	Mexico	https://images.pexels.com/photos/2388639/pexels-photo-2388639.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-24	2020-05-30	Get some yummy burritos	ChIJU1NoiDs6BIQREZgJa760ZO0
 25	South Africa	https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-13	2020-05-26	Visit Simba and Nala and the Lion King	ChIJQbeMyNikZh4ReUEdli5FMYE
 26	Canada	https://images.pexels.com/photos/1563524/pexels-photo-1563524.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-17	2020-05-23	Visit family for the vacation	ChIJ2WrMN9MDDUsRpY9Doiq3aJk
@@ -305,6 +305,8 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 20	UA2765	2020-05-11	LAX	4	United 
 21	AC7220	2020-05-11	AKL	4	Canada
 23	ewf	2020-05-12	fewfwef	17	fefewfw
+24	JL72	2020-05-16	LAX	21	Flight to Tokyo
+25	JL66	2020-05-22	HND	21	Returning Home Flight
 \.
 
 
@@ -320,6 +322,16 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 21	Burger King	Day	At this location, I will	40	14
 22	Tiger Sugar	Day 1	At this location, I will	51	17
 23	East West Ice Palace	Day 4	Ice skate	52	17
+24	Guangzhou	Day 1	meet family	64	27
+26	Ginza	Day 1	Visit Ginza for shoppping	66	21
+27	Ueno Park Street	Day 2	Visit Ueno Park and Zoo!	67	21
+29	Meiji Jingu	Day 3	Visit the Meiji shrine dedicated to Emperor Meiji	69	21
+28	Tokyo National Museum	Day 2	Visit the 100,000 works of art!	68	21
+30	Imperial Palace	Day 1	Visit the Imperial Palace	70	21
+31	Otaki Gorge Road	Day 1	Visit the set of The Shire for our first day!	73	23
+32	Brown Owl	Day 2	Visit the gardens of Isengard	74	23
+33	North Island	Day 2	Visit the location where a lot of Mordor scenes were filmed	75	23
+34	Glendhu Bay	Day 3	Visit the location near Rivendell	76	23
 \.
 
 
@@ -353,6 +365,22 @@ COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
 58	(23.6345010000000002,-102.552784000000003)	ChIJU1NoiDs6BIQREZgJa760ZO0
 59	(-32.9628159999999895,27.3543026000000005)	ChIJQbeMyNikZh4ReUEdli5FMYE
 60	(56.1303660000000022,-106.346771000000004)	ChIJ2WrMN9MDDUsRpY9Doiq3aJk
+61	(35.8616600000000076,104.195397)	ChIJwULG5WSOUDERbzafNHyqHZU
+62	(36.2048240000000021,138.252924000000007)	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+63	(36.2048240000000021,138.252924000000007)	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+64	(23.1291100000000007,113.264385000000004)	ChIJxytco5X4AjQRFeTqrXXgWQ4
+65	(35.6868725000000069,139.757166100000006)	ChIJPfFaQhOMGGAR-QPbNQoAG6M
+66	(35.6712228000000025,139.766485899999992)	ChIJu2-DAeeLGGARUZipC7OFRmA
+67	(35.7139653999999993,139.775952999999987)	EjtVZW5vIFBhcmsgU3QsIDcgQ2hvbWUtMSBVZW5vLCBUYWl0byBDaXR5LCBUxY1recWNLXRvLCBKYXBhbiIuKiwKFAoSCZlPBG-ejhhgEf_WSmqW3IUHEhQKEgm5bRAZnI4YYBG1QAi0VmfPNw
+68	(35.7188350999999997,139.776521500000001)	ChIJEX3XFIOOGGAR3XdJvRjWLyM
+69	(35.6763976000000085,139.699325899999991)	ChIJ5SZMmreMGGARcz8QSTiJyo8
+70	(35.685175000000001,139.752799500000009)	ChIJTQbYAg2MGGARt22eNwtfGtE
+71	(35.6866120999999978,139.762916700000005)	ChIJp3be1AeMGGARJ0lkT920r50
+72	(35.6938656000000023,139.6981605)	ChIJp_FmqeOLGGAR61SrLakCAeA
+73	(-40.8221881999999994,175.19473450000001)	EitPdGFraSBHb3JnZSBSb2FkLCBIYXV0ZXJlIDU1ODEsIE5ldyBaZWFsYW5kIi4qLAoUChIJ2RbmjdeVQG0RbEFHyXA6ov0SFAoSCYkcjORZkkBtEYAvo0Nh7wAF
+74	(-41.1043500999999978,175.09777059999999)	ChIJ-zSvivqtQG0R0LiiQ2HvAAU
+75	(-39.2378365000000002,175.602364300000005)	ChIJhXgO3F4Uam0RdyMcnMutKMo
+76	(-44.6724340999999967,169.010646900000012)	ChIJxebUEXpE1akRYHB5hIbvAAU
 \.
 
 
@@ -367,6 +395,8 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 57	asdf	2021-05-09	2021-05-15	1	1	Hilton
 58	asdf	2021-05-09	2021-05-15	1	1	Hilton
 61	ASDF1234	2020-05-11 01:00	2020-05-20 01:00	1	39	The Ritz-Carlton, Laguna Niguel
+65	fe3rtWF3	2020-05-18 14:00	2020-05-21 15:00	21	71	Ascott Marunouchi Tokyo
+66	FZL334g	2020-05-21 08:00	2020-05-22 14:00	21	72	ibis Tokyo Shinjuku
 \.
 
 
@@ -374,35 +404,35 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 26, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 29, true);
 
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 23, true);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 25, true);
 
 
 --
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 23, true);
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 34, true);
 
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 60, true);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 76, true);
 
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 64, true);
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 66, true);
 
 
 --
