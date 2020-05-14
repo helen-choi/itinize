@@ -7,7 +7,7 @@ body #root {
   font-family: 'Roboto', sans-serif;
 }
 h1,h2,h3,h4 {
-  font-family: 'Roboto Slab';
+  font-family: 'Roboto Slab', sans-serif;
   font-weight: 700;
 }
 input, textarea {
@@ -150,15 +150,13 @@ a.pexels {
   width: 5%;
 }
 .loading-data {
-  /* background-image: url(https://media.giphy.com/media/13EOgFTzFfiUM/giphy.gif); */
-  background-size: contain;
-  height: 100vh;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20vw;
   text-align: center;
+}
+.loading-data p{
+font-size: 30px;
+font-weight:500;
+font-family: 'Roboto Slab', sans-serif;
 }
 .DestinationInfo i.fa-image {
   z-index: 1
