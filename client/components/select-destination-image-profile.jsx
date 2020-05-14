@@ -3,9 +3,6 @@ export default class SelectDestinationImageProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // Change this back to empty during production for API call
-      // Delete this test variable after the program
-      // imageList: dummyImageArray,
       imageList: [],
       imageChoice: '',
       isCheckVisible: false,
@@ -24,6 +21,15 @@ export default class SelectDestinationImageProfile extends React.Component {
     }
   }
 
+  getPexelPictures() {
+    fetch(`/api/image/${this.props.imageParam}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ imageList: data.imageList });
+      }
+      );
+  }
+
   handleImageLoaded() {
     let loadCounter = this.state.loadedImages;
     loadCounter = loadCounter + 1;
@@ -32,15 +38,6 @@ export default class SelectDestinationImageProfile extends React.Component {
 
   handleImageError() {
     this.setState({ imageLoadError: true });
-  }
-
-  getPexelPictures() {
-    fetch(`/api/image/${this.props.imageParam}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ imageList: data.imageList });
-      }
-      );
   }
 
   editHeader() {
@@ -105,63 +102,3 @@ export default class SelectDestinationImageProfile extends React.Component {
     );
   }
 }
-
-// delete this after development
-
-// eslint-disable-next-line no-unused-vars
-const dummyImageArray = [
-  {
-    portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Belle Co',
-    photoId: 402028,
-    photoURL: 'https://www.pexels.com/photo/red-and-black-temple-surrounded-by-trees-photo-402028/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Bagus Pangestu',
-    photoId: 1440476,
-    photoURL: 'https://www.pexels.com/photo/close-up-photography-of-cherry-blossom-tree-1440476/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1134166/pexels-photo-1134166.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Aleksandar Pasaric',
-    photoId: 1134166,
-    photoURL: 'https://www.pexels.com/photo/woman-walking-in-the-street-during-night-time-1134166/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Pixabay',
-    photoId: 46253,
-    photoURL: 'https://www.pexels.com/photo/black-and-white-mountain-over-yellow-white-and-blue-sky-46253/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/301614/pexels-photo-301614.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Pixabay',
-    photoId: 301614,
-    photoURL: 'https://www.pexels.com/photo/ancient-architecture-asia-bench-301614/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/590478/pexels-photo-590478.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Janko Ferlic',
-    photoId: 590478,
-    photoURL: 'https://www.pexels.com/photo/asia-japan-japanese-japanese-culture-590478/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Evgeny Tchebotarev',
-    photoId: 2187605,
-    photoURL: 'https://www.pexels.com/photo/photo-of-houses-2187605/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1822605/pexels-photo-1822605.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'DSD',
-    photoId: 1822605,
-    photoURL: 'https://www.pexels.com/photo/man-holding-an-umbrella-1822605/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Liger Pham',
-    photoId: 1108701,
-    photoURL: 'https://www.pexels.com/photo/mt-fuji-japan-1108701/'
-  }
-];

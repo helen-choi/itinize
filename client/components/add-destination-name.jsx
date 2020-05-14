@@ -49,7 +49,6 @@ export default class AddDestinationName extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Typical usage (don't forget to compare props):
     if (this.state.componentStage !== prevState.componentStage) {
       this.setState({
         isClicked: false
