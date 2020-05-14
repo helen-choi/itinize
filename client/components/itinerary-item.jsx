@@ -187,7 +187,6 @@ export default class ListItineraryItem extends React.Component {
         {this.props.editClick
           ? (
             <div onClick={this.handleClickShowModal} className="Itinerary-Item mt-1 border border-secondary col-9 ">
-              <i onClick={() => this.props.handleDelete(this.props.id)} className="fas fa-times text-light"></i>
               <h3 className="text-light">{this.state.itineraryName}</h3>
               <p className="text-secondary text-light">{this.state.itineraryDay}</p>
               <p className={'text-light'}>{itineraryNote}</p>
