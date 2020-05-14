@@ -63,17 +63,18 @@ export default class FlightTripInfoItem extends React.Component {
     fetch(`/api/aviationStack/${flightIata}/${departureIata}`)
       .then(res => res.json())
       .then(flightDatas => {
-        console.log(flightDatas);
-        this.setState({
-          flightStatus: flightDatas.flightStatus,
-          airportArrival: flightDatas.airportArrival,
-          departTime: flightDatas.departTime,
-          arrivalTime: flightDatas.arrivalTime,
-          arrivalDay: flightDatas.arrivalDay,
-          departureTerminal: flightDatas.departureTerminal,
-          arrivingTerminal: flightDatas.arrivingTerminal,
-          departingDate: true
-        });
+        if (typeof flightDatas === 'object') {
+          this.setState({
+            flightStatus: flightDatas.flightStatus,
+            airportArrival: flightDatas.airportArrival,
+            departTime: flightDatas.departTime,
+            arrivalTime: flightDatas.arrivalTime,
+            arrivalDay: flightDatas.arrivalDay,
+            departureTerminal: flightDatas.departureTerminal,
+            arrivingTerminal: flightDatas.arrivingTerminal,
+            departingDate: true
+          });
+        }
       })
       .catch(err => console.error(err));
   }
