@@ -4,9 +4,9 @@ export default class AddFlightConfirmation extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <div className="row d-flex justify-content-center text-center mt-5">
-          <h2>Enter your flight information</h2>
+          <h2>Enter flight information</h2>
         </div>
 
         <div className="row d-flex justify-content-center text-center mt-3 text-muted">
