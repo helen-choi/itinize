@@ -156,7 +156,7 @@ export default class ListItineraryItem extends React.Component {
     }
     const optionTag = [];
     for (let i = 1; i <= this.props.totalDays; i++) {
-      optionTag.push(<option key={i}>Days {i}</option>);
+      optionTag.push(<option key={i}>Day {i}</option>);
     }
     return (
       <>
