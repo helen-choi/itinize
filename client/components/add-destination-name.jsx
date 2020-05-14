@@ -9,7 +9,7 @@ export default class AddDestinationName extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      componentStage: 0,
+      componentStage: -1,
       destinationName: '',
       destinationImage: '',
       tripStart: '',
