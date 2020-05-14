@@ -17,6 +17,7 @@ export default class AddDestinationName extends React.Component {
       tripEnd: '',
       description: '',
       placeId: '',
+      isSubmitted: false,
       coordinates: null
     };
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
@@ -112,6 +113,10 @@ export default class AddDestinationName extends React.Component {
           .then(res => res.json());
       })
       .catch(err => console.error(err));
+
+    this.setState({
+      isSubmitted: true
+    });
   }
 
   render() {
@@ -121,8 +126,7 @@ export default class AddDestinationName extends React.Component {
         handleSelectTripEnd={this.handleSelectTripEnd}
         key={this.state.componentStage}/>,
       <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
-        key={this.state.componentStage} />,
-      <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />];
+        key={this.state.componentStage} />];
     let leftIcon;
     let rightIcon;
     switch (this.state.componentStage) {
@@ -162,6 +166,7 @@ export default class AddDestinationName extends React.Component {
     }
 
     return (
+      (this.state.isSubmitted && <Confirmation key={this.state.componentStage} newItem="destination" history={this.props.history} match={this.props.match} />) ||
       <div className="w-100">
         {this.state.componentStage !== 3 ? (<div className="row page-controls no-gutters mb-1">
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage === -1) ? 'completed' : 'completed'}`}></div>
