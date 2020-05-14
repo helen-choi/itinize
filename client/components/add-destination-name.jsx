@@ -49,7 +49,6 @@ export default class AddDestinationName extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Typical usage (don't forget to compare props):
     if (this.state.componentStage !== prevState.componentStage) {
       this.setState({
         isClicked: false
@@ -148,12 +147,20 @@ export default class AddDestinationName extends React.Component {
   }
 
   render() {
-    const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
-      <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
-        handleSelectTripEnd={this.handleSelectTripEnd}
-        key={this.state.componentStage}/>,
-      <AddDestinationDescription handleSelectDestinationDescription={this.handleSelectDescription}
-        key={this.state.componentStage} />];
+    const componentsArray = [<SelectDestinationImageProfile
+      currentImage={this.state.destinationImage}
+      imageParam={this.state.destinationName}
+      handleImageClick={this.handleSelectImage}
+      country={this.state.destinationName}
+      key={this.state.componentStage}/>,
+    <AddDestinationDates
+      tripStart={this.state.tripStart}
+      handleSelectTripStart={this.handleSelectTripStart}
+      handleSelectTripEnd={this.handleSelectTripEnd}
+      key={this.state.componentStage}/>,
+    <AddDestinationDescription
+      handleSelectDestinationDescription={this.handleSelectDescription}
+      key={this.state.componentStage} />];
     let leftIcon;
     let rightIcon;
     const addDestinationValidation = (
