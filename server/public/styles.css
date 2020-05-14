@@ -375,12 +375,32 @@ i, .cursor-pointer{
   cursor: pointer;
 }
 
-.destination-validation-off {
+.destination-validation-off{
   transition: opacity 0.5s;
   opacity: 0;
 }
 
-.destination-validation-on {
+.destination-validation-on{
   transition: opacity 0.5s;
+  opacity: 1;
+}
+
+.destination-images-off {
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+.destination-images-on {
+  transition: opacity 1s;
+  opacity: 1;
+}
+
+.destination-images-unselected {
+  transition: opacity .25s;
+  opacity: 0;
+}
+
+.destination-images-selected {
+  transition: opacity .25s;
   opacity: 1;
 }
