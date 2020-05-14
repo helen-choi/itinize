@@ -279,7 +279,12 @@ ALTER TABLE ONLY public."Lodging" ALTER COLUMN "lodgingId" SET DEFAULT nextval('
 --
 
 COPY public."Destinations" ("destinationId", "destinationName", "destinationImage", "tripStart", "tripEnd", description, "placeId") FROM stdin;
-14	United States	https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-11	2020-05-12	as	ChIJPV4oX_65j4ARVW8IJ6IJUYs
+21	Japan	https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-19	2020-05-23	Visit Japan with Helen, David, and Frank	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+17	China	https://images.pexels.com/photos/683419/pexels-photo-683419.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-14	2020-05-24	Visit the great wall of China	ChIJwULG5WSOUDERbzafNHyqHZU
+23	New Zealand	https://images.pexels.com/photos/2259917/pexels-photo-2259917.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-26	2020-05-31	Visit LOTR set	ChIJh5Z3Fw4gLG0RM0dqdeIY1rE
+24	Mexico	https://images.pexels.com/photos/2388639/pexels-photo-2388639.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-24	2020-05-30	Get some yummy burritos	ChIJU1NoiDs6BIQREZgJa760ZO0
+25	South Africa	https://images.pexels.com/photos/59989/elephant-herd-of-elephants-african-bush-elephant-africa-59989.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-13	2020-05-26	Visit Simba and Nala and the Lion King	ChIJQbeMyNikZh4ReUEdli5FMYE
+26	Canada	https://images.pexels.com/photos/1563524/pexels-photo-1563524.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800	2020-05-17	2020-05-23	Visit family for the vacation	ChIJ2WrMN9MDDUsRpY9Doiq3aJk
 \.
 
 
@@ -299,6 +304,7 @@ COPY public."Flight" ("flightId", "flightNumber", "flightDate", "airportDepartur
 12	99999	2020-05-31	JFK	3	MEXICO
 20	UA2765	2020-05-11	LAX	4	United 
 21	AC7220	2020-05-11	AKL	4	Canada
+23	ewf	2020-05-12	fewfwef	17	fefewfw
 \.
 
 
@@ -312,6 +318,8 @@ COPY public."ItineraryList" ("itineraryId", "itineraryName", "itineraryDay", "it
 19	Tiger Sugar	Day	At this location, I will	37	12
 20	Tiger Sugar	Day 1	At this location, I will	39	14
 21	Burger King	Day	At this location, I will	40	14
+22	Tiger Sugar	Day 1	At this location, I will	51	17
+23	East West Ice Palace	Day 4	Ice skate	52	17
 \.
 
 
@@ -328,6 +336,23 @@ COPY public."Locations" ("locationId", coordinates, "placeId") FROM stdin;
 41	(36.7782610000000005,-119.417932399999998)	ChIJPV4oX_65j4ARVW8IJ6IJUYs
 42	(40,35)	12345
 43	(40,35)	12345
+44	(37.5665350000000018,126.977969200000004)	ChIJzWXFYYuifDUR64Pq5LTtioU
+45	(35.8616600000000076,104.195397)	ChIJwULG5WSOUDERbzafNHyqHZU
+46	(36.2048240000000021,138.252924000000007)	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+47	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+48	(33.8685660000000013,-118.060523500000002)	ChIJd2gVOf8s3YARX_SOrjse-b4
+49	(33.8685660000000013,-118.060523500000002)	ChIJd2gVOf8s3YARX_SOrjse-b4
+50	(33.9976829000000009,-118.420310900000004)	ChIJERNbcWy6woARfDzciYUJCVM
+51	(33.9880386999999899,-117.904589400000006)	ChIJ75Fo1xIrw4ARRMGCFLFcNLE
+52	(33.8726659000000012,-118.089230299999997)	ChIJmeB7KW0t3YAR7jG1vgMw41Y
+53	(37.5665350000000018,126.977969200000004)	ChIJzWXFYYuifDUR64Pq5LTtioU
+54	(36.2048240000000021,138.252924000000007)	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+55	(36.2048240000000021,138.252924000000007)	ChIJLxl_1w9OZzQRRFJmfNR1QvU
+56	(35.8616600000000076,104.195397)	ChIJwULG5WSOUDERbzafNHyqHZU
+57	(-40.9005569999999921,174.885971000000012)	ChIJh5Z3Fw4gLG0RM0dqdeIY1rE
+58	(23.6345010000000002,-102.552784000000003)	ChIJU1NoiDs6BIQREZgJa760ZO0
+59	(-32.9628159999999895,27.3543026000000005)	ChIJQbeMyNikZh4ReUEdli5FMYE
+60	(56.1303660000000022,-106.346771000000004)	ChIJ2WrMN9MDDUsRpY9Doiq3aJk
 \.
 
 
@@ -349,32 +374,36 @@ COPY public."Lodging" ("lodgingId", "lodgingConfNum", "checkInDateTime", "checkO
 -- Name: Destinations_destinationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 15, true);
+SELECT pg_catalog.setval('public."Destinations_destinationId_seq"', 26, true);
+
 
 --
 -- Name: Flight_flightId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Flight_flightId_seq"', 21, true);
+SELECT pg_catalog.setval('public."Flight_flightId_seq"', 23, true);
 
 
 --
 -- Name: ItineraryList_itineraryId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 21, true);
+SELECT pg_catalog.setval('public."ItineraryList_itineraryId_seq"', 23, true);
+
 
 --
 -- Name: Locations_locationId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Locations_locationId_seq"', 43, true);
+SELECT pg_catalog.setval('public."Locations_locationId_seq"', 60, true);
+
 
 --
 -- Name: Lodging_lodgingId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 61, true);
+SELECT pg_catalog.setval('public."Lodging_lodgingId_seq"', 64, true);
+
 
 --
 -- Name: Destinations Destinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -

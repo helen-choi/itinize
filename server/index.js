@@ -1,6 +1,6 @@
 require('dotenv/config');
 const express = require('express');
-
+var fetch = require('node-fetch');
 const db = require('./database');
 const ClientError = require('./client-error');
 const staticMiddleware = require('./static-middleware');
@@ -17,6 +17,7 @@ app.get('/api/destinations', (req, res, next) => {
   // for demo purposes for Kevin, I put the Pexel API key
   // in the .env file
   // console.log('Pexel Key:', process.env.PEXELSAPIKEY);
+
   const destinationGetSql = `
   select "destinationName",
   "destinationImage",
@@ -29,6 +30,28 @@ app.get('/api/destinations', (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+});
+
+app.get('/api/image/:countryParam', (req, res, next) => {
+  const params = {
+    method: 'GET',
+    headers: { Authorization: process.env.PEXELSAPIKEY }
+  };
+  fetch(`https://api.pexels.com/v1/search?query=${req.params.countryParam}&per_page=16&page=1`, params)
+    .then(res => res.json())
+    .then(data => {
+      const photoArray = [];
+      for (let i = 0; i < data.photos.length; i++) {
+        photoArray.push({
+          portraitSrc: data.photos[i].src.portrait,
+          photographer: data.photos[i].photographer,
+          photoId: data.photos[i].id,
+          photoURL: data.photos[i].url
+        });
+      }
+      res.json({ imageList: photoArray });
+    })
+    .catch(err => console.error(err));
 });
 
 app.get('/api/destinations/:destinationId', (req, res, next) => {

@@ -4,15 +4,14 @@ export default class FlightTripInfoItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flightNumber: '',
       flightStatus: '',
       airportArrival: '',
       departTime: '',
       arrivalTime: '',
       arrivalDay: '',
-      departureDate: '',
-      airportDeparture: '',
-      departingDate: false
+      departureTerminal: '',
+      arrivingTerminal: '',
+      departingDate: null
     };
     this.list = null;
     this.wrapper = null;
@@ -34,43 +33,46 @@ export default class FlightTripInfoItem extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      flightNumber: this.props.flightData.flightNumber,
-      airportDeparture: this.props.flightData.airportDeparture
-    });
-    this.checkDate(this.props.flightData.flightDate.slice(0, 10), this.props.flightData.flightNumber, this.props.flightData.airportDeparture);
+    const date = this.props.flightData.flightDate.slice(0, 10);
+    const iata = this.props.flightData.flightNumber;
+    const departureIata = this.props.flightData.airportDeparture;
+    this.checkDate(date, iata, departureIata);
     window.addEventListener('mouseup', this.onDragEndMouse);
     window.addEventListener('touchend', this.onDragEndTouch);
-
   }
 
-  checkDate(date, iata, departure) {
+  checkDate(date, iata, departureIata) {
     const userYear = date.slice(0, 4);
     const userMonth = date.slice(5, 7);
     const userDay = date.slice(8, 10);
     const userDate = new Date(userYear, userMonth - 1, userDay);
     const currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-
     if (currentDate.toString() === userDate.toString()) {
-      this.getFlightStatus(iata, departure);
+      this.getFlightStatus(iata, departureIata);
+    } else {
+      this.setState({
+        departingDate: false
+      });
     }
   }
 
   getFlightStatus(iata, departure) {
-    const key = 'a75149fdc4b4fb2bc75f00a6c9659e91';
+    const key = 'a640f0d77412849fd5f654a3b2cd8326';
     const flightIata = iata;
     const departureIata = departure;
     fetch(`http://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${flightIata}&dep_iata=${departureIata}`)
       .then(res => res.json())
       .then(data => {
         if (data.data.length !== 0) {
-          const flightUpdate = data.data.length - 1;
+          const flightUpdate = 0;
           this.setState({
             flightStatus: data.data[flightUpdate].flight_status,
             airportArrival: data.data[flightUpdate].arrival.iata,
             departTime: data.data[flightUpdate].departure.scheduled.slice(11, 16),
             arrivalTime: data.data[flightUpdate].arrival.scheduled.slice(11, 16),
             arrivalDay: data.data[flightUpdate].arrival.scheduled.slice(0, 10),
+            departureTerminal: data.data[flightUpdate].departure.terminal,
+            arrivingTerminal: data.data[flightUpdate].arrival.terminal,
             departingDate: true
           });
         }
@@ -168,6 +170,8 @@ export default class FlightTripInfoItem extends React.Component {
     const departTime = (this.state.departingDate) ? this.state.departTime : 'TBA';
     const arrivalTime = (this.state.departingDate) ? this.state.arrivalTime : null;
     const arrivalDay = (this.state.departingDate) ? this.state.arrivalDay : 'pending';
+    const departureTerminal = (this.state.departingDate) ? this.state.departureTerminal : 'pending';
+    const arrivingTerminal = (this.state.departingDate) ? this.state.arrivingTerminal : 'pending';
     return (
       <div className="wrapper">
         <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
@@ -183,7 +187,9 @@ export default class FlightTripInfoItem extends React.Component {
             <p> {flightData.airportDeparture} &#8594; {airportArrival}</p>
             <p><strong>Flight Number:</strong> {flightData.flightNumber}</p>
             <p><strong>Departing Date:</strong> {flightData.flightDate.slice(0, 10)} {departTime}</p>
-            <p><strong>Arrival Date</strong> {arrivalDay} {arrivalTime}</p>
+            <p><strong>Departure Terminal:</strong> {departureTerminal} </p>
+            <p><strong>Arrival Date:</strong> {arrivalDay} {arrivalTime}</p>
+            <p><strong>Arriving Terminal:</strong> {arrivingTerminal} </p>
             <p><strong>Flight Status:</strong> {flightStatus}</p>
           </div>
         </div>

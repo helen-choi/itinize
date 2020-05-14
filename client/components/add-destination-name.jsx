@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Script from 'react-load-script';
 import SelectDestinationImageProfile from './select-destination-image-profile';
 import AddDestinationDates from './add-trip-start-end-dates-front-end';
 import AddDestinationDescription from './add-description-to-destination';
@@ -18,8 +17,11 @@ export default class AddDestinationName extends React.Component {
       description: '',
       placeId: '',
       isSubmitted: false,
-      coordinates: null
+      coordinates: null,
+      isClicked: false
+
     };
+    this.googleMaps = this.googleMaps.bind(this);
     this.handleScriptLoad = this.handleScriptLoad.bind(this);
     this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,29 @@ export default class AddDestinationName extends React.Component {
     this.handleSelectTripEnd = this.handleSelectTripEnd.bind(this);
     this.handleSelectDescription = this.handleSelectDescription.bind(this);
     this.handleSubmitDestinationInfo = this.handleSubmitDestinationInfo.bind(this);
+  }
 
+  googleMaps() {
+    if (!document.getElementById('googleMaps')) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP}&libraries=places`;
+      script.defer = true;
+      script.async = true;
+      script.id = 'googleMaps';
+      document.querySelector('body').appendChild(script);
+      script.addEventListener('load', this.handleScriptLoad);
+    } else {
+      this.handleScriptLoad();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+    if (this.state.componentStage !== prevState.componentStage) {
+      this.setState({
+        isClicked: false
+      });
+    }
   }
 
   handleRightArrowClick() {
@@ -119,8 +143,11 @@ export default class AddDestinationName extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.googleMaps();
+  }
+
   render() {
-    const sessionToken = Math.random() * 100 + Math.random() * 1000 + Math.random() * 10;
     const componentsArray = [<SelectDestinationImageProfile currentImage={this.state.destinationImage} imageParam={this.state.destinationName} handleImageClick={this.handleSelectImage} country={this.state.destinationName} key={this.state.componentStage}/>,
       <AddDestinationDates tripStart={this.state.tripStart} handleSelectTripStart={this.handleSelectTripStart}
         handleSelectTripEnd={this.handleSelectTripEnd}
@@ -129,12 +156,20 @@ export default class AddDestinationName extends React.Component {
         key={this.state.componentStage} />];
     let leftIcon;
     let rightIcon;
+    const addDestinationValidation = (
+      <div className={`row justify-content-center ${(this.state.isClicked && !this.state.placeId) ? 'destination-validation-on' : 'destination-validation-off'}`}>
+        <div className="col-6 text-center text-danger">Valid Country Needed</div>
+      </div>
+    );
     switch (this.state.componentStage) {
       case -1:
         leftIcon = (<Link className="text-dark" to="/">
           <i className="fas fa-times fa-2x"></i>
         </Link>);
-        rightIcon = <i onClick={this.handleRightArrowClick} className="fas fa-arrow-right fa-2x"></i>;
+        rightIcon = <i onClick={() => {
+          this.setState({ isClicked: true });
+          if (this.state.placeId) { this.handleRightArrowClick(); }
+        }} className="fas fa-arrow-right fa-2x"></i>;
         break;
       case 0:
         leftIcon = <i onClick={this.handleLeftArrowClick} className="fas fa-arrow-left fa-2x"></i>;
@@ -178,7 +213,6 @@ export default class AddDestinationName extends React.Component {
           <div className="col d-flex justify-content-between">
             {leftIcon}
             {rightIcon}
-            {/* history prop will be used at the end of the multi-page form */}
           </div>
         </header>
         {(this.state.componentStage === -1 &&
@@ -191,17 +225,17 @@ export default class AddDestinationName extends React.Component {
             </div>
           </div>
           <div className="row justify-content-center">
+
             <div className="justify-content-center mt-5">
-              <Script url={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC9LE1lKj5Qhf161dfpRpA8mUQ17b-Oons&libraries=places&sessiontoken=${sessionToken}`} onLoad={this.handleScriptLoad} />
+             
               <input type="text" id="search" onChange={this.handleChange} onClick={this.handlePlaceSelect} className="p-2" placeholder="e.g. Japan" name="" />
+
             </div>
           </div>
+          {addDestinationValidation}
         </div>
       </div>) || componentsArray[this.state.componentStage]}
       </div>
     );
-
-    // either do a switch method or continue with this if-else statement
-
   }
 }

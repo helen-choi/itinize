@@ -8,9 +8,12 @@ export default class SelectDestinationImageProfile extends React.Component {
       imageList: [],
       imageChoice: '',
       isCheckVisible: false,
-      editMode: false
+      editMode: false,
+      loadedImages: null,
+      imageLoadError: false
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleImageLoaded = this.handleImageLoaded.bind(this);
   }
 
   componentDidMount() {
@@ -23,25 +26,28 @@ export default class SelectDestinationImageProfile extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+
+  }
+
+  handleImageLoaded() {
+    let loadCounter = this.state.loadedImages;
+    loadCounter = loadCounter + 1;
+    this.setState({ loadedImages: loadCounter });
+  }
+
+  handleImageError() {
+    this.setState({ imageLoadError: true });
+  }
+
   getPexelPictures() {
-    const params = {
-      method: 'GET',
-      headers: { Authorization: '563492ad6f9170000100000199ba9517fba74485b278a4b9796b71c3' }
-    };
-    fetch(`https://api.pexels.com/v1/search?query=${this.props.imageParam}&per_page=10&page=1`, params)
+    fetch(`/api/image/${this.props.imageParam}`)
       .then(res => res.json())
       .then(data => {
-        const photoArray = [];
-        for (let i = 0; i < data.photos.length; i++) {
-          photoArray.push({
-            portraitSrc: data.photos[i].src.portrait,
-            photographer: data.photos[i].photographer,
-            photoId: data.photos[i].id,
-            photoURL: data.photos[i].url
-          });
-        }
-        this.setState({ imageList: photoArray });
-      });
+        this.setState({ imageList: data.imageList });
+      }
+      );
   }
 
   editHeader() {
@@ -66,6 +72,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   render() {
+    const loadGoal = this.state.imageList.length;
     const reactElementArray = this.state.imageList.map(currentImage => {
       return (
         <div onClick={() => {
@@ -75,10 +82,10 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className="col-3 w-100 cursor-pointer">
+        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col-3 w-100 cursor-pointer`}>
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
-          <img className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
-          <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? '' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
+          <img onError={this.handleImageError} onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
+          <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? 'd-flex justify-content-center align-items-center ' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
             <i className="text-white confirm-icon fas fa-check fa-2x"></i>
           </div>
         </div>
@@ -95,7 +102,10 @@ export default class SelectDestinationImageProfile extends React.Component {
             </div>
           </div>
           <div className="row flex-wrap no-gutters justify-content-center">
-            {reactElementArray}
+            {(!this.state.imageLoadError && reactElementArray) ||
+            <div className="text-center text-danger col-6">Error: image search limit exceeded. Please try again in an hour</div>
+            }
+
           </div>
         </div>
       </>
@@ -103,9 +113,11 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 }
 
+
 // delete this after development
 
 // eslint-disable-next-line no-unused-vars
+
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
