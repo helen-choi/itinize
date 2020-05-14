@@ -359,6 +359,7 @@ font-family: 'Roboto Slab', sans-serif;
   left: 0;
 }
 .background-itinerary {
+  opacity: 0;
   background-color: #EA6A61;
   position: absolute;
   height: 88%;
@@ -381,6 +382,10 @@ font-family: 'Roboto Slab', sans-serif;
 }
 .Itinerary-Item {
   background-color: white;
+}
+
+div.scroll-menu > button:first-child {
+  width: 52.672px;
 }
 
 .Itinerary-Item-edit {

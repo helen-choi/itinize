@@ -144,7 +144,7 @@ export default class DestinationInfo extends React.Component {
           {
             (!this.state.editIconIsClicked &&
             <>
-              <div className="overlay overlay-destination-info container"></div>
+              <div className="overlay overlay-destination-info"></div>
               <header className="row justify-content-between pt-2 flex-fill">
                 <Link to="/" className="col-2 text-white">
                   <i className="fas fa-arrow-left fa-2x"></i>

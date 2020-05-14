@@ -156,7 +156,7 @@ export default class ListItineraryItem extends React.Component {
     }
     const optionTag = [];
     for (let i = 1; i <= this.props.totalDays; i++) {
-      optionTag.push(<option key={i}>Days {i}</option>);
+      optionTag.push(<option key={i}>Day {i}</option>);
     }
     return (
       <>
@@ -194,7 +194,7 @@ export default class ListItineraryItem extends React.Component {
           )
           : (
             <div className="position-relative w-100" ref={div => (this.wrapper = div)}>
-              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 ml-auto mr-auto w-75 mt-3" ref={div => (this.background = div)}>
+              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 mx-auto w-75 mt-3" ref={div => (this.background = div)}>
                 <p className="text-white"><strong>DELETE</strong></p>
               </div>
               <div
@@ -204,7 +204,7 @@ export default class ListItineraryItem extends React.Component {
                 onClick={this.handleClick.bind(this)}
                 data-toggle='collapse'
                 data-target={`#${this.props.id}`}
-                className="Itinerary-Item mt-3 border border-secondary col-9 ml-auto mr-auto">
+                className="Itinerary-Item mt-3 border border-secondary col-9 mx-auto">
                 <h3>{this.props.itineraryName}</h3>
                 <p className="text-secondary">{this.props.itineraryDay}</p>
                 <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>

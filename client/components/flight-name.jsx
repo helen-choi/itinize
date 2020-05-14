@@ -102,7 +102,7 @@ export default class AddFlightName extends React.Component {
 
     switch (componentStage) {
       case -1:
-        leftIcon = <Link to={`/destinations/${destinationId}`}><i className="fas fa-times fa-2x"></i></Link>;
+        leftIcon = <Link to={`/destinations/${destinationId}`}><i className="fas fa-times fa-2x text-dark"></i></Link>;
         rightIcon = <i className="fas fa-arrow-right fa-2x" onClick={this.handleNextClick}></i>;
         break;
       case 0:
