@@ -150,7 +150,6 @@ div.Destination-List > h1 {
   text-align: center;
 }
 
-.DestinationInfo header > *,
 .form-element > *{
   position: relative;
   z-index: 1;
