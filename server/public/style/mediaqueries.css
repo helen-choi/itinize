@@ -1,0 +1,40 @@
+@media only screen and (min-width: 765px) {
+  .Destination-List > header img {
+    height: 50px;
+    width: 50px;
+  }
+  .Destination-List h1.flex-column {
+    font-size: 5em;
+    flex-direction: row!important;
+    justify-content: center;
+    flex-basis: 100%;
+  }
+  .Destination-List h1 > span:nth-child(2) {
+    padding-left: 30px;
+  }
+  .Destination-List h5 {
+    font-size: 2em;
+  }
+  .Destination-List .circle {
+    padding: 5%!important;
+    margin-top: 30px!important;
+    width: 60px;
+    height: 60px;
+  }
+}
+@media only screen and (min-width: 990px) {
+  .Destination-List div.col-6 {
+    max-width: 30%;
+  }
+  .destinations-container {
+    justify-content: center;
+  }
+}
+@media only screen and (min-width: 1196px) {
+  .Destination-List .card {
+    max-width: 441px;
+  }
+  .Destination-List .card div.row {
+    max-width: 469px;
+  }
+}
