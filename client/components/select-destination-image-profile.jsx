@@ -4,6 +4,7 @@ export default class SelectDestinationImageProfile extends React.Component {
     super(props);
     this.state = {
       // Change this back to empty during production for API call
+      // Delete this test variable after the program
       // imageList: dummyImageArray,
       imageList: [],
       imageChoice: '',
@@ -17,18 +18,10 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   componentDidMount() {
-  // Enable this method after an hour and check to make sure you don't make
-  // too many GET requests. We're limited to 200 per hour
-  // Stretch future would be to use componentDidUpdate to disable multiple requests from happening
     this.getPexelPictures();
     if (this.props.handleCheck) {
       this.setState({ editMode: true });
     }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // Typical usage (don't forget to compare props):
-
   }
 
   handleImageLoaded() {
@@ -82,7 +75,7 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col-3 w-100 cursor-pointer`}>
+        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col-4 w-100 cursor-pointer`}>
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
           <img onError={this.handleImageError} onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
           <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? 'd-flex justify-content-center align-items-center ' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
@@ -113,11 +106,9 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 }
 
-
 // delete this after development
 
 // eslint-disable-next-line no-unused-vars
-
 const dummyImageArray = [
   {
     portraitSrc: 'https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
@@ -172,47 +163,5 @@ const dummyImageArray = [
     photographer: 'Liger Pham',
     photoId: 1108701,
     photoURL: 'https://www.pexels.com/photo/mt-fuji-japan-1108701/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Haugenzhays Zhang',
-    photoId: 1798631,
-    photoURL: 'https://www.pexels.com/photo/neon-signs-1798631/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1654748/pexels-photo-1654748.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Nien Tran Dinh',
-    photoId: 1654748,
-    photoURL: 'https://www.pexels.com/photo/photo-of-himeji-castle-behind-white-cherry-blossoms-1654748/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1829980/pexels-photo-1829980.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'DSD',
-    photoId: 1829980,
-    photoURL: 'https://www.pexels.com/photo/pagoda-temple-near-lake-under-cloudy-sky-1829980/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/315191/pexels-photo-315191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Pixabay',
-    photoId: 315191,
-    photoURL: 'https://www.pexels.com/photo/side-view-of-woman-in-illuminated-city-at-night-315191/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1510595/pexels-photo-1510595.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Aleksandar Pasaric',
-    photoId: 1510595,
-    photoURL: 'https://www.pexels.com/photo/people-walking-on-the-streets-surrounded-by-buildings-1510595/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1310788/pexels-photo-1310788.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'Vincent M.A. Janssen',
-    photoId: 1310788,
-    photoURL: 'https://www.pexels.com/photo/gray-concrete-pathway-between-red-and-black-pillars-1310788/'
-  },
-  {
-    portraitSrc: 'https://images.pexels.com/photos/1829980/pexels-photo-1829980.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800',
-    photographer: 'DSD',
-    photoId: 1829940,
-    photoURL: 'https://www.pexels.com/photo/pagoda-temple-near-lake-under-cloudy-sky-1829980/'
   }
 ];
