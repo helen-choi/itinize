@@ -230,9 +230,10 @@ font-family: 'Roboto Slab', sans-serif;
 }
 
 .pexels-photo-text{
-  bottom: 0%;
+  bottom: 0;
   margin-bottom: 0;
-  font-size: 5px;
+  font-size: 50%;
+  color: white;
   background-color: black;
 }
 
