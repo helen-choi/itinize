@@ -36,6 +36,7 @@ export default class DestinationList extends React.Component {
   }
 
   render() {
+    console.log('Hello');
     return (
       <div className="container Destination-List p-4">
         <header className="row pl-4">
