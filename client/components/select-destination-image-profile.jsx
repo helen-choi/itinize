@@ -72,7 +72,7 @@ export default class SelectDestinationImageProfile extends React.Component {
           }
         }}
         key={currentImage.photoId}
-        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col-4 w-100 cursor-pointer`}>
+        className={`${this.state.loadedImages === loadGoal ? 'destination-images-on' : 'destination-images-off'} col w-100 cursor-pointer d-flex justify-content-center`}>
           <p className="position-absolute pexels-photo-text"><em><a target="_blank" rel='noopener noreferrer' href={currentImage.photoURL}>Photo</a> by {currentImage.photographer}</em></p>
           <img onError={this.handleImageError} onLoad={this.handleImageLoaded} className='w-100 pexels-photo' src={currentImage.portraitSrc} alt="" />
           <div className={`${(this.state.imageChoice === currentImage.portraitSrc) ? 'd-flex justify-content-center align-items-center ' : 'd-none '}h-100 w-100 position-absolute destination-image-modal-check`}>
