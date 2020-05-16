@@ -136,6 +136,7 @@ a.pexels {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  overflow:hidden;
 }
 .edit-input, .DestinationInfo p {
   background-color: transparent;
