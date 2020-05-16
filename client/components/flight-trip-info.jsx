@@ -44,7 +44,6 @@ export default class TripInfo extends React.Component {
   render() {
 
     const modalStyle = this.state.handleEditClick ? { display: 'block' } : { display: 'none' };
-    const iconsHidden = this.state.flights[0] ? { display: 'inline-block' } : { display: 'none' };
     const { destinationName } = this.props.location.state;
     const { destinationId } = this.props.location.state;
     return (
@@ -56,11 +55,8 @@ export default class TripInfo extends React.Component {
 
         </header>
         <div className="flight-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
-        <div className="row justify-content-center mt-4 mb-4">
-          <h1>{destinationName}</h1>
-        </div>
-
-        <div className="toggle row" style={iconsHidden}>
+        <h1 className="row justify-content-center mt-4 mb-4">{destinationName}</h1>
+        <div className="toggle row">
           <Link to={{
             pathname: '/lodgings',
             state: {
@@ -79,14 +75,14 @@ export default class TripInfo extends React.Component {
           </div>
         </div>
 
-        <div className="pl-3 pr-3 mt-3">
+        <div className="pl-3 pr-3 mt-4">
           {
             this.state.flights.map(flight => {
               return <FlightTripInfoItem handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
             })
           }
         </div>
-        <div className="pl-3 pr-3 mt-3">
+        <div className="pl-3 pr-3 mt-4">
           <div className="gray-box p-4 d-flex justify-content-center">
             <Link to={{
               pathname: '/flights/create',
