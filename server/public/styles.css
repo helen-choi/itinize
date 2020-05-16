@@ -113,6 +113,7 @@ a.pexels {
     bottom: 0;
     left: 0;
     right: 0;
+    border-radius: 20px;
 }
 
 .overlay-destination-info {
