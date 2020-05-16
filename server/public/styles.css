@@ -108,12 +108,11 @@ a.pexels {
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 0;
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    border-radius: 20px;
 }
 
 .overlay-destination-info {
@@ -136,7 +135,6 @@ a.pexels {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  overflow: hidden;
 }
 .edit-input, .DestinationInfo p {
   background-color: transparent;
