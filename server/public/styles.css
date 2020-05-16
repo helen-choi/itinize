@@ -108,7 +108,7 @@ a.pexels {
 .overlay {
     background-color: rgba(0,0,0,0.5);
     z-index: 0;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -136,7 +136,7 @@ a.pexels {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  position: fixed;
+  overflow: hidden;
 }
 .edit-input, .DestinationInfo p {
   background-color: transparent;
