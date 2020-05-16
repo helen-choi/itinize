@@ -56,7 +56,7 @@ export default class LodgingList extends React.Component {
 
   render() {
     const modalStyle = this.state.editModeOn ? { display: 'block' } : { display: 'none' };
-    const iconsHidden = this.state.lodgings[0] ? { display: 'inline-block' } : { display: 'none' };
+    const extraMargin = this.state.lodgings[0] ? { marginTop: '25px' } : { marginTop: '60px' };
     const { destinationName } = this.props.location.state;
     const { destinationId } = this.props.location.state;
     return (
@@ -74,7 +74,7 @@ export default class LodgingList extends React.Component {
         </div>
         <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
         <h1 className="text-center mt-4 mb-4">{destinationName}</h1>
-        <div className="toggle row" style={iconsHidden}>
+        <div className="toggle row">
           <Link to={{
             pathname: '/flights',
             state: {
@@ -92,12 +92,12 @@ export default class LodgingList extends React.Component {
             <i className="fas fa-home text-white"></i>
           </div>
         </div>
-        <div className="lodgings pl-3 pr-3 mt-3">
+        <div className="lodgings pl-3 pr-3 mt-4">
           {this.state.lodgings.map(lodging => {
             return <LodgingItem key={lodging.lodgingId} lodgingId={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete}/>;
           })}
         </div>
-        <div className="pl-3 pr-3 mt-3">
+        <div className="pl-3 pr-3" style={extraMargin}>
           <div className="gray-box p-4 d-flex justify-content-center">
             <Link to={{
               pathname: '/lodgings/create',
