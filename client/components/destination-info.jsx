@@ -164,9 +164,9 @@ export default class DestinationInfo extends React.Component {
                   : <input className="edit-input h1 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                 }
                 <div className=" col-12 ml-4 d-flex">
-                  <input className="edit-input p-2" readOnly value={this.tripStart}/>
+                  <input className="edit-input" readOnly value={this.tripStart}/>
                   <p className="my-auto"> - </p>
-                  <input className="edit-input p-2" readOnly value={this.tripEnd}/>
+                  <input className="edit-input" readOnly value={this.tripEnd}/>
                 </div>
                 <textarea
                   readOnly className="edit-input col-10 ml-4 align-self-end"
