@@ -118,6 +118,7 @@ a.pexels {
 
 .overlay-destination-info {
   border-radius: 0;
+  position: fixed;
 }
 
 .overlay-edit {
@@ -259,22 +260,22 @@ font-family: 'Roboto Slab', sans-serif;
 
 }
 .toggle-flights {
-  left:41%;
+  left:40%;
   z-index: -1;
 }
 .toggle-lodgings {
-  right:41%;
+  right:40%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 
 .show-flights {
-  left: 41%;
+  left: 40%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 .show-lodgings {
-  right: 41%;
+  right: 40%;
   z-index: -1;
 }
 .show {
