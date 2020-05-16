@@ -264,18 +264,20 @@ font-family: 'Roboto Slab', sans-serif;
 .toggle-lodgings {
   right:41%;
   z-index: 1;
+  box-shadow: #c4c4c4 1px 3px 10px;
 }
 
 .show-flights {
   left: 41%;
-  z-index: 1
+  z-index: 1;
+  box-shadow: #c4c4c4 1px 3px 10px;
 }
 .show-lodgings {
   right: 41%;
-  z-index: -1
+  z-index: -1;
 }
 .show {
-  z-index: 2
+  z-index: 2;
 }
 
 .toggle-hidden {

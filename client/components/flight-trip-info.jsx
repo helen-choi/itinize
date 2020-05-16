@@ -44,6 +44,7 @@ export default class TripInfo extends React.Component {
   render() {
 
     const modalStyle = this.state.handleEditClick ? { display: 'block' } : { display: 'none' };
+    const extraMargin = this.state.flights[0] ? { marginTop: '25px' } : { marginTop: '60px' };
     const { destinationName } = this.props.location.state;
     const { destinationId } = this.props.location.state;
     return (
@@ -82,7 +83,7 @@ export default class TripInfo extends React.Component {
             })
           }
         </div>
-        <div className="pl-3 pr-3 mt-4">
+        <div className="pl-3 pr-3" style={extraMargin}>
           <div className="gray-box p-4 d-flex justify-content-center">
             <Link to={{
               pathname: '/flights/create',
