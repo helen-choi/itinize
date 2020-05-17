@@ -115,7 +115,7 @@ export default class LodgingItem extends React.Component {
     return (
       <div className="wrapper" ref={div => (this.wrapper = div)}>
         <div className="background d-flex justify-content-end align-items-center pr-4" ref={div => (this.background = div)}>
-          <h4 className="text-white"><strong>DELETE</strong></h4>
+          <h5 className="text-white"><strong>DELETE</strong></h5>
         </div>
         <div className="lodging p-4 mt-3 position-relative"
           ref={div => (this.list = div)}

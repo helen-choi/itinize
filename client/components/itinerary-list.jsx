@@ -82,7 +82,8 @@ export default class ItineraryList extends React.Component {
         itineraryNote={currentItem.itineraryNote}
         locationId={currentItem.locationId}
         handleDelete={this.handleDelete}
-      />);
+      />
+      );
     });
     const dayButtons = [];
     let colorChangerIndex = 0;
@@ -94,7 +95,7 @@ export default class ItineraryList extends React.Component {
       colorChangerIndex++;
     }
     return (
-      <div className="container">
+      <div className="p-3">
         {this.state.editIsClick ? <div onClick={this.handleEditClick} className="overlay-edit"></div> : null}
         <div className="mt-2 row">
           {
@@ -121,15 +122,8 @@ export default class ItineraryList extends React.Component {
                   </Link>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
-                  <i onClick={this.handleEditClick} className="fas ml-2 fa-pen fa-2x text-dark"></i>
-                  <Link to={{
-                    pathname: '/itineraries/create',
-                    state: {
-                      destinationId: this.props.location.state.destinationId
-                    }
-                  }}>
-                    <i className="fas fa-plus fa-2x text-dark mr-2 ml-1"></i>
-                  </Link>
+                  <i onClick={this.handleEditClick} className="fas ml-2 fa-pen fa-2x text-dark mr-3"></i>
+
                   <i onClick={this.handleCompassClick} className="far fa-map fa-2x text-dark"></i>
                 </div>
               </>
@@ -159,14 +153,30 @@ export default class ItineraryList extends React.Component {
             </div>
           ) ||
           (
-            <div className="mt-2 row justify-content-center">
-              {(this.state.itineraryItems.length === 0)
-                ? <div className="mt-1 col-12">
-                  <img className="mt-4 mb-4 w-100" src="./images/no-itinerary.png" alt=""/>
-                  <h4 className="text-center">No Itinerary Items Added</h4>
+            <>
+              <div className="mt-2 row justify-content-center">
+                {(this.state.itineraryItems.length === 0)
+                  ? <div className="mt-1 col-12">
+                    <img className="mt-4 mb-4 w-100" src="./images/no-itinerary.png" alt=""/>
+                    <h4 className="text-center">No Itinerary Items Added</h4>
+                  </div>
+                  : reactItineraryItems}
+              </div>
+              <div className="pl-3 pr-3 mt-3">
+                <div className="gray-box p-4 d-flex justify-content-center">
+                  <Link to={{
+                    pathname: '/itineraries/create',
+                    state: {
+                      destinationId: this.props.location.state.destinationId
+                    }
+                  }}>
+                    <div className="add-lodging-item d-flex justify-content-center align-items-center">
+                      <i className="fas fa-plus fa-2x"></i>
+                    </div>
+                  </Link>
                 </div>
-                : reactItineraryItems}
-            </div>
+              </div>
+            </>
           )
         }
       </div>

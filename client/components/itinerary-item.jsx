@@ -193,23 +193,25 @@ export default class ListItineraryItem extends React.Component {
             </div>
           )
           : (
-            <div className="position-relative w-100" ref={div => (this.wrapper = div)}>
-              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 mx-auto w-75 mt-3" ref={div => (this.background = div)}>
-                <p className="text-white"><strong>DELETE</strong></p>
+            <div className="position-relative w-100 pl-3 pr-3" ref={div => (this.wrapper = div)}>
+              <div className="background-itinerary d-flex justify-content-end align-items-center pr-2 mx-auto mt-3" ref={div => (this.background = div)}>
+                <h5 className="text-white"><strong>DELETE</strong></h5>
               </div>
-              <div
-                ref={div => (this.list = div)}
-                onMouseDown={this.onDragStartMouse}
-                onTouchStart={this.onDragStartTouch}
-                onClick={this.handleClick.bind(this)}
-                data-toggle='collapse'
-                data-target={`#${this.props.id}`}
-                className="Itinerary-Item mt-3 border border-secondary col-9 mx-auto">
-                <h3>{this.props.itineraryName}</h3>
-                <p className="text-secondary">{this.props.itineraryDay}</p>
-                <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
-                <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
-                <div className="delete-arrow"><i className="fas fa-chevron-left fa-2x"></i></div>
+              <div className="pr-3 pl-3">
+                <div
+                  ref={div => (this.list = div)}
+                  onMouseDown={this.onDragStartMouse}
+                  onTouchStart={this.onDragStartTouch}
+                  onClick={this.handleClick.bind(this)}
+                  data-toggle='collapse'
+                  data-target={`#${this.props.id}`}
+                  className="Itinerary-Item mt-3 p-4 mx-auto position-relative">
+                  <h5>{this.props.itineraryName}</h5>
+                  <p className="text-muted mb-1">{this.props.itineraryDay}</p>
+                  <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-muted mb-0`}>{itineraryNote}</p>
+                  <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
+                  <div className="delete-arrow"><i className="fas fa-chevron-left fa-2x"></i></div>
+                </div>
               </div>
             </div>
           )}
