@@ -204,10 +204,10 @@ export default class ListItineraryItem extends React.Component {
                 onClick={this.handleClick.bind(this)}
                 data-toggle='collapse'
                 data-target={`#${this.props.id}`}
-                className="Itinerary-Item mt-3 border border-secondary col-9 mx-auto">
-                <h3>{this.props.itineraryName}</h3>
-                <p className="text-secondary">{this.props.itineraryDay}</p>
-                <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-secondary`}>{itineraryNote}</p>
+                className="Itinerary-Item mt-3 p-4 col-9 mx-auto">
+                <h5>{this.props.itineraryName}</h5>
+                <p className="text-muted mb-1">{this.props.itineraryDay}</p>
+                <p className={`${(this.state.isClicked) ? 'd-none' : ''} text-muted mb-0`}>{itineraryNote}</p>
                 <p id={this.props.id} className={`${(this.state.isClicked) ? '' : 'd-none'} text-secondary itinerary-display`}>{this.props.itineraryNote}</p>
                 <div className="delete-arrow"><i className="fas fa-chevron-left fa-2x"></i></div>
               </div>
