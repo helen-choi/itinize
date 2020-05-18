@@ -3,10 +3,8 @@
     height: 50px;
     width: 50px;
   }
-  .Destination-List h1.flex-column {
-    font-size: 5em;
-    flex-direction: row!important;
-    justify-content: center;
+  .Destination-List h1.destinationTitle {
+    font-size: 4em;
     flex-basis: 100%;
   }
   .Destination-List h1 > span:nth-child(2) {
@@ -21,6 +19,15 @@
     width: 60px;
     height: 60px;
   }
+  .destination-item-control i {
+    font-size:20px;
+  }
+  .DestinationInfo footer {
+    max-width: 70%;
+  }
+   .form-element {
+    max-width: 70%;
+  }
 }
 @media only screen and (min-width: 990px) {
   .destinations-container > div {
@@ -28,6 +35,10 @@
   }
   .destinations-container {
     justify-content: center;
+  }
+  .circle {
+    height: 80px;
+    width: 80px;
   }
 }
 /* @media only screen and (min-width: 1196px) {

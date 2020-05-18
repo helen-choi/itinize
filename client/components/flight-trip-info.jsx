@@ -76,7 +76,7 @@ export default class TripInfo extends React.Component {
           </div>
         </div>
 
-        <div className="pl-3 pr-3 mt-4">
+        <div className="pl-3 pr-3">
           {
             this.state.flights.map(flight => {
               return <FlightTripInfoItem handleClickDelete={this.handleClickDelete} key={flight.flightId} flightData={flight} />;
