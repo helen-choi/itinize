@@ -82,7 +82,7 @@ export default class SelectDestinationImageProfile extends React.Component {
       );
     });
     return (
-      <>
+      <div className="edit-image-container">
         { this.state.editMode ? this.editHeader() : null }
         <div className="d-flex align-items-start justify-content-center flex-wrap">
           <div className="d-flex justify-content-center">
@@ -98,7 +98,7 @@ export default class SelectDestinationImageProfile extends React.Component {
 
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
