@@ -4,7 +4,7 @@ export default class AddDestinationDescription extends React.Component {
   render() {
 
     return (
-      <div className="row">
+      <div className="d-flex">
         <div className="col">
           <div className="row">
             <div className="col">

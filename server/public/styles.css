@@ -469,5 +469,9 @@ i, .cursor-pointer{
 .destination-images-selected {
   transition: opacity .25s;
   opacity: 1;
-
+}
+.validation-text {
+  color:#EA6A61;
+  font-size: 12px;
+  padding-top: 10px;
 }

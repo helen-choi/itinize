@@ -41,7 +41,7 @@ export default class SelectDestinationImageProfile extends React.Component {
   }
 
   editHeader() {
-    return (<header className="row">
+    return (<header className="d-flex">
       <div className="col d-flex justify-content-between p-3">
         <i onClick={() => this.props.handleExit()} className="fas fa-times fa-2x pl-3"></i>
         <i onClick={() => {
@@ -84,14 +84,14 @@ export default class SelectDestinationImageProfile extends React.Component {
     return (
       <>
         { this.state.editMode ? this.editHeader() : null }
-        <div className="row align-items-start justify-content-center">
-          <div className="row justify-content-center">
+        <div className="d-flex align-items-start justify-content-center flex-wrap">
+          <div className="d-flex justify-content-center">
             <div className="col mt-3 pr-5 pl-5">
               <h3 className="text-center font-weight-bold">Select an image</h3>
               <p className="text-center text-muted">Pick an image that makes you feel something and is connected to your trip. (Photos provided by <a className="text-muted pexels" target="_blank" rel='noopener noreferrer' href="https://www.pexels.com/">Pexels</a>)</p>
             </div>
           </div>
-          <div className="row flex-wrap no-gutters justify-content-center">
+          <div className="d-flex flex-wrap no-gutters justify-content-center">
             {(!this.state.imageLoadError && reactElementArray) ||
             <div className="text-center text-danger col-6">Error: image search limit exceeded. Please try again in an hour</div>
             }

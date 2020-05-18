@@ -165,7 +165,7 @@ export default class AddDestinationName extends React.Component {
     let rightIcon;
     const addDestinationValidation = (
       <div className={`row justify-content-center ${(this.state.isClicked && !this.state.placeId) ? 'destination-validation-on' : 'destination-validation-off'}`}>
-        <div className="col-6 text-center text-danger">Valid Country Needed</div>
+        <div className="col-6 text-center validation-text">Valid Country Needed</div>
       </div>
     );
     switch (this.state.componentStage) {
@@ -216,14 +216,14 @@ export default class AddDestinationName extends React.Component {
           <div className={`col destination-progress-bar-margin ${(this.state.componentStage >= 1) ? 'completed' : 'not-completed'}`}></div>
           <div className={`col ${(this.state.componentStage === 2) ? 'completed' : 'not-completed'}`}></div>
         </div>) : null }
-        <header className="row p-3">
+        <header className="d-flex p-3">
           <div className="col d-flex justify-content-between">
             {leftIcon}
             {rightIcon}
           </div>
         </header>
         {(this.state.componentStage === -1 &&
-      <div className="row">
+      <div className="d-flex">
         <div className="col">
           <div className="row">
             <div className="col">
