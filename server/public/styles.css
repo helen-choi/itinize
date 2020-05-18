@@ -285,12 +285,12 @@ font-family: 'Roboto Slab', sans-serif;
 }
 
 .show-flights {
-  left: 39%;
+  left: 30%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 .show-lodgings {
-  right: 39%;
+  right: 30%;
   z-index: -1;
 }
 .show {
@@ -305,7 +305,7 @@ font-family: 'Roboto Slab', sans-serif;
 }
 .show-hidden {
   position: absolute;
-  right: 37%;
+  right: 23%;
   width: 50px;
   height: 50px;
 }
