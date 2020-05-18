@@ -263,22 +263,22 @@ font-family: 'Roboto Slab', sans-serif;
 
 }
 .toggle-flights {
-  left:40%;
+  left:39%;
   z-index: -1;
 }
 .toggle-lodgings {
-  right:40%;
+  right:39%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 
 .show-flights {
-  left: 40%;
+  left: 39%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 .show-lodgings {
-  right: 40%;
+  right: 39%;
   z-index: -1;
 }
 .show {

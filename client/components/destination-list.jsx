@@ -44,9 +44,9 @@ export default class DestinationList extends React.Component {
               <i className="fas fa-plus icon-add fa-2x text-dark"></i>
             </Link>
           </div>
-          <h1 className="row flex-column">My<br />Travels</h1>
+          <h1 className="row destinationTitle">My<br />Travels</h1>
         </header>
-        <div className="row destinations-container">
+        <div className="row destinations-container justify-content-between">
           {this.state.destinations ? this.state.destinations.map(destination => {
             return (
               <div className="col-6" key={destination.destinationId}>
