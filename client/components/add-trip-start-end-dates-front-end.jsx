@@ -15,7 +15,7 @@ export default class AddDestinationDates extends React.Component {
     const formattedDate = `${currentYear}-${currentMonth}-${currentDay}`;
 
     return (
-      <div className="row">
+      <div className="d-flex">
         <div className="col">
           <div className="row">
             <div className="col">

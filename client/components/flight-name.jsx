@@ -118,7 +118,7 @@ export default class AddFlightName extends React.Component {
     return (
       (this.state.isSubmitted && <Confirmation newItem="flight" history={this.props.history} match={this.props.match}/>) ||
       <div className="add-flight-container">
-        <div className="page-controls d-flex flex-nowrap">
+        <div className="page-controls row flex-nowrap w-100">
           <div className={`col-4 mr-2 ${statusArr[0]}`}></div>
           <div className={`col-4 mr-2 ${statusArr[1]}`}></div>
           <div className={`col-4 ${statusArr[2]}`}></div>
@@ -130,15 +130,15 @@ export default class AddFlightName extends React.Component {
         </div>
         {(this.state.componentStage === -1 &&
           <div className="add-flight-name-container">
-            <div className="row d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-5">
               <h2>Name your flight</h2>
             </div>
 
-            <div className="row d-flex justify-content-center mt-3 text-muted">
+            <div className="d-flex justify-content-center mt-3 text-muted">
               <h6>Ex: Returningflight, Going back home!</h6>
 
             </div>
-            <div className="row d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-5">
               <input type="text" name="flightName" onChange={this.handleChange} className="text-center flight-name p-2" placeholder="Flight Name" value={this.state.flightName} />
             </div>
           </div>

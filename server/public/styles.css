@@ -260,6 +260,12 @@ font-family: 'Roboto Slab', sans-serif;
 .toggle {
   height:10px;
 }
+.toggle-container {
+    position: relative;
+    width: 200px;
+    height: 52px;
+    margin: 0 auto;
+}
 .toggle-icon {
   border-radius:50%;
   width:50px;
@@ -269,22 +275,22 @@ font-family: 'Roboto Slab', sans-serif;
 
 }
 .toggle-flights {
-  left:39%;
+  left:30%;
   z-index: -1;
 }
 .toggle-lodgings {
-  right:39%;
+  right:30%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 
 .show-flights {
-  left: 39%;
+  left: 30%;
   z-index: 1;
   box-shadow: #c4c4c4 1px 3px 10px;
 }
 .show-lodgings {
-  right: 39%;
+  right: 30%;
   z-index: -1;
 }
 .show {
@@ -293,13 +299,13 @@ font-family: 'Roboto Slab', sans-serif;
 
 .toggle-hidden {
   position: absolute;
-  left:37%;
+  left:23%;
   width:50px;
   height:50px;
 }
 .show-hidden {
   position: absolute;
-  right: 37%;
+  right: 23%;
   width: 50px;
   height: 50px;
 }
@@ -469,5 +475,9 @@ i, .cursor-pointer{
 .destination-images-selected {
   transition: opacity .25s;
   opacity: 1;
-
+}
+.validation-text {
+  color:#EA6A61;
+  font-size: 12px;
+  padding-top: 10px;
 }

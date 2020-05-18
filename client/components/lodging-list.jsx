@@ -75,21 +75,23 @@ export default class LodgingList extends React.Component {
         <div className="lodging-edit-modal" style={modalStyle} onClick={this.handleExitClick}></div>
         <h1 className="text-center mt-4 mb-4">{destinationName}</h1>
         <div className="toggle row">
-          <Link to={{
-            pathname: '/flights',
-            state: {
-              destinationId: destinationId,
-              destinationName: destinationName
-            }
-          }}>
-            <div className="toggle-hidden"></div>
-          </Link>
-          <div className="toggle-icon toggle-flights teal row justify-content-center align-items-center">
-            <i className="fas fa-plane text-white"></i>
-          </div>
+          <div className="toggle-container">
+            <Link to={{
+              pathname: '/flights',
+              state: {
+                destinationId: destinationId,
+                destinationName: destinationName
+              }
+            }}>
+              <div className="toggle-hidden"></div>
+            </Link>
+            <div className="toggle-icon toggle-flights teal row justify-content-center align-items-center">
+              <i className="fas fa-plane text-white"></i>
+            </div>
 
-          <div className="toggle-icon toggle-lodgings red row justify-content-center align-items-center">
-            <i className="fas fa-home text-white"></i>
+            <div className="toggle-icon toggle-lodgings red row justify-content-center align-items-center">
+              <i className="fas fa-home text-white"></i>
+            </div>
           </div>
         </div>
         <div className="lodgings pl-3 pr-3">

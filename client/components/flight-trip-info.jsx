@@ -58,21 +58,23 @@ export default class TripInfo extends React.Component {
         <div className="flight-edit-modal" style={modalStyle} onClick={this.handleEditClick}></div>
         <h1 className="row justify-content-center mt-4 mb-4">{destinationName}</h1>
         <div className="toggle row">
-          <Link to={{
-            pathname: '/lodgings',
-            state: {
-              destinationId: destinationId,
-              destinationName: destinationName
-            }
-          }}>
-            <div className="show-hidden" ></div>
-          </Link>
-          <div className="toggle-icon show-flights teal row justify-content-center align-items-center">
-            <i className="fas fa-plane text-white"></i>
-          </div>
+          <div className="toggle-container">
+            <Link to={{
+              pathname: '/lodgings',
+              state: {
+                destinationId: destinationId,
+                destinationName: destinationName
+              }
+            }}>
+              <div className="show-hidden" ></div>
+            </Link>
+            <div className="toggle-icon show-flights teal row justify-content-center align-items-center">
+              <i className="fas fa-plane text-white"></i>
+            </div>
 
-          <div className="toggle-icon show-lodgings red row justify-content-center align-items-center">
-            <i className="fas fa-home text-white"></i>
+            <div className="toggle-icon show-lodgings red row justify-content-center align-items-center">
+              <i className="fas fa-home text-white"></i>
+            </div>
           </div>
         </div>
 

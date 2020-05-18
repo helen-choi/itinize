@@ -199,7 +199,7 @@ export default class AddLodgingName extends React.Component {
     return (
       (this.state.isSubmitted && <Confirmation newItem="lodge" history={this.props.history} match={this.props.match}/>) ||
         <div className="add-lodging-container">
-          <div className="page-controls d-flex flex-nowrap">
+          <div className="page-controls row flex-nowrap w-100">
             <div className={`col-4 mr-2 ${statusArr[0]}`}></div>
             <div className={`col-4 mr-2 ${statusArr[1]}`}></div>
             <div className={`col-4 ${statusArr[2]}`}></div>
@@ -213,7 +213,7 @@ export default class AddLodgingName extends React.Component {
           <div className="add-lodging-name-container">
             <h3 className="text-center pt-5">Add Lodging Name</h3>
             <p className="text-muted text-center">Enter name of your lodge</p>
-            <div className="input-container row justify-content-center mt-5">
+            <div className="input-container d-flex justify-content-center mt-5">
               <input className="text-center p-2" id="lodgingName" type="text" name="lodgingName" placeholder="Lodge Name" value={this.state.lodgingName} onChange={this.handleChange} />
             </div>
           </div>
