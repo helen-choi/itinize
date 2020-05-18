@@ -15,9 +15,10 @@
   }
   .Destination-List .circle {
     padding: 5%!important;
-    margin-top: 30px!important;
-    width: 60px;
-    height: 60px;
+    margin-top: 10px!important;
+    width: 50px;
+    height: 50px;
+    margin-bottom:15px;
   }
   .destination-item-control i {
     font-size:20px;
