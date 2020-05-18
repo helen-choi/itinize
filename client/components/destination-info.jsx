@@ -139,17 +139,17 @@ export default class DestinationInfo extends React.Component {
         this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName}/>
       ) ||
       (
-        <div className="DestinationInfo container d-flex flex-wrap"
+        <div className="DestinationInfo d-flex flex-wrap"
           style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
           {
             (!this.state.editIconIsClicked &&
             <>
               <div className="overlay overlay-destination-info"></div>
-              <header className="row justify-content-between pt-2 flex-fill">
-                <Link to="/" className="col-2 text-white">
-                  <i className="fas fa-arrow-left fa-2x"></i>
+              <header className="d-flex justify-content-between p-3 w-100">
+                <Link to="/">
+                  <i className="fas fa-arrow-left fa-2x text-white"></i>
                 </Link>
-                <div className="col-2">
+                <div >
                   <i
                     onClick={this.handleEditClick}
                     handler="editIconIsClicked"
@@ -158,7 +158,7 @@ export default class DestinationInfo extends React.Component {
                 </div>
               </header>
 
-              <div className="form-element row">
+              <div className="form-element row ml-auto mr-auto">
                 {destinationInfo.destinationName.length < 9
                   ? <input className="edit-input display-3 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
                   : <input className="edit-input h1 ml-4 col-11" readOnly value={destinationInfo.destinationName}/>
@@ -176,8 +176,8 @@ export default class DestinationInfo extends React.Component {
                 </textarea>
               </div>
 
-              <footer className="row flex-fill">
-                <div className="col-3">
+              <footer className="d-flex justify-content-between p-3 ml-auto mr-auto">
+                <div>
                   <Link to={{
                     pathname: '/flights',
                     state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
@@ -185,7 +185,7 @@ export default class DestinationInfo extends React.Component {
                     <i className="fas fa-plane fa-lg"></i>
                   </Link>
                 </div>
-                <div className="col-3">
+                <div >
                   <Link to={{
                     pathname: '/lodgings',
                     state: {
@@ -197,7 +197,7 @@ export default class DestinationInfo extends React.Component {
 
                   </Link>
                 </div>
-                <div className="col-3">
+                <div >
                   <Link to={{
                     pathname: '/itineraries',
                     state: {
@@ -211,7 +211,7 @@ export default class DestinationInfo extends React.Component {
                     <i className="fas fa-map-marker-alt fa-lg"></i>
                   </Link>
                 </div>
-                <div className="col-3">
+                <div >
                   <DeleteModal destinationInfo id={destinationId} deleteHandle={this.handleClickDelete}/>
                 </div>
               </footer>
@@ -220,18 +220,18 @@ export default class DestinationInfo extends React.Component {
 
             (this.state.editIconIsClicked &&
               <>
-                <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container"></div>
-                <header className="row justify-content-between pt-2 flex-fill align-items-start">
-                  <div className="col-3">
+                <div onClick={this.handleBodyClick} handler="body" className="overlay-edit"></div>
+                <header className="d-flex justify-content-between p-3 w-100">
+                  <div>
                     <i className="fas fa-arrow-left fa-2x text-dark"></i>
                   </div>
-                  <div className="col-4 d-flex justify-content-end">
+                  <div className="d-flex justify-content-end">
                     <i onClick={this.handleEditClick} handler="pictureIconIsClicked" className="fas fa-image fa-2x text-white pr-3"></i>
                     <i className="fas fa-pen fa-2x text-dark"></i>
                   </div>
                 </header>
 
-                <div className="form-element row">
+                <div className="form-element row ml-auto mr-auto">
                   {destinationInfo.destinationName.length < 9
                     ? <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-3 ml-4 col-11" value={this.state.destinationName} />
                     : <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-4 ml-4 col-11" value={this.state.destinationName} />
@@ -251,8 +251,8 @@ export default class DestinationInfo extends React.Component {
                   </textarea>
                 </div>
 
-                <footer className="row flex-fill">
-                  <div className="col-3">
+                <footer className="d-flex justify-content-between p-3 ml-auto mr-auto">
+                  <div>
                     <Link to={{
                       pathname: '/flights',
                       state: { destinationId: destinationInfo.destinationId, destinationName: destinationInfo.destinationName }
@@ -260,7 +260,7 @@ export default class DestinationInfo extends React.Component {
                       <i className="fas fa-plane fa-lg  text-light"></i>
                     </Link>
                   </div>
-                  <div className="col-3">
+                  <div>
                     <Link to={{
                       pathname: '/lodgings',
                       state: {
@@ -272,7 +272,7 @@ export default class DestinationInfo extends React.Component {
 
                     </Link>
                   </div>
-                  <div className="col-3">
+                  <div>
                     <Link to={{
                       pathname: '/itineraries',
                       state: {
@@ -286,7 +286,7 @@ export default class DestinationInfo extends React.Component {
                       <i className="fas fa-map-marker-alt fa-lg text-light"></i>
                     </Link>
                   </div>
-                  <div className="col-3">
+                  <div>
                     <div className="circle red m-auto d-flex justify-content-center align-items-center">
                       <i onClick={() => this.handleClickDelete(destinationInfo.destinationId)} handler="delete" className="fas fa-trash-alt fa-lg text-light"></i>
                     </div>

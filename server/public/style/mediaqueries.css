@@ -22,6 +22,12 @@
   .destination-item-control i {
     font-size:20px;
   }
+  .DestinationInfo footer {
+    max-width: 70%;
+  }
+   .form-element {
+    max-width: 70%;
+  }
 }
 @media only screen and (min-width: 990px) {
   .destinations-container > div {
@@ -29,6 +35,10 @@
   }
   .destinations-container {
     justify-content: center;
+  }
+  .circle {
+    height: 80px;
+    width: 80px;
   }
 }
 /* @media only screen and (min-width: 1196px) {
