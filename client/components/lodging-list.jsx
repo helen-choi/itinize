@@ -92,7 +92,7 @@ export default class LodgingList extends React.Component {
             <i className="fas fa-home text-white"></i>
           </div>
         </div>
-        <div className="lodgings pl-3 pr-3 mt-4">
+        <div className="lodgings pl-3 pr-3">
           {this.state.lodgings.map(lodging => {
             return <LodgingItem key={lodging.lodgingId} lodgingId={lodging.lodgingId} lodging={lodging} editModeOn={this.state.editModeOn} handleDelete={this.handleDelete}/>;
           })}

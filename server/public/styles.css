@@ -251,6 +251,9 @@ font-family: 'Roboto Slab', sans-serif;
 .lodging p {
   margin-bottom:0;
 }
+.toggle {
+  height:10px;
+}
 .toggle-icon {
   border-radius:50%;
   width:50px;
