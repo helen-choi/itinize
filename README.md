@@ -40,7 +40,7 @@ Try the application live at https://itinize.helen-choi.com
 
 
 ## Preview
-
+![Add Destination Demo](https://github.com/helen-choi/itinize/blob/master/server/public/images/add-destination-demo.gif "Add Destination Demo")
 
 ## Development
 
