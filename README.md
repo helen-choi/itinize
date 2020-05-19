@@ -46,7 +46,7 @@ Try the application live at https://itinize.helen-choi.com
 
 ### System Requirements 
 - Node.js 10 or higher
-- NOM 6 or higher
+- NPM 6 or higher
 - postgreSQL
 
 ### Getting Started
