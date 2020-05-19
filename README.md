@@ -51,15 +51,22 @@ Try the application live at https://itinize.helen-choi.com
 
 ### Getting Started
 1. Clone the repository.
-- git clone https://github.com/helen-choi/itinize.git
-- cd itinize
+```
+git clone https://github.com/helen-choi/itinize.git
+cd itinize
+```
 2. Install all dependencies with NPM.
-- npm i
+```
+npm install
+```
 3. Import the example database to postgreSQL
-- npm run db:import
+```
+npm run db:import
+```
 4. Start the project. Once you can view the application by opening http://localhost:3000 in your browser
-- npm run dev
-
+```
+npm run dev
+```
 
 
 
