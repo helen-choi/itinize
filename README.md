@@ -61,6 +61,10 @@ Try the application live at https://itinize.helen-choi.com
 
 3. Import the example database to postgreSQL
 
+        sudo service postgresql start
+        
+        createdb itinize
+        
         npm run db:import
 
 4. Start the project. Once you can view the application by opening http://localhost:3000 in your browser
