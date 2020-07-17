@@ -20,6 +20,8 @@ app.get('/api/destinations', (req, res, next) => {
   "destinationId"
   from
   "Destinations"
+  order by
+    "tripStart";
   `;
   db.query(destinationGetSql)
     .then(result => {
