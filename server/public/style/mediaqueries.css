@@ -23,10 +23,13 @@
   .destination-item-control i {
     font-size:20px;
   }
+  .date-input {
+    background-color: rgba(211, 211, 211, 0.5)
+  }
   .DestinationInfo footer {
     width: 70%;
   }
-   .form-element {
+    .form-element {
     max-width: 70%;
   }
 }

@@ -163,7 +163,7 @@ export default class DestinationInfo extends React.Component {
                     ? <input className="edit-input display-3 ml-4 col-11" readOnly value={destinationInfo.destinationName} />
                     : <input className="edit-input h1 ml-4 col-11" readOnly value={destinationInfo.destinationName} />
                   }
-                  <div className=" col-12 ml-4 d-flex">
+                  <div className=" col-12 ml-4 d-flex text-light">
                     {this.tripStart} - {this.tripEnd}
                   </div>
                   <textarea
@@ -235,9 +235,9 @@ export default class DestinationInfo extends React.Component {
                     : <input onChange={this.handleUserInputOnChange} handler="destinationName" className="edit-input display-4 ml-4 col-11" value={this.state.destinationName} />
                   }
                   <div className=" col-12 ml-4 d-flex">
-                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripStart" min={this.today} max={this.state.tripEnd.slice(0, 10)} className="edit-input" value={this.state.tripStart.slice(0, 10)} />
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripStart" min={this.today} max={this.state.tripEnd.slice(0, 10)} className="edit-input date-input" value={this.state.tripStart.slice(0, 10)} />
                     <p className="my-auto text-center">  -  </p>
-                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripEnd" min={this.state.tripStart} className="edit-input" value={this.state.tripEnd.slice(0, 10)} />
+                    <input onChange={this.handleUserInputOnChange} type="date" handler="tripEnd" min={this.state.tripStart} className="edit-input date-input" value={this.state.tripEnd.slice(0, 10)} />
                   </div>
                   <textarea
                     onChange={this.handleUserInputOnChange}
