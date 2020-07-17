@@ -60,7 +60,7 @@ export default class LodgingList extends React.Component {
     const { destinationName } = this.props.location.state;
     const { destinationId } = this.props.location.state;
     return (
-      <div className="lodging-list-container p-3">
+      <div className="container pt-3">
         <div className="edit-control d-flex justify-content-between">
           <Link to={{
             pathname: `/destinations/${destinationId}`,
