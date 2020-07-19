@@ -17,7 +17,7 @@ export default class AddLodgingName extends React.Component {
       latitude: '',
       longitude: '',
       locationId: '',
-      isSubmitted: true
+      isSubmitted: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
