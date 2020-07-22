@@ -139,12 +139,12 @@ export default class DestinationInfo extends React.Component {
         this.state.pictureIconIsClicked && <SelectDestinationImageProfile handleExit={this.handleExitEditImage} handleCheck={this.handleEditImage} imageParam={this.state.destinationName} />
       ) ||
       (
-        <div className="DestinationInfo d-flex flex-wrap"
+        <div className="DestinationInfo d-flex flex-wrap container"
           style={{ backgroundImage: `url(${destinationInfo.destinationImage})` }}>
           {
             (!this.state.editIconIsClicked &&
               <>
-                <div className="overlay overlay-destination-info"></div>
+                <div className="overlay overlay-destination-info container pl-0"></div>
                 <header className="d-flex justify-content-between p-3 w-100">
                   <Link to="/">
                     <i className="fas fa-arrow-left fa-2x text-white"></i>
@@ -218,7 +218,7 @@ export default class DestinationInfo extends React.Component {
 
             (this.state.editIconIsClicked &&
               <>
-                <div onClick={this.handleBodyClick} handler="body" className="overlay-edit"></div>
+                <div onClick={this.handleBodyClick} handler="body" className="overlay-edit container pl-0"></div>
                 <header className="d-flex justify-content-between p-3 w-100">
                   <div>
                     <i className="fas fa-arrow-left fa-2x text-dark"></i>
