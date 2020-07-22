@@ -42,14 +42,11 @@ export default class App extends React.Component {
             )
           }/>
           <Route path="/destinations/create" component={AddDestinationName}>
-            {/* <AddDestinationName /> */}
-            {/* if you want props and render method both, use a render method */}
           </Route>
 
           <Route path="/destinations/:destinationId" component={DestinationInfo}/>
 
           <Route exact path="/flights" component={TripInfo}>
-            {/* ViewFlights component */}
           </Route>
 
           <Route path="/flights/create" component={AddFlightName} />
@@ -60,7 +57,6 @@ export default class App extends React.Component {
           <Route exact path='/itineraries' component={ItineraryList}>
           </Route>
           <Route path="/itineraries/create" component={AddItineraryItem}>
-            {/* AddItinerariesName */}
           </Route>
         </Switch>
       </Router>
