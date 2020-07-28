@@ -421,16 +421,16 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
   const { destinationId } = req.params;
   if (isNaN(destinationId)) {
     return res.status(400).json({
-      error: `Invalid field used for this POST method for destinationId '${destinationId}'. Please correct property syntax or try using a number type value.`
+      error: `Invalid field used for this PUT method for destinationId '${destinationId}'. Please correct property syntax or try using a number type value.`
     });
   } else if (destinationId < 0 ||
     destinationId % 1 !== 0) {
     res.status(400).json({
-      error: 'You need provide a valid destinationId. Try an integer greater than 0'
+      error: 'You need to provide a valid destinationId. Try an integer greater than 0'
     });
   } else if (!destinationImage) {
     return res.status(400).json({
-      error: 'destinationImage is required as a request body property'
+      error: 'destinationImage is required as a request body property.'
     });
   } else {
     const destinationPutSql = `
@@ -446,7 +446,7 @@ app.put('/api/destinations/image/:destinationId', (req, res, next) => {
         const returnedImageString = response.rows[0];
         if (!returnedImageString) {
           return res.status(404).json({
-            error: `Cannot find destinationImage with "destinationId" ${destinationId}. Please check if this Id exists`
+            error: `Cannot find destinationImage with "destinationId" ${destinationId}. Please check if this Id exists.`
           });
         } else {
           res.json(returnedImageString);
